@@ -12,13 +12,14 @@ import earthpy.plot as ep
 from scipy import stats
 
 # specify paths
-data_path = r"C:/Users/gnann/Documents/QGIS/Topography/"
-results_path = r"C:/Users/gnann/Documents/PYTHON/Topography/results/"
+data_path = r"C:/Users/Sebastian/Documents/Data/" #r"C:/Users/gnann/Documents/QGIS/Topography/"
+results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 clim_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
-clim_name = "P"
+#clim_path = data_path + "7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
+clim_name = "P" #"PET"
 
 # open raster and plot
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
@@ -45,10 +46,9 @@ plt.show()
 """
 
 # loop over mountain ranges
-mountain_list = ["European Alps"]
-    #["Cambrian Mountains", "European Alps", "Pyrenees", "Cordillera Patagonica Sur",
-    #             "Ethiopian Highlands", "Himalaya", "Cordillera Central Ecuador", "Sierra Nevada",
-    #             "Pennines","Cascade Range", "Appalachian Mountains", "Cordillera Occidental Peru Bolivia Chile"]
+mountain_list = ["Cambrian Mountains", "European Alps", "Pyrenees", "Cordillera Patagonica Sur",
+                 "Ethiopian Highlands", "Himalaya", "Cordillera Central Ecuador", "Sierra Nevada",
+                 "Pennines","Cascade Range", "Appalachian Mountains", "Cordillera Occidental Peru Bolivia Chile"]
 
 for mountain_name in mountain_list:
     mountain_range = mountain_shp.loc[mountain_shp.Name==mountain_name]
@@ -98,6 +98,8 @@ for mountain_name in mountain_list:
     y = np.delete(y, notfinite)
     lat = np.delete(lat, notfinite)
 
+    plot_idx = np.random.permutation(x.shape[0])
+
     bin_edges = stats.mstats.mquantiles(y, np.linspace(0,1,11))
     #mean_stat = stats.binned_statistic(y, x, statistic=lambda y: np.nanmean(y), bins=nbins, range=bin_range)
     # #std_stat = stats.binned_statistic(y, x, statistic=lambda y: np.nanstd(y), bins=nbins, range=bin_range)
@@ -114,7 +116,7 @@ for mountain_name in mountain_list:
 
     f, ax = plt.subplots(figsize=(4, 4))
     #ax.plot(x, y, 'o', mfc='none', markersize=.1, alpha=0.1)
-    sc = ax.scatter(np.flip(x), np.flip(y), s=0.1, c=lat, alpha=0.2)
+    sc = ax.scatter(x, y, s=0.05, c=lat, alpha=0.2)
 
     #ax.errorbar(median_stat.statistic, bin_medians, xerr=asymmetric_error, yerr=None,
     #            capsize=2, fmt='s', ms=4, elinewidth=1, c='tab:blue', mfc='white', alpha=0.9)
