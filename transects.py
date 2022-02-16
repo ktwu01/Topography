@@ -18,8 +18,8 @@ results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/
 
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 
-profile_path = data_path + "profile_cascades.csv"
-name = "cascades"
+profile_path = data_path + "profile_kilimanjaro.csv"
+name = "kilimanjaro"
 
 # open raster and plot
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
@@ -48,6 +48,8 @@ axes[1].set(title="DEM [m]")
 axes[1].axis('equal')
 axes[1].set_xlim([df['lon'].iloc[0]-.1, df['lon'].iloc[-1]+.1])
 axes[1].set_ylim([df['lat'].iloc[0]-3, df['lat'].iloc[-1]+3])
+axes[1].set_xlabel('Lon [deg]')
+axes[1].set_ylabel('Lat [deg]')
 #cbar = plt.colorbar(sp, ax=axes[1])
 sp.set_clim([0, 2000])
 
