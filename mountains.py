@@ -49,6 +49,7 @@ plt.show()
 mountain_list = ["Cambrian Mountains", "European Alps", "Pyrenees", "Cordillera Patagonica Sur",
                  "Ethiopian Highlands", "Himalaya", "Cordillera Central Ecuador", "Sierra Nevada",
                  "Pennines","Cascade Range", "Appalachian Mountains", "Cordillera Occidental Peru Bolivia Chile"]
+mountain_list = ["Kilimanjaro"]
 
 for mountain_name in mountain_list:
     mountain_range = mountain_shp.loc[mountain_shp.Name==mountain_name]

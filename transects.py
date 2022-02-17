@@ -18,8 +18,8 @@ results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/
 
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 
-profile_path = data_path + "profile_kilimanjaro.csv"
-name = "kilimanjaro"
+profile_path = data_path + "profile_cascades_45deg.csv"
+name = "cascades_45deg"
 
 # open raster and plot
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
