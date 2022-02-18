@@ -19,7 +19,7 @@ shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 clim_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 #clim_path = data_path + "7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
-clim_name = "P" #"PET"
+clim_name = "PET" #"PET"
 
 # open raster and plot
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
