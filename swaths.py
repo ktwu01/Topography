@@ -17,7 +17,7 @@ import fiona
 import numpy.ma as ma
 
 # specify paths
-data_path = r"C:/Users/Sebastian/Documents/Data/" #r"C:/Users/gnann/Documents/QGIS/Topography/"
+data_path = r"C:/Users/gnann/Documents/Data/"#r"C:/Users/Sebastian/Documents/Data/" #
 results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
@@ -52,17 +52,17 @@ for name in name_list:
                                  [xy_box[0], xy_box[2]]]]}]
 
     # preprocess shapefiles
-    #dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
-    #dem_clipped = dem.rio.clip(polygon, dem.rio.crs)
-    #dem_clipped.__array__()[np.isnan(dem_clipped.__array__())] = -999
-    #dem_clipped.rio.to_raster(results_path + 'tmp/tmp_' + name + '_dem.tif')
+    dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
+    dem_clipped = dem.rio.clip(polygon, dem.rio.crs)
+    dem_clipped.__array__()[np.isnan(dem_clipped.__array__())] = -999
+    dem_clipped.rio.to_raster(results_path + 'tmp/tmp_' + name + '_dem.tif')
     raster_dem = results_path + 'tmp/tmp_' + name + '_dem.tif'
     dem_clipped = rxr.open_rasterio(raster_dem).squeeze()
 
-    #clim = rxr.open_rasterio(clim_path, masked=True).squeeze()
-    #clim_clipped = clim.rio.clip(polygon, clim.rio.crs)
-    #clim_clipped.__array__()[np.isnan(clim_clipped.__array__())] = -999
-    #clim_clipped.rio.to_raster(results_path + 'tmp/tmp_' + name + '_clim.tif')
+    clim = rxr.open_rasterio(clim_path, masked=True).squeeze()
+    clim_clipped = clim.rio.clip(polygon, clim.rio.crs)
+    clim_clipped.__array__()[np.isnan(clim_clipped.__array__())] = -999
+    clim_clipped.rio.to_raster(results_path + 'tmp/tmp_' + name + '_clim.tif')
     raster_clim = results_path + 'tmp/tmp_' + name + '_clim.tif'
     clim_clipped = rxr.open_rasterio(raster_clim).squeeze()
 
@@ -91,7 +91,7 @@ for name in name_list:
     #axes0.set_title("Swath profile lines")
     #axes0.legend()
 
-    sp0 = dem_clipped.plot.imshow(ax=axes0, cmap='gist_earth')
+    sp0 = dem_clipped.plot.imshow(ax=axes0, cmap='terrain')
     axes0.set(title=None) #"DEM [m]"
     #axes1.set_axis_off()
     axes0.axis('equal')
@@ -100,7 +100,8 @@ for name in name_list:
     axes0.set_xlabel('Lon [deg]')
     axes0.set_ylabel('Lat [deg]')
     sp0.colorbar.set_label('DEM [m]')
-    sp0.set_clim([0, np.round(np.array(orig_dem.dat).max(), 100)])
+    #sp0.set_clim([0, np.round(np.array(orig_dem.dat).max(), 100)])
+    sp0.set_clim([0, 5000])
 
     # plot swath
     #orig_dem.profile_plot(ax=axes1, color='grey', label='Elevation')
@@ -136,13 +137,16 @@ for name in name_list:
     axes1.set_xlabel('Distance [deg]')
     axes1.set_ylabel('Elevation [m]')
     axes1b.set_ylabel('Precipitation [mm/y]')
-    #axes1.set_ylim(0,5000)
+    axes1.set_ylim(0,5000)
+    axes1b.set_ylim(0,5000)
 
     axes2.plot(clim_swath.mean(axis=1), dem_swath.mean(axis=1), c='grey', alpha=0.5)
     sp2 = axes2.scatter(clim_swath.mean(axis=1), dem_swath.mean(axis=1),
                  marker='o', c=dist)
     axes2.set_xlabel('Precipitation [mm/y]')
     axes2.set_ylabel('Elevation [m]')
+    axes2.set_xlim([0,5000])
+    axes2.set_ylim([0,5000])
     #axes2.set(title="Distance [deg]")
     cbar2 = plt.colorbar(sp2, ax=axes2)
     cbar2.ax.set_ylabel('Distance [deg]')

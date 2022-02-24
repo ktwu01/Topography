@@ -4,8 +4,10 @@ def get_region(region_name):
     # create geometries
     # line needs to be shorter than rectangle
     if region_name == 'Kilimanjaro':
-        xy_line = [37.0, 37.8, -0.3, 0.1] # Kilimanjaro
-        xy_box = [36.0, 39.0, -1.0, 1.0]
+        xy_line = [37.8, 36.9, -3.4, -2.7] # Kilimanjaro
+        xy_box = [36.0, 39.0, -4.0, -2.0]
+        #xy_line = [37.0, 37.8, -0.3, 0.1] # Kilimanjaro
+        #xy_box = [36.0, 39.0, -1.0, 1.0]
     elif region_name == 'Cascades':
         xy_line = [-124.5, -120.5, 45.0, 45.001] # Cascades
         xy_box = [-125.5, -119.5, 44.0, 46.0]
