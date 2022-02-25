@@ -14,6 +14,15 @@ def get_region(region_name):
     elif region_name == 'NorthernAlps':
         xy_line = [11.0, 11.001, 47.7, 46.7] # Northern Alps
         xy_box = [10.0, 12.0, 46.0, 48.0]
+    elif region_name == 'Alps':
+        xy_line = [11.0, 11.001, 48.5, 45.5] # Alps
+        xy_box = [9.0, 13.0, 44.0, 50.0]
+    elif region_name == 'Sierra Nevada':
+        xy_line = [-120.0, -118.001, 37.0, 38.5] # Sierra Nevada
+        xy_box = [-121.0, -117.0, 36.0, 40.0]
+    elif region_name == 'Ecuador Andes':
+        xy_line = [-81.0, -77.0, -1.5, -1.5001] # Ecuador Andes
+        xy_box = [-82.0, -76.0, -4.0, 1.0]
     elif region_name == 'Himalaya':
         xy_line = [85.0, 87.0, 26.0, 29.0] # Himalaya
         xy_box = [84.0, 88.0, 25.0, 30.0]

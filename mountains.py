@@ -18,7 +18,7 @@ results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 clim_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
-#clim_path = data_path + "7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
+clim_path = data_path + "7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
 clim_name = "PET" #"PET"
 
 # open raster and plot

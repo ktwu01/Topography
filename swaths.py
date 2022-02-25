@@ -17,14 +17,14 @@ import fiona
 import numpy.ma as ma
 
 # specify paths
-data_path = r"C:/Users/gnann/Documents/Data/"#r"C:/Users/Sebastian/Documents/Data/" #
+data_path = r"C:/Users/Sebastian/Documents/Data/" #r"C:/Users/gnann/Documents/Data/"#r"C:/Users/Sebastian/Documents/Data/" #
 results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 clim_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 
-name_list = ["France", "Himalaya", "NorthernAlps", "Kilimanjaro", "Cascades"]
+name_list = ["Sierra Nevada"]#["Sierra Nevada", "Alps", "Ecuador Andes", "France", "Himalaya", "NorthernAlps", "Kilimanjaro", "Cascades"]
 
 for name in name_list:
 
