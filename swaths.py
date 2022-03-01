@@ -24,7 +24,7 @@ shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 clim_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 
-name_list = ["Sierra Nevada"]#["Sierra Nevada", "Alps", "Ecuador Andes", "France", "Himalaya", "NorthernAlps", "Kilimanjaro", "Cascades"]
+name_list = ["Cascades"]#["Sierra Nevada", "Alps", "Ecuador Andes", "France", "Himalaya", "NorthernAlps", "Kilimanjaro", "Cascades"]
 
 for name in name_list:
 
