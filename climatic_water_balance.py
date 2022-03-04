@@ -19,13 +19,16 @@ shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 P_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 PET_path = data_path + "7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
+T_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 P_name = "P" #"PET"
 PET_name = "PET" #"PET"
+PET_name = "T" #"PET"
 
 # open raster and plot
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
 P = rxr.open_rasterio(P_path, masked=True).squeeze()
 PET = rxr.open_rasterio(PET_path, masked=True).squeeze()
+T = rxr.open_rasterio(T_path, masked=True).squeeze()
 
 """
 f, ax = plt.subplots(figsize=(10, 5))
@@ -70,6 +73,7 @@ for mountain_name in mountain_list:
     dem_clipped = dem.rio.clip(mountain_range.geometry.apply(mapping), dem.rio.crs)
     P_clipped = P.rio.clip(mountain_range.geometry.apply(mapping), dem.rio.crs)
     PET_clipped = PET.rio.clip(mountain_range.geometry.apply(mapping), dem.rio.crs)
+    T_clipped = T.rio.clip(mountain_range.geometry.apply(mapping), dem.rio.crs)
 
     """
     hillshade = es.hillshade(dem_clipped)
@@ -89,6 +93,7 @@ for mountain_name in mountain_list:
 
     x1 = P_clipped.__array__()
     x2 = PET_clipped.__array__()
+    x3 = T_clipped.__array__()*100
     y = dem_clipped.__array__()
     lat = dem_clipped.y.__array__()
     lon = dem_clipped.x.__array__()
@@ -97,20 +102,22 @@ for mountain_name in mountain_list:
 
     x1 = x1.flatten()
     x2 = x2.flatten()
+    x3 = x3.flatten()
     y = y.flatten()
     lat = lat.flatten()
     lon = lon.flatten()
 
-    notfinite = (~np.isfinite(x1) | ~np.isfinite(x2) | ~np.isfinite(y))
+    notfinite = (~np.isfinite(x1) | ~np.isfinite(x2) | ~np.isfinite(x3) | ~np.isfinite(y))
     x1 = np.delete(x1, notfinite)
     x2 = np.delete(x2, notfinite)
+    x3 = np.delete(x3, notfinite)
     y = np.delete(y, notfinite)
     lat = np.delete(lat, notfinite)
     lon = np.delete(lon, notfinite)
 
     plot_idx = np.random.permutation(x1.shape[0])
 
-    bin_edges = stats.mstats.mquantiles(y, np.linspace(0,1,11))
+    bin_edges = stats.mstats.mquantiles(y, np.linspace(0,1,51))
 
     mean_stat1 = stats.binned_statistic(y, x1, statistic=lambda y: np.nanmean(y), bins=bin_edges)
     std_stat1 = stats.binned_statistic(y, x1, statistic=lambda y: np.nanstd(y), bins=bin_edges)
@@ -128,8 +135,16 @@ for mountain_name in mountain_list:
     asymmetric_error2 = [median_stat2.statistic - p_lower_stat2.statistic,
                          p_upper_stat2.statistic - median_stat2.statistic]
 
+    mean_stat3 = stats.binned_statistic(y, x3, statistic=lambda y: np.nanmean(y), bins=bin_edges)
+    std_stat3 = stats.binned_statistic(y, x3, statistic=lambda y: np.nanstd(y), bins=bin_edges)
+    median_stat3 = stats.binned_statistic(y, x3, statistic=np.nanmedian, bins=bin_edges)  # bins=nbins, range=bin_range
+    p_lower_stat3 = stats.binned_statistic(y, x3, statistic=lambda y: np.quantile(y, .25), bins=bin_edges)
+    p_upper_stat3 = stats.binned_statistic(y, x3, statistic=lambda y: np.quantile(y, .75), bins=bin_edges)
+    asymmetric_error3 = [median_stat3.statistic - p_lower_stat3.statistic,
+                         p_upper_stat3.statistic - median_stat3.statistic]
+
     #bin_means = (mean_stat1.bin_edges[1:] + mean_stat1.bin_edges[0:-1]) / 2
-    bin_medians = stats.mstats.mquantiles(y, np.linspace(0.05,0.95,10))
+    bin_medians = stats.mstats.mquantiles(y, np.linspace(0.05,0.95,50))
 
     f, ax = plt.subplots(figsize=(4, 4))
     """
@@ -149,10 +164,15 @@ for mountain_name in mountain_list:
     ax.fill_betweenx(bin_medians, mean_stat2.statistic - std_stat2.statistic, mean_stat2.statistic + std_stat2.statistic,
                      facecolor='tab:orange', alpha=0.25)
 
+    ax.plot(mean_stat3.statistic, bin_medians, c='tab:purple', label='Temperature')
+    ax.fill_betweenx(bin_medians, mean_stat3.statistic - std_stat3.statistic,
+                     mean_stat3.statistic + std_stat3.statistic,
+                     facecolor='tab:purple', alpha=0.25)
+
     ax.set_ylabel('Elevation [m]')
-    ax.set_xlabel('P or PET [mm/year]')
+    ax.set_xlabel('P or PET [mm/year] or T [100*°C]')
     #ax.set_xlim([0, 5000])
     #ax.set_ylim([0, 6000])
     #plt.colorbar(sc)
 
-    plt.savefig(results_path + mountain_name + " " + "climatic_water_balance2" + ".png", dpi=600,  bbox_inches='tight')
+    plt.savefig(results_path + mountain_name + " " + "climatic_water_balance3" + ".png", dpi=600,  bbox_inches='tight')
