@@ -1,0 +1,432 @@
+﻿wkt_geom;Value;Count;World_Lan1;World_Mois;World_Temp;World_Lan2;LF_ClassNa;LC_ClassNa;Temp_Class;Moisture_C;Temp_Moist;W_Ecosystm
+NULL;1;41603050;4;3;6;6;Plains;Sparsely or Non-vegetated;Polar;Moist;Polar Moist;Polar Moist Sparsely or Non-vegetated on Plains
+NULL;2;96589870;4;3;6;8;Plains;Snow and Ice;Polar;Moist;Polar Moist;Polar Moist Snow and Ice on Plains
+NULL;3;1262986;1;2;6;8;Mountains;Snow and Ice;Polar;Dry;Polar Dry;Polar Dry Snow and Ice on Mountains
+NULL;4;10775926;1;2;6;6;Mountains;Sparsely or Non-vegetated;Polar;Dry;Polar Dry;Polar Dry Sparsely or Non-vegetated on Mountains
+NULL;5;41915363;1;3;6;6;Mountains;Sparsely or Non-vegetated;Polar;Moist;Polar Moist;Polar Moist Sparsely or Non-vegetated on Mountains
+NULL;6;14230437;1;3;6;8;Mountains;Snow and Ice;Polar;Moist;Polar Moist;Polar Moist Snow and Ice on Mountains
+NULL;7;1227825;3;2;6;6;Tablelands;Sparsely or Non-vegetated;Polar;Dry;Polar Dry;Polar Dry Sparsely or Non-vegetated on Tablelands
+NULL;8;6375;3;2;6;8;Tablelands;Snow and Ice;Polar;Dry;Polar Dry;Polar Dry Snow and Ice on Tablelands
+NULL;9;17148;4;2;6;8;Plains;Snow and Ice;Polar;Dry;Polar Dry;Polar Dry Snow and Ice on Plains
+NULL;10;15151477;3;3;6;6;Tablelands;Sparsely or Non-vegetated;Polar;Moist;Polar Moist;Polar Moist Sparsely or Non-vegetated on Tablelands
+NULL;11;4182414;3;3;6;8;Tablelands;Snow and Ice;Polar;Moist;Polar Moist;Polar Moist Snow and Ice on Tablelands
+NULL;12;3801846;2;2;6;6;Hills;Sparsely or Non-vegetated;Polar;Dry;Polar Dry;Polar Dry Sparsely or Non-vegetated on Hills
+NULL;13;14377;2;2;6;8;Hills;Snow and Ice;Polar;Dry;Polar Dry;Polar Dry Snow and Ice on Hills
+NULL;14;11027239;4;2;6;6;Plains;Sparsely or Non-vegetated;Polar;Dry;Polar Dry;Polar Dry Sparsely or Non-vegetated on Plains
+NULL;15;2280770;2;3;6;8;Hills;Snow and Ice;Polar;Moist;Polar Moist;Polar Moist Snow and Ice on Hills
+NULL;16;24292806;2;3;6;6;Hills;Sparsely or Non-vegetated;Polar;Moist;Polar Moist;Polar Moist Sparsely or Non-vegetated on Hills
+NULL;17;18446844;1;2;6;4;Mountains;Grassland;Polar;Dry;Polar Dry;Polar Dry Grassland on Mountains
+NULL;18;15402565;1;3;6;4;Mountains;Grassland;Polar;Moist;Polar Moist;Polar Moist Grassland on Mountains
+NULL;19;1771826;4;3;6;2;Plains;Shrubland;Polar;Moist;Polar Moist;Polar Moist Shrubland on Plains
+NULL;20;261501;2;3;6;2;Hills;Shrubland;Polar;Moist;Polar Moist;Polar Moist Shrubland on Hills
+NULL;21;1294672;2;3;6;4;Hills;Grassland;Polar;Moist;Polar Moist;Polar Moist Grassland on Hills
+NULL;22;2268722;4;3;6;4;Plains;Grassland;Polar;Moist;Polar Moist;Polar Moist Grassland on Plains
+NULL;23;1144038;2;2;6;4;Hills;Grassland;Polar;Dry;Polar Dry;Polar Dry Grassland on Hills
+NULL;24;178638;3;3;6;2;Tablelands;Shrubland;Polar;Moist;Polar Moist;Polar Moist Shrubland on Tablelands
+NULL;25;4637855;1;3;6;2;Mountains;Shrubland;Polar;Moist;Polar Moist;Polar Moist Shrubland on Mountains
+NULL;26;397776;3;3;6;4;Tablelands;Grassland;Polar;Moist;Polar Moist;Polar Moist Grassland on Tablelands
+NULL;27;526892;4;3;6;3;Plains;Forest;Polar;Moist;Polar Moist;Polar Moist Forest on Plains
+NULL;28;164495;2;3;6;3;Hills;Forest;Polar;Moist;Polar Moist;Polar Moist Forest on Hills
+NULL;29;4434257;1;3;6;3;Mountains;Forest;Polar;Moist;Polar Moist;Polar Moist Forest on Mountains
+NULL;30;77718;3;3;6;3;Tablelands;Forest;Polar;Moist;Polar Moist;Polar Moist Forest on Tablelands
+NULL;31;1387339;4;2;6;4;Plains;Grassland;Polar;Dry;Polar Dry;Polar Dry Grassland on Plains
+NULL;32;158892;2;2;6;2;Hills;Shrubland;Polar;Dry;Polar Dry;Polar Dry Shrubland on Hills
+NULL;33;1657;1;3;6;5;Mountains;Settlement;Polar;Moist;Polar Moist;Polar Moist Settlement on Mountains
+NULL;34;2436767;4;2;6;2;Plains;Shrubland;Polar;Dry;Polar Dry;Polar Dry Shrubland on Plains
+NULL;35;22385;3;2;6;2;Tablelands;Shrubland;Polar;Dry;Polar Dry;Polar Dry Shrubland on Tablelands
+NULL;36;888262;4;2;6;3;Plains;Forest;Polar;Dry;Polar Dry;Polar Dry Forest on Plains
+NULL;37;11560;2;3;6;1;Hills;Cropland;Polar;Moist;Polar Moist;Polar Moist Cropland on Hills
+NULL;38;352824;3;2;6;4;Tablelands;Grassland;Polar;Dry;Polar Dry;Polar Dry Grassland on Tablelands
+NULL;39;1587463;1;3;6;1;Mountains;Cropland;Polar;Moist;Polar Moist;Polar Moist Cropland on Mountains
+NULL;40;14112;4;3;6;1;Plains;Cropland;Polar;Moist;Polar Moist;Polar Moist Cropland on Plains
+NULL;41;1565767;1;2;6;2;Mountains;Shrubland;Polar;Dry;Polar Dry;Polar Dry Shrubland on Mountains
+NULL;42;29462;3;3;6;1;Tablelands;Cropland;Polar;Moist;Polar Moist;Polar Moist Cropland on Tablelands
+NULL;43;17402;2;2;6;3;Hills;Forest;Polar;Dry;Polar Dry;Polar Dry Forest on Hills
+NULL;44;5518;3;2;6;3;Tablelands;Forest;Polar;Dry;Polar Dry;Polar Dry Forest on Tablelands
+NULL;45;33479688;4;3;1;6;Plains;Sparsely or Non-vegetated;Boreal;Moist;Boreal Moist;Boreal Moist Sparsley or Non vegetated on Plains
+NULL;46;5681035;4;3;1;4;Plains;Grassland;Boreal;Moist;Boreal Moist;Boreal Moist Grassland on Plains
+NULL;47;15011571;2;3;1;6;Hills;Sparsely or Non-vegetated;Boreal;Moist;Boreal Moist;Boreal Moist Sparsley or Non vegetated on Hills
+NULL;48;5191941;2;3;1;4;Hills;Grassland;Boreal;Moist;Boreal Moist;Boreal Moist Grassland on Hills
+NULL;49;10221719;2;3;1;2;Hills;Shrubland;Boreal;Moist;Boreal Moist;Boreal Moist Shrubland on Hills
+NULL;50;69987067;2;3;1;3;Hills;Forest;Boreal;Moist;Boreal Moist;Boreal Moist Forest on Hills
+NULL;51;21548405;1;3;1;6;Mountains;Sparsely or Non-vegetated;Boreal;Moist;Boreal Moist;Boreal Moist Sparsely or Non-vegetated on Mountains
+NULL;52;36929178;4;3;1;2;Plains;Shrubland;Boreal;Moist;Boreal Moist;Boreal Moist Shrubland on Plains
+NULL;53;93810669;4;3;1;3;Plains;Forest;Boreal;Moist;Boreal Moist;Boreal Moist Forest on Plains
+NULL;54;24442742;1;3;1;2;Mountains;Shrubland;Boreal;Moist;Boreal Moist;Boreal Moist Shrubland on Mountains
+NULL;55;108821462;1;3;1;3;Mountains;Forest;Boreal;Moist;Boreal Moist;Boreal Moist Forest on Mountains
+NULL;56;11790914;1;3;1;4;Mountains;Grassland;Boreal;Moist;Boreal Moist;Boreal Moist Grassland on Mountains
+NULL;57;7363111;3;3;1;6;Tablelands;Sparsely or Non-vegetated;Boreal;Moist;Boreal Moist;Boreal Moist Sparsely or Non-vegetated on Tablelands
+NULL;58;3741466;3;3;1;2;Tablelands;Shrubland;Boreal;Moist;Boreal Moist;Boreal Moist Shrubland on Tablelands
+NULL;59;1426915;3;3;1;4;Tablelands;Grassland;Boreal;Moist;Boreal Moist;Boreal Moist Grassland on Tablelands
+NULL;60;1052389;2;3;1;1;Hills;Cropland;Boreal;Moist;Boreal Moist;Boreal Moist Cropland on Hills
+NULL;61;41711;4;2;6;1;Plains;Cropland;Polar;Dry;Polar Dry;Polar Dry Cropland on Plains
+NULL;62;1402021;4;3;1;1;Plains;Cropland;Boreal;Moist;Boreal Moist;Boreal Moist Cropland on Plains
+NULL;63;30897409;3;3;1;3;Tablelands;Forest;Boreal;Moist;Boreal Moist;Boreal Moist Forest on Tablelands
+NULL;64;172;4;3;6;5;Plains;Settlement;Polar;Moist;Polar Moist;Polar Moist Settlement on Plains
+NULL;65;755685;1;2;6;3;Mountains;Forest;Polar;Dry;Polar Dry;Polar Dry Forest on Mountains
+NULL;66;8316733;4;2;1;6;Plains;Sparsely or Non-vegetated;Boreal;Dry;Boreal Dry;Boreal Dry Sparsely or Non-vegetated on Plains
+NULL;67;1472476;1;3;1;1;Mountains;Cropland;Boreal;Moist;Boreal Moist;Boreal Moist Cropland on Mountains
+NULL;68;28083251;4;2;1;3;Plains;Forest;Boreal;Dry;Boreal Dry;Boreal Dry Forest on Plains
+NULL;69;3567522;4;2;1;2;Plains;Shrubland;Boreal;Dry;Boreal Dry;Boreal Dry Shrubland on Plains
+NULL;70;4239442;2;2;1;6;Hills;Sparsely or Non-vegetated;Boreal;Dry;Boreal Dry;Boreal Dry Sparsely or Non-vegetated on Hills
+NULL;71;978391;2;2;1;2;Hills;Shrubland;Boreal;Dry;Boreal Dry;Boreal Dry Shrubland on Hills
+NULL;72;22377549;2;2;1;3;Hills;Forest;Boreal;Dry;Boreal Dry;Boreal Dry Forest on Hills
+NULL;73;398919;3;3;1;1;Tablelands;Cropland;Boreal;Moist;Boreal Moist;Boreal Moist Cropland on Tablelands
+NULL;74;4094172;2;2;1;4;Hills;Grassland;Boreal;Dry;Boreal Dry;Boreal Dry Grassland on Hills
+NULL;75;3196555;4;2;1;4;Plains;Grassland;Boreal;Dry;Boreal Dry;Boreal Dry Grassland on Plains
+NULL;76;22678;2;2;6;1;Hills;Cropland;Polar;Dry;Polar Dry;Polar Dry Cropland on Hills
+NULL;77;975366;4;2;1;1;Plains;Cropland;Boreal;Dry;Boreal Dry;Boreal Dry Cropland on Plains
+NULL;78;1358614;3;2;1;6;Tablelands;Sparsely or Non-vegetated;Boreal;Dry;Boreal Dry;Boreal Dry Sparsely or Non-vegetated on Tablelands
+NULL;79;922888;1;2;6;1;Mountains;Cropland;Polar;Dry;Polar Dry;Polar Dry Cropland on Mountains
+NULL;80;6990;3;2;6;1;Tablelands;Cropland;Polar;Dry;Polar Dry;Polar Dry Cropland on Tablelands
+NULL;81;319342;3;2;1;2;Tablelands;Shrubland;Boreal;Dry;Boreal Dry;Boreal Dry Shrubland on Tablelands
+NULL;82;7699503;3;2;1;3;Tablelands;Forest;Boreal;Dry;Boreal Dry;Boreal Dry Forest on Tablelands
+NULL;83;862846;3;2;1;4;Tablelands;Grassland;Boreal;Dry;Boreal Dry;Boreal Dry Grassland on Tablelands
+NULL;84;26786;4;2;1;5;Plains;Settlement;Boreal;Dry;Boreal Dry;Boreal Dry Settlement on Plains
+NULL;85;1362828;2;2;1;1;Hills;Cropland;Boreal;Dry;Boreal Dry;Boreal Dry Cropland on Hills
+NULL;86;42060;4;3;1;5;Plains;Settlement;Boreal;Moist;Boreal Moist;Boreal Moist Settlement on Plains
+NULL;87;28384;2;3;1;5;Hills;Settlement;Boreal;Moist;Boreal Moist;Boreal Moist Settlement on Hills
+NULL;88;8316666;1;2;1;6;Mountains;Sparsely or Non-vegetated;Boreal;Dry;Boreal Dry;Boreal Dry Sparsely or Non-vegetated on Mountains
+NULL;89;11571226;1;2;1;4;Mountains;Grassland;Boreal;Dry;Boreal Dry;Boreal Dry Grassland on Mountains
+NULL;90;28664632;1;2;1;3;Mountains;Forest;Boreal;Dry;Boreal Dry;Boreal Dry Forest on Mountains
+NULL;91;295975;3;2;1;1;Tablelands;Cropland;Boreal;Dry;Boreal Dry;Boreal Dry Cropland on Tablelands
+NULL;92;3287343;1;2;1;2;Mountains;Shrubland;Boreal;Dry;Boreal Dry;Boreal Dry Shrubland on Mountains
+NULL;93;3050255;1;2;1;1;Mountains;Cropland;Boreal;Dry;Boreal Dry;Boreal Dry Cropland on Mountains
+NULL;94;5107;3;3;1;5;Tablelands;Settlement;Boreal;Moist;Boreal Moist;Boreal Moist Settlement on Tablelands
+NULL;95;138;4;2;6;5;Plains;Settlement;Polar;Dry;Polar Dry;Polar Dry Settlement on Plains
+NULL;96;7334989;1;3;2;2;Mountains;Shrubland;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Shrubland on Mountains
+NULL;97;66692749;1;3;2;3;Mountains;Forest;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Forest on Mountains
+NULL;98;3668804;1;3;2;6;Mountains;Sparsely or Non-vegetated;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Sparsely or Non-vegetated on Mountains
+NULL;99;168026;3;3;2;6;Tablelands;Sparsely or Non-vegetated;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Sparsely or Non-vegetated on Tablelands
+NULL;100;856843;3;3;2;2;Tablelands;Shrubland;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Shrubland on Tablelands
+NULL;101;13683876;3;3;2;3;Tablelands;Forest;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Forest on Tablelands
+NULL;102;6799603;3;3;2;1;Tablelands;Cropland;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Cropland on Tablelands
+NULL;103;10239016;1;3;2;1;Mountains;Cropland;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Cropland on Mountains
+NULL;104;273543;2;3;2;6;Hills;Sparsely or Non-vegetated;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Sparsely or Non- vegetated on Hills
+NULL;105;32745889;2;3;2;3;Hills;Forest;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Forest on Hills
+NULL;106;1638763;2;3;2;2;Hills;Shrubland;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Shrubland on Hills
+NULL;107;9856909;1;3;2;4;Mountains;Grassland;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Grassland on Mountains
+NULL;108;1269548;2;3;2;5;Hills;Settlement;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Settlement on Hills
+NULL;109;1228365;3;3;2;4;Tablelands;Grassland;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Grassland on Tablelands
+NULL;110;20500111;2;3;2;1;Hills;Cropland;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Cropland on Hills
+NULL;111;56767522;4;3;2;3;Plains;Forest;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Forest on Plains
+NULL;112;467017;4;3;2;6;Plains;Sparsely or Non-vegetated;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Sparsely or Non-vegetated on Plains
+NULL;113;618440;1;3;2;5;Mountains;Settlement;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Settlement on Mountains
+NULL;114;3408302;2;3;2;4;Hills;Grassland;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Grassland on Hills
+NULL;115;4852221;4;3;2;2;Plains;Shrubland;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Shrubland on Plains
+NULL;116;46084519;4;3;2;1;Plains;Cropland;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Cropland on Plains
+NULL;117;30280;2;2;1;5;Hills;Settlement;Boreal;Dry;Boreal Dry;Boreal Dry Settlement on Hills
+NULL;118;299750;1;3;2;8;Mountains;Snow and Ice;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Snow and Ice on Mountains
+NULL;119;1764;1;2;6;5;Mountains;Settlement;Polar;Dry;Polar Dry;Polar Dry Settlement on Mountains
+NULL;120;2162831;4;3;2;5;Plains;Settlement;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Settlement on Plains
+NULL;121;16159;1;3;1;5;Mountains;Settlement;Boreal;Moist;Boreal Moist;Boreal Moist Settlement on Mountains
+NULL;122;34502;1;2;1;5;Mountains;Settlement;Boreal;Dry;Boreal Dry;Boreal Dry Settlement on Mountains
+NULL;123;3269;3;2;1;5;Tablelands;Settlement;Boreal;Dry;Boreal Dry;Boreal Dry Settlement on Tablelands
+NULL;124;967938;1;3;1;8;Mountains;Snow and Ice;Boreal;Moist;Boreal Moist;Boreal Moist Snow and Ice on Mountains
+NULL;125;5607;2;3;1;8;Hills;Snow and Ice;Boreal;Moist;Boreal Moist;Boreal Moist Snow and Ice on Hills
+NULL;126;17377;4;3;1;8;Plains;Snow and Ice;Boreal;Moist;Boreal Moist;Boreal Moist Snow and Ice on Plains
+NULL;127;87;2;3;6;5;Hills;Settlement;Polar;Moist;Polar Moist;Polar Moist Settlement on Hills
+NULL;128;5939640;4;3;2;4;Plains;Grassland;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Grassland on Plains
+NULL;129;237859;3;3;2;5;Tablelands;Settlement;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Settlement on Tablelands
+NULL;130;26214;1;2;1;8;Mountains;Snow and Ice;Boreal;Dry;Boreal Dry;Boreal Dry Snow and Ice on Mountains
+NULL;131;22967;3;3;1;8;Tablelands;Snow and Ice;Boreal;Moist;Boreal Moist;Boreal Moist Snow and Ice on Tablelands
+NULL;132;6273;4;3;2;8;Plains;Snow and Ice;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Snow and Ice on Plains
+NULL;133;9659;3;3;2;8;Tablelands;Snow and Ice;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Snow and Ice on Tablelands
+NULL;134;41820;2;3;2;8;Hills;Snow and Ice;Cool Temperate;Moist;Cool Temperate Moist;Cool Temperate Moist Snow and Ice on Hills
+NULL;135;15611361;1;2;2;6;Mountains;Sparsely or Non-vegetated;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Sparsely or Non-vegetated on Mountains
+NULL;136;12450493;1;2;2;2;Mountains;Shrubland;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Shrubland on Mountains
+NULL;137;13525348;1;2;2;3;Mountains;Forest;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Forest on Mountains
+NULL;138;2827915;4;2;2;3;Plains;Forest;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Forest on Plains
+NULL;139;1264567;2;2;2;3;Hills;Forest;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Forest on Hills
+NULL;140;1287738;3;2;2;3;Tablelands;Forest;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Forest on Tablelands
+NULL;141;2017610;3;2;2;2;Tablelands;Shrubland;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Shrubland on Tablelands
+NULL;142;17213782;1;2;2;4;Mountains;Grassland;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Grassland on Mountains
+NULL;143;3148779;2;2;2;2;Hills;Shrubland;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Shrubland on Hills
+NULL;144;4886225;4;2;2;2;Plains;Shrubland;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Shrubland on Plains
+NULL;145;45210080;4;2;2;1;Plains;Cropland;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Cropland on Plains
+NULL;146;14462433;2;2;2;1;Hills;Cropland;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Cropland on Hills
+NULL;147;16026019;2;2;2;6;Hills;Sparsely or Non-vegetated;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Sparsely or Non-vegetated on Hills
+NULL;148;13419819;1;2;2;1;Mountains;Cropland;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Cropland on Mountains
+NULL;149;16588233;2;2;2;4;Hills;Grassland;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Grassland on Hills
+NULL;150;3693934;3;2;2;1;Tablelands;Cropland;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Cropland on Tablelands
+NULL;151;27831655;4;2;2;6;Plains;Sparsely or Non-vegetated;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Sparsely or Non-vegetated on Plains
+NULL;152;3538568;3;2;2;6;Tablelands;Sparsely or Non-vegetated;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Sparsely or Non-vegetated on Tablelands
+NULL;153;24249365;4;2;2;4;Plains;Grassland;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Grassland on Plains
+NULL;154;267064;2;2;2;5;Hills;Settlement;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Settlement on Hills
+NULL;155;42802;3;2;2;5;Tablelands;Settlement;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Settlement on Tablelands
+NULL;156;3703941;3;2;2;4;Tablelands;Grassland;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Grassland on Tablelands
+NULL;157;500994;4;2;2;5;Plains;Settlement;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Settlement on Plains
+NULL;158;199780;1;2;2;5;Mountains;Settlement;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Settlement on Mountains
+NULL;159;5893517;4;3;3;4;Plains;Grassland;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Grassland on Plains
+NULL;160;21057735;4;3;3;1;Plains;Cropland;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Cropland on Plains
+NULL;161;1582898;4;3;3;5;Plains;Settlement;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Settlement on Plains
+NULL;162;63747;4;3;3;6;Plains;Sparsely or Non-vegetated;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Sparsely or Non-vegetated on Plains
+NULL;163;7051184;2;3;3;3;Hills;Forest;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Forest on Hills
+NULL;164;4492674;2;3;3;4;Hills;Grassland;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Grassland on Hills
+NULL;165;376639;2;3;3;2;Hills;Shrubland;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Shrubland on Hills
+NULL;166;7628034;4;3;3;3;Plains;Forest;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Forest on Plains
+NULL;167;1041618;4;3;3;2;Plains;Shrubland;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Shrubland on Plains
+NULL;168;7980992;2;3;3;1;Hills;Cropland;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Cropland on Hills
+NULL;169;826951;2;3;3;5;Hills;Settlement;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Settlement on Hills
+NULL;170;37621;2;3;3;6;Hills;Sparsely or Non-vegetated;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Sparsely or Non-vegetated on Hills
+NULL;171;3469322;1;3;3;4;Mountains;Grassland;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Grassland on Mountains
+NULL;172;854167;1;3;3;5;Mountains;Settlement;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Settlement on Mountains
+NULL;173;22792265;1;3;3;1;Mountains;Cropland;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Cropland on Mountains
+NULL;174;229591;1;3;3;6;Mountains;Sparsely or Non-vegetated;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Sparsely or Non-vegetated on Mountains
+NULL;175;2929062;1;3;3;2;Mountains;Shrubland;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Shrubland on Mountains
+NULL;176;42091216;1;3;3;3;Mountains;Forest;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Forest on Mountains
+NULL;177;130958;3;3;3;5;Tablelands;Settlement;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Settlement on Tablelands
+NULL;178;2984994;3;3;3;1;Tablelands;Cropland;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Cropland on Tablelands
+NULL;179;1409429;3;3;3;4;Tablelands;Grassland;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Grassland on Tablelands
+NULL;180;3959557;3;3;3;3;Tablelands;Forest;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Forest on Tablelands
+NULL;181;361680;3;3;3;2;Tablelands;Shrubland;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Shrubland on Tablelands
+NULL;182;13550;3;3;3;6;Tablelands;Sparsely or Non-vegetated;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Sparsely or Non-vegetated on Tablelands
+NULL;183;19913122;1;2;3;2;Mountains;Shrubland;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Shrubland on Mountains
+NULL;184;19952648;1;2;3;1;Mountains;Cropland;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Cropland on Mountains
+NULL;185;711729;1;2;3;5;Mountains;Settlement;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Settlement on Mountains
+NULL;186;9027272;1;2;3;4;Mountains;Grassland;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Grassland on Mountains
+NULL;187;29158697;4;2;3;1;Plains;Cropland;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Cropland on Plains
+NULL;188;1154501;4;2;3;5;Plains;Settlement;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Settlement on Plains
+NULL;189;5831214;4;2;3;4;Plains;Grassland;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Grassland on Plains
+NULL;190;10641773;2;2;3;1;Hills;Cropland;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Cropland on Hills
+NULL;191;359892;2;2;3;5;Hills;Settlement;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Settlement on Hills
+NULL;192;5104101;2;2;3;4;Hills;Grassland;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Grassland on Hills
+NULL;193;9291713;2;2;3;2;Hills;Shrubland;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Shrubland on Hills
+NULL;194;10546122;1;2;3;3;Mountains;Forest;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Forest on Mountains
+NULL;195;2740390;4;2;3;3;Plains;Forest;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Forest on Plains
+NULL;196;15256430;4;2;3;2;Plains;Shrubland;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Shrubland on Plains
+NULL;197;6444982;2;2;3;6;Hills;Sparsely or Non-vegetated;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Sparsely or Non-vegetated on Hills
+NULL;198;3242594;3;2;3;1;Tablelands;Cropland;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Cropland on Tablelands
+NULL;199;1870418;2;2;3;3;Hills;Forest;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Forest on Hills
+NULL;200;62092;3;2;3;5;Tablelands;Settlement;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Settlement on Tablelands
+NULL;201;20397725;4;2;3;6;Plains;Sparsely or Non-vegetated;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Sparsely or Non-vegetated on Plains
+NULL;202;1140598;3;2;3;3;Tablelands;Forest;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Forest on Tablelands
+NULL;203;3042494;3;2;3;2;Tablelands;Shrubland;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Shrubland on Tablelands
+NULL;204;1422556;3;2;3;4;Tablelands;Grassland;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Grassland on Tablelands
+NULL;205;16025774;1;2;3;6;Mountains;Sparsely or Non-vegetated;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Sparsely or Non-vegetated on Mountains
+NULL;206;2235887;3;2;3;6;Tablelands;Sparsely or Non-vegetated;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Sparsely or Non-vegetated on Tablelands
+NULL;207;2307164;4;1;2;6;Plains;Sparsely or Non-vegetated;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Sparsely or Non-vegetated on Plains
+NULL;208;2778394;2;1;2;6;Hills;Sparsely or Non-vegetated;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Sparsely or Non-vegetated on Hills
+NULL;209;68917;4;1;2;1;Plains;Cropland;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Cropland on Plains
+NULL;210;385185;4;1;2;4;Plains;Grassland;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Grassland on Plains
+NULL;211;3294;2;1;2;1;Hills;Cropland;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Cropland on Hills
+NULL;212;3090;4;1;2;5;Plains;Settlement;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Settlement on Plains
+NULL;213;1962498;1;1;2;6;Mountains;Sparsely or Non-vegetated;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Sparsely or Non-vegetated on Mountains
+NULL;214;30939;2;1;2;4;Hills;Grassland;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Grassland on Hills
+NULL;215;320;2;1;2;5;Hills;Settlement;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Settlement on Hills
+NULL;216;449550;3;1;2;6;Tablelands;Sparsely or Non-vegetated;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Sparsely or Non-vegetated on Tablelands
+NULL;217;10898;1;2;2;8;Mountains;Snow and Ice;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Snow and Ice on Mountains
+NULL;218;2388700;2;1;3;6;Hills;Sparsely or Non-vegetated;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Sparsely or Non-vegetated on Hills
+NULL;219;678334;1;1;2;4;Mountains;Grassland;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Grassland on Mountains
+NULL;220;18939;1;1;2;1;Mountains;Cropland;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Cropland on Mountains
+NULL;221;6654625;4;1;3;6;Plains;Sparsely or Non-vegetated;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Sparsely or Non-vegetated on Plains
+NULL;222;819;1;1;2;5;Mountains;Settlement;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Settlement on Mountains
+NULL;223;3624283;1;1;3;6;Mountains;Sparsely or Non-vegetated;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Sparsely or Non-vegetated on Mountains
+NULL;224;794835;3;1;3;6;Tablelands;Sparsely or Non-vegetated;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Sparsely or Non-vegetated on Tablelands
+NULL;225;11609;1;1;3;5;Mountains;Settlement;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Settlement on Mountains
+NULL;226;49376;1;1;3;4;Mountains;Grassland;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Grassland on Mountains
+NULL;227;23196;1;1;3;1;Mountains;Cropland;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Cropland on Mountains
+NULL;228;19707;3;1;2;4;Tablelands;Grassland;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Grassland on Tablelands
+NULL;229;318;3;1;2;1;Tablelands;Cropland;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Cropland on Tablelands
+NULL;230;33481;2;1;3;4;Hills;Grassland;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Grassland on Hills
+NULL;231;473191;4;1;3;4;Plains;Grassland;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Grassland on Plains
+NULL;232;16732;2;1;3;1;Hills;Cropland;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Cropland on Hills
+NULL;233;619128;4;1;3;1;Plains;Cropland;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Cropland on Plains
+NULL;234;5813;4;1;3;5;Plains;Settlement;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Settlement on Plains
+NULL;235;1141;3;1;3;1;Tablelands;Cropland;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Cropland on Tablelands
+NULL;236;60045;4;1;3;2;Plains;Shrubland;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Shrubland on Plains
+NULL;237;2795;3;1;3;4;Tablelands;Grassland;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Grassland on Tablelands
+NULL;238;179;3;1;3;5;Tablelands;Settlement;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Settlement on Tablelands
+NULL;239;4110;2;1;3;2;Hills;Shrubland;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Shrubland on Hills
+NULL;240;986;2;1;3;5;Hills;Settlement;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Settlement on Hills
+NULL;241;8623;3;1;3;2;Tablelands;Shrubland;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Shrubland on Tablelands
+NULL;242;174;4;1;2;3;Plains;Forest;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Forest on Plains
+NULL;243;415688;1;1;3;2;Mountains;Shrubland;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Shrubland on Mountains
+NULL;244;9598;4;1;2;2;Plains;Shrubland;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Shrubland on Plains
+NULL;245;801;2;1;2;2;Hills;Shrubland;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Shrubland on Hills
+NULL;246;209787;1;1;2;2;Mountains;Shrubland;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Shrubland on Mountains
+NULL;247;15;3;1;2;5;Tablelands;Settlement;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Settlement on Tablelands
+NULL;248;6487;3;1;2;2;Tablelands;Shrubland;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Shrubland on Tablelands
+NULL;249;1838;1;1;3;3;Mountains;Forest;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Forest on Mountains
+NULL;250;11;2;1;3;3;Hills;Forest;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Forest on Hills
+NULL;251;36289;1;1;1;4;Mountains;Grassland;Boreal;Desert;Boreal Desert;Boreal Desert Grassland on Mountains
+NULL;252;31283;1;1;1;6;Mountains;Sparsely or Non-vegetated;Boreal;Desert;Boreal Desert;Boreal Desert Sparsely or Non-vegetated on Mountains
+NULL;253;1312;1;1;1;1;Mountains;Cropland;Boreal;Desert;Boreal Desert;Boreal Desert Cropland on Mountains
+NULL;254;18619;1;1;6;4;Mountains;Grassland;Polar;Desert;Polar Desert;Polar Desert Grassland on Mountains
+NULL;255;10;4;1;1;4;Plains;Grassland;Boreal;Desert;Boreal Desert;Boreal Desert Grassland on Plains
+NULL;256;3;4;1;1;1;Plains;Cropland;Boreal;Desert;Boreal Desert;Boreal Desert Cropland on Plains
+NULL;257;164;3;1;1;6;Tablelands;Sparsely or Non-vegetated;Boreal;Desert;Boreal Desert;Boreal Desert Sparsely or Non-vegetated on Tablelands
+NULL;258;2;3;1;1;4;Tablelands;Grassland;Boreal;Desert;Boreal Desert;Boreal Desert Grassland on Tablelands
+NULL;259;238;4;1;3;3;Plains;Forest;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Forest on Plains
+NULL;260;2;2;1;2;3;Hills;Forest;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Forest on Hills
+NULL;261;8901812;1;3;4;2;Mountains;Shrubland;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Shrubland on Mountains
+NULL;262;50343886;1;3;4;3;Mountains;Forest;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Forest on Mountains
+NULL;263;236366;2;3;4;5;Hills;Settlement;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Settlement on Hills
+NULL;264;370769;1;3;4;5;Mountains;Settlement;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Settlement on Mountains
+NULL;265;12174;2;3;4;6;Hills;Sparsely or Non-vegetated;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Sparsely or Non-vegetated on Hills
+NULL;266;172113;1;2;4;5;Mountains;Settlement;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Settlement on Mountains
+NULL;267;12960132;2;3;4;1;Hills;Cropland;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Cropland on Hills
+NULL;268;22986213;2;3;4;3;Hills;Forest;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Forest on Hills
+NULL;269;17813108;1;3;4;1;Mountains;Cropland;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Cropland on Mountains
+NULL;270;134178;1;3;4;6;Mountains;Sparsely or Non-vegetated;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Sparsely or Non-vegetated on Mountains
+NULL;271;2186680;1;3;4;4;Mountains;Grassland;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Grassland on Mountains
+NULL;272;9597506;1;2;4;1;Mountains;Cropland;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Cropland on Mountains
+NULL;273;9894638;1;2;4;6;Mountains;Sparsely or Non-vegetated;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Sparsely or Non-vegetated on Mountains
+NULL;274;12732017;1;2;4;3;Mountains;Forest;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Forest on Mountains
+NULL;275;4437902;1;2;4;4;Mountains;Grassland;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Grassland on Mountains
+NULL;276;338530;4;2;4;5;Plains;Settlement;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Settlement on Plains
+NULL;277;131920;2;2;4;5;Hills;Settlement;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Settlement on Hills
+NULL;278;7573177;2;2;4;1;Hills;Cropland;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Cropland on Hills
+NULL;279;4398438;2;2;4;4;Hills;Grassland;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Grassland on Hills
+NULL;280;364;1;1;2;3;Mountains;Forest;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Forest on Mountains
+NULL;281;9653446;2;2;4;6;Hills;Sparsely or Non-vegetated;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Sparsely or Non-vegetated on Hills
+NULL;282;14929930;4;2;4;1;Plains;Cropland;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Cropland on Plains
+NULL;283;45616851;4;2;4;6;Plains;Sparsely or Non-vegetated;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Sparsely or Non-vegetated on Plains
+NULL;284;30645336;4;2;4;2;Plains;Shrubland;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Shrubland on Plains
+NULL;285;11294988;2;2;4;2;Hills;Shrubland;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Shrubland on Hills
+NULL;286;17370808;1;2;4;2;Mountains;Shrubland;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Shrubland on Mountains
+NULL;287;1774381;3;2;4;1;Tablelands;Cropland;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Cropland on Tablelands
+NULL;288;13829192;4;2;4;3;Plains;Forest;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Forest on Plains
+NULL;289;19400120;4;2;4;4;Plains;Grassland;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Grassland on Plains
+NULL;290;8784801;2;2;4;3;Hills;Forest;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Forest on Hills
+NULL;291;2258876;3;2;4;6;Tablelands;Sparsely or Non-vegetated;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Sparsely or Non-vegetated on Tablelands
+NULL;292;816;1;1;6;1;Mountains;Cropland;Polar;Desert;Polar Desert;Polar Desert Cropland on Mountains
+NULL;293;3452040;3;2;4;2;Tablelands;Shrubland;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Shrubland on Tablelands
+NULL;294;3586184;3;2;4;3;Tablelands;Forest;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Forest on Tablelands
+NULL;295;1499102;2;3;4;4;Hills;Grassland;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Grassland on Hills
+NULL;296;18649;3;2;4;5;Tablelands;Settlement;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Settlement on Tablelands
+NULL;297;7457476;4;3;4;1;Plains;Cropland;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Cropland on Plains
+NULL;298;814418;3;2;4;4;Tablelands;Grassland;Sub Tropical;Dry;Sub Tropical Dry;Sub Tropical Dry Grassland on Tablelands
+NULL;299;47092;4;3;4;6;Plains;Sparsely or Non-vegetated;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Sparsely or Non-vegetated on Plains
+NULL;300;3999962;4;3;4;2;Plains;Shrubland;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Shrubland on Plains
+NULL;301;11737167;4;3;4;3;Plains;Forest;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Forest on Plains
+NULL;302;6633081;3;3;4;1;Tablelands;Cropland;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Cropland on Tablelands
+NULL;303;12672810;3;3;4;3;Tablelands;Forest;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Forest on Tablelands
+NULL;304;609106;3;3;4;4;Tablelands;Grassland;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Grassland on Tablelands
+NULL;305;2396171;3;3;4;2;Tablelands;Shrubland;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Shrubland on Tablelands
+NULL;306;193851;1;1;6;6;Mountains;Sparsely or Non-vegetated;Polar;Desert;Polar Desert;Polar Desert Sparsely or Non-vegetated on Mountains
+NULL;307;4406444;2;3;4;2;Hills;Shrubland;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Shrubland on Hills
+NULL;308;616136;4;3;4;5;Plains;Settlement;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Settlement on Plains
+NULL;309;523;1;1;6;3;Mountains;Forest;Polar;Desert;Polar Desert;Polar Desert Forest on Mountains
+NULL;310;380194;1;1;4;2;Mountains;Shrubland;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Shrubland on Mountains
+NULL;311;2606071;4;3;4;4;Plains;Grassland;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Grassland on Plains
+NULL;312;9013954;1;1;4;6;Mountains;Sparsely or Non-vegetated;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Sparsely or Non-vegetated on Mountains
+NULL;313;304283;4;1;4;2;Plains;Shrubland;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Shrubland on Plains
+NULL;314;48497080;4;1;4;6;Plains;Sparsely or Non-vegetated;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Sparsely or Non-vegetated on Plains
+NULL;315;19;1;1;2;8;Mountains;Snow and Ice;Cool Temperate;Desert;Cool Temperate Desert;Cool Temperate Desert Snow and Ice on Mountains
+NULL;316;8373;3;3;4;6;Tablelands;Sparsely or Non-vegetated;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Sparsely or Non-vegetated on Tablelands
+NULL;317;17;1;1;1;3;Mountains;Forest;Boreal;Desert;Boreal Desert;Boreal Desert Forest on Mountains
+NULL;318;124;3;2;6;5;Tablelands;Settlement;Polar;Dry;Polar Dry;Polar Dry Settlement on Tablelands
+NULL;319;37;2;2;6;5;Hills;Settlement;Polar;Dry;Polar Dry;Polar Dry Settlement on Hills
+NULL;320;159779;1;1;4;4;Mountains;Grassland;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Grassland on Mountains
+NULL;321;184;1;1;6;8;Mountains;Snow and Ice;Polar;Desert;Polar Desert;Polar Desert Snow and Ice on Mountains
+NULL;322;62584;4;1;4;4;Plains;Grassland;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Grassland on Plains
+NULL;323;2;1;1;1;2;Mountains;Shrubland;Boreal;Desert;Boreal Desert;Boreal Desert Shrubland on Mountains
+NULL;324;134900;1;1;6;2;Mountains;Shrubland;Polar;Desert;Polar Desert;Polar Desert Shrubland on Mountains
+NULL;325;8;1;1;1;5;Mountains;Settlement;Boreal;Desert;Boreal Desert;Boreal Desert Settlement on Mountains
+NULL;326;169;4;1;1;6;Plains;Sparsely or Non-vegetated;Boreal;Desert;Boreal Desert;Boreal Desert Sparsely or Non-vegetated on Plains
+NULL;327;10140;1;1;4;3;Mountains;Forest;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Forest on Mountains
+NULL;328;6680;4;1;4;3;Plains;Forest;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Forest on Plains
+NULL;329;8042;3;1;4;2;Tablelands;Shrubland;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Shrubland on Tablelands
+NULL;330;55609;4;1;4;5;Plains;Settlement;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Settlement on Plains
+NULL;331;77935;2;1;4;2;Hills;Shrubland;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Shrubland on Hills
+NULL;332;40380906;4;2;5;6;Plains;Sparsely or Non-vegetated;Tropical;Dry;Tropical Dry;Tropical Dry Sparsely or Non-vegetated on Plains
+NULL;333;46808225;4;2;5;1;Plains;Cropland;Tropical;Dry;Tropical Dry;Tropical Dry Cropland on Plains
+NULL;334;6841106;2;2;5;6;Hills;Sparsely or Non-vegetated;Tropical;Dry;Tropical Dry;Tropical Dry Sparsely or Non-vegetated on Hills
+NULL;335;11754636;2;2;5;2;Hills;Shrubland;Tropical;Dry;Tropical Dry;Tropical Dry Shrubland on Hills
+NULL;336;13823111;2;2;5;1;Hills;Cropland;Tropical;Dry;Tropical Dry;Tropical Dry Cropland on Hills
+NULL;337;111371;2;2;5;5;Hills;Settlement;Tropical;Dry;Tropical Dry;Tropical Dry Settlement on Hills
+NULL;338;5312998;1;2;5;1;Mountains;Cropland;Tropical;Dry;Tropical Dry;Tropical Dry Cropland on Mountains
+NULL;339;6927030;1;2;5;6;Mountains;Sparsely or Non-vegetated;Tropical;Dry;Tropical Dry;Tropical Dry Sparsely or Non-vegetated on Mountains
+NULL;340;18514533;2;1;4;6;Hills;Sparsely or Non-vegetated;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Sparsely or Non-vegetated on Hills
+NULL;341;32069892;4;2;5;2;Plains;Shrubland;Tropical;Dry;Tropical Dry;Tropical Dry Shrubland on Plains
+NULL;342;5143482;1;2;5;2;Mountains;Shrubland;Tropical;Dry;Tropical Dry;Tropical Dry Shrubland on Mountains
+NULL;343;392417;4;2;5;5;Plains;Settlement;Tropical;Dry;Tropical Dry;Tropical Dry Settlement on Plains
+NULL;344;1870344;1;2;5;4;Mountains;Grassland;Tropical;Dry;Tropical Dry;Tropical Dry Grassland on Mountains
+NULL;345;66060;1;2;5;5;Mountains;Settlement;Tropical;Dry;Tropical Dry;Tropical Dry Settlement on Mountains
+NULL;346;919096;4;1;4;1;Plains;Cropland;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Cropland on Plains
+NULL;347;4924937;3;1;4;6;Tablelands;Sparsely or Non-vegetated;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Sparsely or Non-vegetated on Tablelands
+NULL;348;76889;3;3;4;5;Tablelands;Settlement;Sub Tropical;Moist;Sub Tropical Moist;Sub Tropical Moist Settlement on Tablelands
+NULL;349;81238;2;1;4;1;Hills;Cropland;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Cropland on Hills
+NULL;350;64615;1;1;4;1;Mountains;Cropland;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Cropland on Mountains
+NULL;351;24084;1;1;4;5;Mountains;Settlement;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Settlement on Mountains
+NULL;352;80702;2;1;4;4;Hills;Grassland;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Grassland on Hills
+NULL;353;1248;2;1;4;3;Hills;Forest;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Forest on Hills
+NULL;354;11492;2;1;4;5;Hills;Settlement;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Settlement on Hills
+NULL;355;10154;3;1;4;1;Tablelands;Cropland;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Cropland on Tablelands
+NULL;356;1530646;3;2;5;6;Tablelands;Sparsely or Non-vegetated;Tropical;Dry;Tropical Dry;Tropical Dry Sparsely or Non-vegetated on Tablelands
+NULL;357;987;3;1;4;5;Tablelands;Settlement;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Settlement on Tablelands
+NULL;358;1590075;3;2;5;1;Tablelands;Cropland;Tropical;Dry;Tropical Dry;Tropical Dry Cropland on Tablelands
+NULL;359;3536192;2;2;5;4;Hills;Grassland;Tropical;Dry;Tropical Dry;Tropical Dry Grassland on Hills
+NULL;360;16099219;4;2;5;4;Plains;Grassland;Tropical;Dry;Tropical Dry;Tropical Dry Grassland on Plains
+NULL;361;12056643;4;2;5;3;Plains;Forest;Tropical;Dry;Tropical Dry;Tropical Dry Forest on Plains
+NULL;362;71660435;4;1;5;6;Plains;Sparsely or Non-vegetated;Tropical;Desert;Tropical Desert;Tropical Desert Sparsely or Non-vegetated on Plains
+NULL;363;8891693;2;2;5;3;Hills;Forest;Tropical;Dry;Tropical Dry;Tropical Dry Forest on Hills
+NULL;364;2747486;3;2;5;2;Tablelands;Shrubland;Tropical;Dry;Tropical Dry;Tropical Dry Shrubland on Tablelands
+NULL;365;5105484;1;2;5;3;Mountains;Forest;Tropical;Dry;Tropical Dry;Tropical Dry Forest on Mountains
+NULL;366;17136;3;1;4;4;Tablelands;Grassland;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Grassland on Tablelands
+NULL;367;384345;4;1;5;1;Plains;Cropland;Tropical;Desert;Tropical Desert;Tropical Desert Cropland on Plains
+NULL;368;9658;3;2;5;5;Tablelands;Settlement;Tropical;Dry;Tropical Dry;Tropical Dry Settlement on Tablelands
+NULL;369;6304274;1;1;5;6;Mountains;Sparsely or Non-vegetated;Tropical;Desert;Tropical Desert;Tropical Desert Sparsely or Non-vegetated on Mountains
+NULL;370;128033;4;1;5;4;Plains;Grassland;Tropical;Desert;Tropical Desert;Tropical Desert Grassland on Plains
+NULL;371;42541;1;1;5;4;Mountains;Grassland;Tropical;Desert;Tropical Desert;Tropical Desert Grassland on Mountains
+NULL;372;76128;1;1;5;1;Mountains;Cropland;Tropical;Desert;Tropical Desert;Tropical Desert Cropland on Mountains
+NULL;373;141766;4;1;5;2;Plains;Shrubland;Tropical;Desert;Tropical Desert;Tropical Desert Shrubland on Plains
+NULL;374;16518668;2;1;5;6;Hills;Sparsely or Non-vegetated;Tropical;Desert;Tropical Desert;Tropical Desert Sparsely or Non-vegetated on Hills
+NULL;375;2324609;3;1;5;6;Tablelands;Sparsely or Non-vegetated;Tropical;Desert;Tropical Desert;Tropical Desert Sparsely or Non-vegetated on Tablelands
+NULL;376;165425;1;1;5;2;Mountains;Shrubland;Tropical;Desert;Tropical Desert;Tropical Desert Shrubland on Mountains
+NULL;377;9408;1;1;5;5;Mountains;Settlement;Tropical;Desert;Tropical Desert;Tropical Desert Settlement on Mountains
+NULL;378;51616;4;1;5;5;Plains;Settlement;Tropical;Desert;Tropical Desert;Tropical Desert Settlement on Plains
+NULL;379;16339;4;1;5;3;Plains;Forest;Tropical;Desert;Tropical Desert;Tropical Desert Forest on Plains
+NULL;380;56831;2;1;5;1;Hills;Cropland;Tropical;Desert;Tropical Desert;Tropical Desert Cropland on Hills
+NULL;381;11014;2;1;5;5;Hills;Settlement;Tropical;Desert;Tropical Desert;Tropical Desert Settlement on Hills
+NULL;382;665894;3;2;5;4;Tablelands;Grassland;Tropical;Dry;Tropical Dry;Tropical Dry Grassland on Tablelands
+NULL;383;31420;2;1;5;4;Hills;Grassland;Tropical;Desert;Tropical Desert;Tropical Desert Grassland on Hills
+NULL;384;505;3;1;5;5;Tablelands;Settlement;Tropical;Desert;Tropical Desert;Tropical Desert Settlement on Tablelands
+NULL;385;1550;3;1;5;1;Tablelands;Cropland;Tropical;Desert;Tropical Desert;Tropical Desert Cropland on Tablelands
+NULL;386;68804;2;1;5;2;Hills;Shrubland;Tropical;Desert;Tropical Desert;Tropical Desert Shrubland on Hills
+NULL;387;31574956;4;3;5;1;Plains;Cropland;Tropical;Moist;Tropical Moist;Tropical Moist Cropland on Plains
+NULL;388;616154;4;3;5;5;Plains;Settlement;Tropical;Moist;Tropical Moist;Tropical Moist Settlement on Plains
+NULL;389;73852734;4;3;5;3;Plains;Forest;Tropical;Moist;Tropical Moist;Tropical Moist Forest on Plains
+NULL;390;17407689;2;3;5;1;Hills;Cropland;Tropical;Moist;Tropical Moist;Tropical Moist Cropland on Hills
+NULL;391;15270789;1;3;5;1;Mountains;Cropland;Tropical;Moist;Tropical Moist;Tropical Moist Cropland on Mountains
+NULL;392;33889622;1;3;5;3;Mountains;Forest;Tropical;Moist;Tropical Moist;Tropical Moist Forest on Mountains
+NULL;393;4337541;4;3;5;4;Plains;Grassland;Tropical;Moist;Tropical Moist;Tropical Moist Grassland on Plains
+NULL;394;1349600;3;2;5;3;Tablelands;Forest;Tropical;Dry;Tropical Dry;Tropical Dry Forest on Tablelands
+NULL;395;279267;4;3;5;6;Plains;Sparsely or Non-vegetated;Tropical;Moist;Tropical Moist;Tropical Moist Sparsely or Non-vegetated on Plains
+NULL;396;10104586;4;3;5;2;Plains;Shrubland;Tropical;Moist;Tropical Moist;Tropical Moist Shrubland on Plains
+NULL;397;13263;3;1;5;4;Tablelands;Grassland;Tropical;Desert;Tropical Desert;Tropical Desert Grassland on Tablelands
+NULL;398;46297613;2;3;5;3;Hills;Forest;Tropical;Moist;Tropical Moist;Tropical Moist Forest on Hills
+NULL;399;174;1;3;3;8;Mountains;Snow and Ice;Warm Temperate;Moist;Warm Temperate Moist;Warm Temperate Moist Snow and Ice on Mountains
+NULL;400;18;3;1;4;3;Tablelands;Forest;Sub Tropical;Desert;Sub Tropical Desert;Sub Tropical Desert Forest on Tablelands
+NULL;401;724485;1;3;5;4;Mountains;Grassland;Tropical;Moist;Tropical Moist;Tropical Moist Grassland on Mountains
+NULL;402;112635;1;3;5;6;Mountains;Sparsely or Non-vegetated;Tropical;Moist;Tropical Moist;Tropical Moist Sparsely or Non-vegetated on Mountains
+NULL;403;1464048;2;3;5;4;Hills;Grassland;Tropical;Moist;Tropical Moist;Tropical Moist Grassland on Hills
+NULL;404;3341105;1;3;5;2;Mountains;Shrubland;Tropical;Moist;Tropical Moist;Tropical Moist Shrubland on Mountains
+NULL;405;188666;1;3;5;5;Mountains;Settlement;Tropical;Moist;Tropical Moist;Tropical Moist Settlement on Mountains
+NULL;406;7506;2;1;5;3;Hills;Forest;Tropical;Desert;Tropical Desert;Tropical Desert Forest on Hills
+NULL;407;238405;2;3;5;5;Hills;Settlement;Tropical;Moist;Tropical Moist;Tropical Moist Settlement on Hills
+NULL;408;6185946;2;3;5;2;Hills;Shrubland;Tropical;Moist;Tropical Moist;Tropical Moist Shrubland on Hills
+NULL;409;7451512;3;3;5;3;Tablelands;Forest;Tropical;Moist;Tropical Moist;Tropical Moist Forest on Tablelands
+NULL;410;1295328;3;3;5;2;Tablelands;Shrubland;Tropical;Moist;Tropical Moist;Tropical Moist Shrubland on Tablelands
+NULL;411;1841776;3;3;5;1;Tablelands;Cropland;Tropical;Moist;Tropical Moist;Tropical Moist Cropland on Tablelands
+NULL;412;39906;3;1;5;2;Tablelands;Shrubland;Tropical;Desert;Tropical Desert;Tropical Desert Shrubland on Tablelands
+NULL;413;21549;3;3;5;5;Tablelands;Settlement;Tropical;Moist;Tropical Moist;Tropical Moist Settlement on Tablelands
+NULL;414;273880;3;3;5;4;Tablelands;Grassland;Tropical;Moist;Tropical Moist;Tropical Moist Grassland on Tablelands
+NULL;415;52252;2;3;5;6;Hills;Sparsely or Non-vegetated;Tropical;Moist;Tropical Moist;Tropical Moist Sparsely or Non-vegetated on Hills
+NULL;416;21094;3;3;5;6;Tablelands;Sparsely or Non-vegetated;Tropical;Moist;Tropical Moist;Tropical Moist Sparsely or Non-vegetated on Tablelands
+NULL;417;9638;1;1;5;3;Mountains;Forest;Tropical;Desert;Tropical Desert;Tropical Desert Forest on Mountains
+NULL;418;4466;3;1;5;3;Tablelands;Forest;Tropical;Desert;Tropical Desert;Tropical Desert Forest on Tablelands
+NULL;419;5;1;2;3;8;Mountains;Snow and Ice;Warm Temperate;Dry;Warm Temperate Dry;Warm Temperate Dry Snow and Ice on Mountains
+NULL;420;3;4;2;2;8;Plains;Snow and Ice;Cool Temperate;Dry;Cool Temperate Dry;Cool Temperate Dry Snow and Ice on Plains
+NULL;421;5627;3;1;6;6;Tablelands;Sparsely or Non-vegetated;Polar;Desert;Polar Desert;Polar Desert Sparsely or Non-vegetated on Tablelands
+NULL;422;19;3;1;6;5;Tablelands;Settlement;Polar;Desert;Polar Desert;Polar Desert Settlement on Tablelands
+NULL;423;851;3;1;6;2;Tablelands;Shrubland;Polar;Desert;Polar Desert;Polar Desert Shrubland on Tablelands
+NULL;424;2877;4;1;6;6;Plains;Sparsely or Non-vegetated;Polar;Desert;Polar Desert;Polar Desert Sparsely or Non-vegetated on Plains
+NULL;425;59;4;1;6;2;Plains;Shrubland;Polar;Desert;Polar Desert;Polar Desert Shrubland on Plains
+NULL;426;21;4;1;6;1;Plains;Cropland;Polar;Desert;Polar Desert;Polar Desert Cropland on Plains
+NULL;427;41;4;1;6;3;Plains;Forest;Polar;Desert;Polar Desert;Polar Desert Forest on Plains
+NULL;428;352;1;1;6;5;Mountains;Settlement;Polar;Desert;Polar Desert;Polar Desert Settlement on Mountains
+NULL;429;38;3;1;3;3;Tablelands;Forest;Warm Temperate;Desert;Warm Temperate Desert;Warm Temperate Desert Forest on Tablelands
+NULL;430;4;3;1;6;4;Tablelands;Grassland;Polar;Desert;Polar Desert;Polar Desert Grassland on Tablelands
+NULL;431;19;4;1;6;4;Plains;Grassland;Polar;Desert;Polar Desert;Polar Desert Grassland on Plains
