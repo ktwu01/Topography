@@ -15,15 +15,11 @@ import shapely.geometry as sgeom
 from matplotlib.colors import LinearSegmentedColormap
 from ast import literal_eval
 
-ocean = brewer2mpl.get_map('PuOr', 'Diverging', 10,reverse=False)
-o2 = brewer2mpl.get_map('YlGnBu', 'Sequential', 9, reverse=True)
-#ocean = brewer2mpl.get_map('RdGy', 'Diverging', 8,reverse=True)
-#ocean = brewer2mpl.get_map('Paired', 'Qualitative', 10)
-c = ocean.mpl_colormap
-c2 = o2.mpl_colormap
+o = brewer2mpl.get_map('YlGnBu', 'Sequential', 9, reverse=True)
+c = o.mpl_colormap
 
 # prepare data
-data_path = r"C:\Users\gnann\Documents\Data\G3M\water_table_depth.csv"
+data_path = r"C:\Users\Sebastian\Documents\Data\G3M\water_table_depth.csv"#r"C:\Users\gnann\Documents\Data\G3M\water_table_depth.csv"
 
 df = pd.read_csv(data_path, sep=',')
 var_name = 'WTD'
@@ -40,10 +36,10 @@ bounds = np.linspace(0,50,11)
 customnorm = ml_colors.BoundaryNorm(boundaries=bounds, ncolors=256)
 #norm=customnorm,
 sc = ax.scatter(df['X'], df['Y'], norm=customnorm, transform=ccrs.PlateCarree(),
-                marker='s',s=.5, edgecolors = 'none', c=df['WTD(m)'], cmap='viridis')
+                marker='s',s=.35, edgecolors = 'none', c=df['WTD(m)'], cmap=c)
 
 ax.scatter(df_greenland['lon'], df_greenland['lat'], transform=ccrs.PlateCarree(), norm=customnorm,
-           marker='s', s=.5, edgecolors='none', c='lightgray')
+           marker='s', s=.35, edgecolors='none', c='lightgray')
 
 ax.coastlines(linewidth=0.5)
 #ax.set_clim(0, 1000)
