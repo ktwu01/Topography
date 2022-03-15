@@ -2,7 +2,7 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="bd16dde9-9f66-4dec-9600-53424184dccb" name="Server">
+      <webServer id="bd16dde9-9f66-4dec-9600-53424184dccb" name="Server (project level)">
         <fileTransfer accessType="SFTP" host="141.89.96.78" port="311" sshConfigId="207e7cd3-ffcf-4fba-9f4c-2dd02d9beff7" sshConfig="gnann@141.89.96.78:311 key" keyPair="true">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
