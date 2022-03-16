@@ -1,30 +1,13 @@
 import os
 import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
-from shapely.geometry import mapping
 import rioxarray as rxr
-import xarray as xr
-import geopandas as gpd
-import earthpy as et
-import earthpy.spatial as es
-import earthpy.plot as ep
-from scipy import stats
-import pandas as pd
-from shapely import geometry
-import pyosp
-import fiona
-import numpy.ma as ma
-import cartopy.crs as ccrs
-from rioxarray.merge import merge_arrays
-
 import time
 
 start = time.time()
 print("hello")
 
 # specify paths
-data_path = r"D:/Data/MERIT_DEM/"
+data_path = r"/home/hydrosys/data/MERIT_DEM/" #r"D:/Data/MERIT_DEM/"
 results_path = "results/"
 
 #dem_package = data_path + "dem_tif_n30e090/"
@@ -41,9 +24,12 @@ f_list = []
 #dem_merged = []
 sp_list = []
 
+i = 0
+
 for foldername in os.listdir(data_path):
 
-    print(foldername)
+    i = i + 1
+    print(foldername + " (" + str(i) + "/57)")
 
     for filename in os.listdir(os.path.join(data_path, foldername)):
 
