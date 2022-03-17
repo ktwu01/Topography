@@ -2,12 +2,16 @@ import os
 import matplotlib.pyplot as plt
 import rioxarray as rxr
 import time
+#import cartopy.crs as ccrs
+import shapely.geometry as sgeom
+
+# dask
 
 start = time.time()
 print("hello")
 
 # specify paths
-data_path = r"/home/hydrosys/data/MERIT_DEM/" #r"D:/Data/MERIT_DEM/"
+data_path = r"/home/hydrosys/data/MERIT_DEM/" #r"D:/Data/MERIT_DEM/"#
 results_path = "results/"
 
 #dem_package = data_path + "dem_tif_n30e090/"
@@ -16,8 +20,11 @@ results_path = "results/"
 name = "MERIT_DEM"
 
 # figure
+#fig = plt.figure()
+#ax = plt.axes(projection=ccrs.Robinson())
+#ax.set_global()
 fig = plt.figure(figsize=(12, 8))
-ax = plt.axes() #projection=ccrs.Robinson()
+ax = plt.axes()
 
 # iterate over files in that directory
 f_list = []
@@ -45,24 +52,31 @@ for foldername in os.listdir(data_path):
         #dem_merged.append(dem_tmp)
 
         # plot tile
-        sp_tmp = dem_tmp.plot.imshow(ax=ax, cmap='terrain', add_colorbar=False)
+        sp_tmp = dem_tmp.plot.imshow(ax=ax, cmap='gist_earth', add_colorbar=False)
         sp_list.append(sp_tmp)
+
+    #if i > 3: # for testing script
+    #    break
 
 #dem_merged = merge_arrays(dem_merged)
 
 ax.set(title=None) #"DEM [m]"
 #ax.set_axis_off()
 ax.axis('equal')
-#ax.set_xlim([1, 1])
-#ax.set_ylim([1, 1])
+ax.set_xlim([-180, 180])
+ax.set_ylim([-90, 90])
 ax.set_xlabel('Lon [deg]')
 ax.set_ylabel('Lat [deg]')
 
 for sp_tmp in sp_list:
-    sp_tmp.set_clim([0, 8000])
+    sp_tmp.set_clim([0, 5000])
 
 fig.colorbar(sp_tmp, ax=ax)
 sp_tmp.colorbar.set_label('DEM [m]')
+
+#box = sgeom.box(minx=180, maxx=-180, miny=90, maxy=-60)
+#x0, y0, x1, y1 = box.bounds
+#ax.set_extent([x0, x1, y0, y1], ccrs.PlateCarree())
 
 #plt.show()
 plt.savefig(results_path + "example2_" + name + ".png", dpi=600, bbox_inches='tight')
