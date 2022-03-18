@@ -23,12 +23,12 @@ name = "MERIT_DEM"
 #fig = plt.figure()
 #ax = plt.axes(projection=ccrs.Robinson())
 #ax.set_global()
-fig = plt.figure(figsize=(12, 8))
+fig = plt.figure(figsize=(12, 6))
 ax = plt.axes()
 
 # iterate over files in that directory
 f_list = []
-#dem_merged = []
+# dem_merged = []
 sp_list = []
 
 i = 0
@@ -53,6 +53,7 @@ for foldername in os.listdir(data_path):
 
         # plot tile
         sp_tmp = dem_tmp.plot.imshow(ax=ax, cmap='gist_earth', add_colorbar=False)
+        sp_tmp.set_clim([0, 5000])
         sp_list.append(sp_tmp)
 
     #if i > 3: # for testing script
@@ -64,7 +65,7 @@ ax.set(title=None) #"DEM [m]"
 #ax.set_axis_off()
 ax.axis('equal')
 ax.set_xlim([-180, 180])
-ax.set_ylim([-90, 90])
+ax.set_ylim([-60, 90])
 ax.set_xlabel('Lon [deg]')
 ax.set_ylabel('Lat [deg]')
 
