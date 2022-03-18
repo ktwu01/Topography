@@ -23,6 +23,7 @@ results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 clim_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
+clim2_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 
 name_list = ["Cascades"]#["Sierra Nevada", "Alps", "Ecuador Andes", "France", "Himalaya", "NorthernAlps", "Kilimanjaro", "Cascades"]
 
@@ -66,9 +67,17 @@ for name in name_list:
     raster_clim = results_path + 'tmp/tmp_' + name + '_clim.tif'
     clim_clipped = rxr.open_rasterio(raster_clim).squeeze()
 
+    clim2 = rxr.open_rasterio(clim2_path, masked=True).squeeze()
+    clim2_clipped = clim2.rio.clip(polygon, clim2.rio.crs)
+    clim2_clipped.__array__()[np.isnan(clim2_clipped.__array__())] = -999
+    clim2_clipped.rio.to_raster(results_path + 'tmp/tmp_' + name + '_clim2.tif')
+    raster_clim2 = results_path + 'tmp/tmp_' + name + '_clim2.tif'
+    clim2_clipped = rxr.open_rasterio(raster_clim2).squeeze()
+
     # generate swath objects
     orig_dem = pyosp.Orig_curv(baseline, raster_dem, width=0.1, line_stepsize=.01, cross_stepsize=0.01)
     orig_clim = pyosp.Orig_curv(baseline, raster_clim, width=0.1, line_stepsize=.01, cross_stepsize=0.01)
+    orig_clim2 = pyosp.Orig_curv(baseline, raster_clim2, width=0.1, line_stepsize=.01, cross_stepsize=0.01)
 
     # plot the swath profile lines
     fig = plt.figure(figsize=(12, 3), constrained_layout=True)
@@ -114,6 +123,10 @@ for name in name_list:
     clim_swath = np.array(orig_clim.dat)
     clim_swath[clim_swath==-999] = np.nan
     #ma.masked_invalid(clim_swath)
+    clim2_swath = np.array(orig_clim2.dat)
+    clim2_swath[clim2_swath==-999] = np.nan
+    clim2_swath = clim2_swath*1000 # transform to Pa
+    #ma.masked_invalid(clim_swath)
 
     axes1.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1),
                        facecolor='tab:gray', alpha=0.25, label='Elevation')
@@ -129,6 +142,13 @@ for name in name_list:
     axes1b.fill_between(dist, clim_swath.mean(axis=1)-clim_swath.std(axis=1), clim_swath.mean(axis=1)+clim_swath.std(axis=1),
                         facecolor='tab:blue', alpha=0.25)
 
+    axes1b.plot(dist, clim2_swath.mean(axis=1),
+                c='tab:green', label='Vapor pressure')  # np.array(orig_dem.dat)[:,i]
+    axes1b.fill_between(dist, clim2_swath.mean(axis=1) - clim2_swath.std(axis=1),
+                        clim2_swath.mean(axis=1) + clim2_swath.std(axis=1),
+                        facecolor='tab:green', alpha=0.25)
+
+
     lines, labels = axes1.get_legend_handles_labels()
     lines2, labels2 = axes1b.get_legend_handles_labels()
     axes1b.legend(lines + lines2, labels + labels2)
@@ -136,7 +156,7 @@ for name in name_list:
     #axes1.legend(loc='upper left')
     axes1.set_xlabel('Distance [deg]')
     axes1.set_ylabel('Elevation [m]')
-    axes1b.set_ylabel('Precipitation [mm/y]')
+    axes1b.set_ylabel('Precipitation [mm/y] / vapor pressure [Pa]')
     axes1.set_ylim(0,5000)
     axes1b.set_ylim(0,5000)
 
