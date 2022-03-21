@@ -25,8 +25,8 @@ dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 clim_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 clim2_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 
-name_list = ["Cascades"]#["Sierra Nevada", "Alps", "Ecuador Andes", "France", "Himalaya", "NorthernAlps", "Kilimanjaro", "Cascades"]
-
+name_list = ["Sierra Nevada", "Alps", "Ecuador Andes", "France", "Himalaya", "NorthernAlps", "Kilimanjaro", "Cascades"]
+#["Cascades"]#
 for name in name_list:
 
     # create geometries
@@ -75,9 +75,9 @@ for name in name_list:
     clim2_clipped = rxr.open_rasterio(raster_clim2).squeeze()
 
     # generate swath objects
-    orig_dem = pyosp.Orig_curv(baseline, raster_dem, width=0.1, line_stepsize=.01, cross_stepsize=0.01)
-    orig_clim = pyosp.Orig_curv(baseline, raster_clim, width=0.1, line_stepsize=.01, cross_stepsize=0.01)
-    orig_clim2 = pyosp.Orig_curv(baseline, raster_clim2, width=0.1, line_stepsize=.01, cross_stepsize=0.01)
+    orig_dem = pyosp.Orig_curv(baseline, raster_dem, width=0.5, line_stepsize=.01, cross_stepsize=0.1)
+    orig_clim = pyosp.Orig_curv(baseline, raster_clim, width=0.5, line_stepsize=.01, cross_stepsize=0.1)
+    orig_clim2 = pyosp.Orig_curv(baseline, raster_clim2, width=0.5, line_stepsize=.01, cross_stepsize=0.1)
 
     # plot the swath profile lines
     fig = plt.figure(figsize=(12, 3), constrained_layout=True)
@@ -110,7 +110,7 @@ for name in name_list:
     axes0.set_ylabel('Lat [deg]')
     sp0.colorbar.set_label('DEM [m]')
     #sp0.set_clim([0, np.round(np.array(orig_dem.dat).max(), 100)])
-    sp0.set_clim([0, 5000])
+    sp0.set_clim([0, 100*round(np.max(dem_clipped.values/100))])
 
     # plot swath
     #orig_dem.profile_plot(ax=axes1, color='grey', label='Elevation')
@@ -156,17 +156,17 @@ for name in name_list:
     #axes1.legend(loc='upper left')
     axes1.set_xlabel('Distance [deg]')
     axes1.set_ylabel('Elevation [m]')
-    axes1b.set_ylabel('Precipitation [mm/y] / vapor pressure [Pa]')
-    axes1.set_ylim(0,5000)
-    axes1b.set_ylim(0,5000)
+    axes1b.set_ylabel('Precipitation [mm/y] / Vapor pressure [Pa]')
+    #axes1.set_ylim(0,5000)
+    #axes1b.set_ylim(0,5000)
 
     axes2.plot(clim_swath.mean(axis=1), dem_swath.mean(axis=1), c='grey', alpha=0.5)
     sp2 = axes2.scatter(clim_swath.mean(axis=1), dem_swath.mean(axis=1),
                  marker='o', c=dist)
     axes2.set_xlabel('Precipitation [mm/y]')
     axes2.set_ylabel('Elevation [m]')
-    axes2.set_xlim([0,5000])
-    axes2.set_ylim([0,5000])
+    #axes2.set_xlim([0,5000])
+    #axes2.set_ylim([0,5000])
     #axes2.set(title="Distance [deg]")
     cbar2 = plt.colorbar(sp2, ax=axes2)
     cbar2.ax.set_ylabel('Distance [deg]')
@@ -175,3 +175,46 @@ for name in name_list:
 
     #plt.show()
     plt.savefig(results_path + "swath_" + name + ".png", dpi=600, bbox_inches='tight')
+    #plt.clear()
+
+    # to do
+    # add figure with profiles only
+
+    # plot the swath profile lines
+    fig = plt.figure(figsize=(8, 3), constrained_layout=True)
+    ax = plt.axes()
+
+    ax.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1),
+                       facecolor='tab:gray', alpha=0.25, label='Elevation')
+    ax.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1)-dem_swath.std(axis=1),
+                       facecolor='tab:gray', alpha=0.25)
+    ax.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1)+dem_swath.std(axis=1),
+                       facecolor='tab:gray', alpha=0.25)
+    #axes1.plot(dist, dem_swath.mean(axis=1), c='tab:grey', label='Elevation') #np.array(orig_dem.dat)[:,i]
+
+    axb = ax.twinx()
+    axb.plot(dist, clim_swath.mean(axis=1),
+               c='tab:blue', label='Precipitation') #np.array(orig_dem.dat)[:,i]
+    axb.fill_between(dist, clim_swath.mean(axis=1)-clim_swath.std(axis=1), clim_swath.mean(axis=1)+clim_swath.std(axis=1),
+                        facecolor='tab:blue', alpha=0.25)
+
+    axb.plot(dist, clim2_swath.mean(axis=1),
+                c='tab:green', label='Vapor pressure')  # np.array(orig_dem.dat)[:,i]
+    axb.fill_between(dist, clim2_swath.mean(axis=1) - clim2_swath.std(axis=1),
+                        clim2_swath.mean(axis=1) + clim2_swath.std(axis=1),
+                        facecolor='tab:green', alpha=0.25)
+
+
+    lines, labels = ax.get_legend_handles_labels()
+    lines2, labels2 = axes1b.get_legend_handles_labels()
+    axb.legend(lines + lines2, labels + labels2)
+    #axes1.legend().set_visible(False)
+    #axes1.legend(loc='upper left')
+    ax.set_xlabel('Distance [deg]')
+    ax.set_ylabel('Elevation [m]')
+    axb.set_ylabel('Precipitation [mm/y] / Vapor pressure [Pa]')
+    #ax.set_ylim(0,5000)
+    #axb.set_ylim(0,5000)
+
+    #plt.show()
+    plt.savefig(results_path + "profile_" + name + ".png", dpi=600, bbox_inches='tight')
