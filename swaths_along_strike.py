@@ -29,9 +29,9 @@ dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 clim_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 clim2_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 
-line_path = "lines/Ecuador_Andes.shp"#r"C:/Users/gnann/Documents/PYTHON/Transects/Himalaya_Line/Himalaya_Arc.shp" #r"C:/Users/Sebastian/Documents/Python/Topography/Transects/Himalaya_Line/Himalaya_Arc.shp"
+line_path = "lines/European_Alps.shp"#r"C:/Users/gnann/Documents/PYTHON/Transects/Himalaya_Line/Himalaya_Arc.shp" #r"C:/Users/Sebastian/Documents/Python/Topography/Transects/Himalaya_Line/Himalaya_Arc.shp"
 
-name_list = ["Ecuador_Andes"]#["Sierra Nevada", "Alps", "Ecuador Andes", "France", "Himalaya", "NorthernAlps", "Kilimanjaro", "Cascades"]
+name_list = ["European_Alps"]#["Sierra Nevada", "Alps", "Ecuador Andes", "France", "Himalaya", "NorthernAlps", "Kilimanjaro", "Cascades"]
 
 
 
@@ -144,8 +144,8 @@ for name in name_list:
     #axes.set_ylim([20, 40])
     axes.set_xlim([5, 20])
     axes.set_ylim([40, 50])
-    axes.set_xlim([-85, -70])
-    axes.set_ylim([-10, 10])
+    #axes.set_xlim([-85, -70])
+    #axes.set_ylim([-10, 10])
     axes.set_xlabel('Lon [deg]')
     axes.set_ylabel('Lat [deg]')
     sp0.colorbar.set_label('DEM [m]')
