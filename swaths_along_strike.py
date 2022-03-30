@@ -29,6 +29,7 @@ dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 clim_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 clim2_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 
+# create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
 line_path = "lines/Himalaya_Arc.shp"#r"C:/Users/gnann/Documents/PYTHON/Transects/Himalaya_Line/Himalaya_Arc.shp" #r"C:/Users/Sebastian/Documents/Python/Topography/Transects/Himalaya_Line/Himalaya_Arc.shp"
 
 name_list = ["Himalaya"]#["Sierra Nevada", "Alps", "Ecuador Andes", "France", "Himalaya", "NorthernAlps", "Kilimanjaro", "Cascades"]
