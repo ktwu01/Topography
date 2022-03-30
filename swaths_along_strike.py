@@ -1,24 +1,17 @@
 import os
 import matplotlib.pyplot as plt
-import seaborn as sns
 import numpy as np
 from shapely.geometry import mapping
 import rioxarray as rxr
 import xarray as xr
 import geopandas as gpd
-import earthpy as et
-import earthpy.spatial as es
-import earthpy.plot as ep
 from scipy import stats
 import pandas as pd
 from shapely import geometry
 import shapely
 import pyosp
 import fiona
-import numpy.ma as ma
-import sys
-#sys.path.append( '/alpha/beta' )
-#import Transects
+from matplotlib.pyplot import cm
 
 # specify paths
 data_path = r"D:/Data/" #r"C:/Users/Sebastian/Documents/Data/" #r"C:/Users/gnann/Documents/Data/"#
@@ -30,13 +23,12 @@ clim_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 clim2_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
-line_path = "lines/Himalaya_Arc.shp"#r"C:/Users/gnann/Documents/PYTHON/Transects/Himalaya_Line/Himalaya_Arc.shp" #r"C:/Users/Sebastian/Documents/Python/Topography/Transects/Himalaya_Line/Himalaya_Arc.shp"
-
-name_list = ["Himalaya"]#["Sierra Nevada", "Alps", "Ecuador Andes", "France", "Himalaya", "NorthernAlps", "Kilimanjaro", "Cascades"]
-
-# todo: add function that loads region
+name_list = ["European_Alps", "Ecuadorian_Andes", "Himalaya", "Cascades"]
 
 for name in name_list:
+
+    from get_region_data import get_region
+    line_path, xlim, ylim = get_region(name)
 
     # check if folder exists
     if not os.path.isdir(results_path + name + "/"):
@@ -47,29 +39,6 @@ for name in name_list:
         os.remove(os.path.join(results_path + name + "/", f))
 
     # create geometries
-    """
-    import get_region
-    xy_line, xy_box = get_region.get_region(name)
-
-    line = geometry.LineString([geometry.Point(xy_line[0], xy_line[2]),
-                                geometry.Point(xy_line[1], xy_line[3])])
-
-    schema = {'geometry': 'LineString', 'properties': {'id': 'int'}}
-    # write a new shapefile
-    with fiona.open(results_path + 'tmp/tmp_' + name + '_line.shp', 'w', 'ESRI Shapefile', schema) as c:
-        c.write({'geometry': mapping(line), 'properties': {'id': 123}})
-
-    baseline = results_path + 'tmp/tmp_' + name + '_line.shp'
-    line_shape = pyosp.read_shape(baseline)
-    lx, ly = line_shape.xy
-
-    polygon = [{'type': 'Polygon',
-                'coordinates': [[[xy_box[0], xy_box[2]],
-                                 [xy_box[0], xy_box[3]],
-                                 [xy_box[1], xy_box[3]],
-                                 [xy_box[1], xy_box[2]],
-                                 [xy_box[0], xy_box[2]]]]}]
-    """
 
     line = pyosp.read_shape(line_path)
     #mountain_shp = gpd.read_file(shp_path)
@@ -77,41 +46,12 @@ for name in name_list:
 
     # preprocess shapefiles
     dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
-    #dem_clipped = dem.rio.clip(mountain_range.geometry.apply(mapping), dem.rio.crs)
-    #dem_clipped.__array__()[np.isnan(dem_clipped.__array__())] = -999
-    #dem_clipped.rio.to_raster(results_path + 'tmp/tmp_' + name + '_dem.tif')
-    #raster_dem = results_path + 'tmp/tmp_' + name + '_dem.tif'
-    #dem_clipped = rxr.open_rasterio(raster_dem).squeeze()
-
     clim = rxr.open_rasterio(clim_path, masked=True).squeeze()
-    #clim_clipped = clim.rio.clip(mountain_range.geometry.apply(mapping), clim.rio.crs)
-    #clim_clipped.__array__()[np.isnan(clim_clipped.__array__())] = -999
-    #clim_clipped.rio.to_raster(results_path + 'tmp/tmp_' + name + '_clim.tif')
-    #raster_clim = results_path + 'tmp/tmp_' + name + '_clim.tif'
-    #clim_clipped = rxr.open_rasterio(raster_clim).squeeze()
-
     clim2 = rxr.open_rasterio(clim2_path, masked=True).squeeze()
-    #clim2_clipped = clim2.rio.clip(mountain_range.geometry.apply(mapping), clim2.rio.crs)
-    #clim2_clipped.__array__()[np.isnan(clim2_clipped.__array__())] = -999
-    #clim2_clipped.rio.to_raster(results_path + 'tmp/tmp_' + name + '_clim2.tif')
-    #raster_clim2 = results_path + 'tmp/tmp_' + name + '_clim2.tif'
-    #clim2_clipped = rxr.open_rasterio(raster_clim2).squeeze()
-
-
-    """
-    mp = shapely.geometry.MultiPoint()
-    len = line.length
-    for i in np.arange(0, len, len/9):
-        s = shapely.ops.substring(line, i, i + len/9)
-        s = shapely.wkt.loads(shapely.wkt.dumps(s, rounding_precision=3))
-        mp = mp.union(s.boundary)
-    #mp = shapely.wkt.loads(shapely.wkt.dumps(mp, rounding_precision=3))
-    #mp = shapely.wkt.loads(mp).simplify(0)
-    """
 
     # swath dimensions
-    d = 0.75 # length of swath
-    w = 0.5 # width
+    d = 1.0 # length of swath
+    w = 1.0 # width
     distances = np.arange(0, line.length, w)[:-1]
     # or alternatively without NumPy:
     # points_count = int(line.length // d) + 1
@@ -121,44 +61,21 @@ for name in name_list:
     from shapely.geometry import Point, MultiPoint
     mp = MultiPoint(list(points))
 
-    """
-    n = 10
-    # or to get the distances closest to the desired one:
-    # n = round(line.length / desired_distance_delta)
-    distances = np.linspace(0, line.length, n)
-    # or alternatively without NumPy:
-    # distances = (line.length * i / (n - 1) for i in range(n))
-    points = [line.interpolate(distance) for distance in distances]
-    mp = shapely.ops.unary_union(points)  # or new_line = LineString(points)
-    """
-
     # plot the swath profile lines
     fig = plt.figure(figsize=(6, 3), constrained_layout=True)
     axes = plt.axes()
-    # gs = plt.GridSpec(1, 3, figure=fig)
-    # axes0 = fig.add_subplot(gs[0, 0])
-    # axes1 = fig.add_subplot(gs[0, 1])
-    # axes2 = fig.add_subplot(gs[0, 2])
 
     sp0 = dem.plot.imshow(ax=axes, cmap='terrain')
     axes.set(title=None)  # "DEM [m]"
     # axes.set_axis_off()
     # axes.axis('equal')
-    # axes.set_xlim([xy_box[0], xy_box[1]])
-    # axes.set_ylim([xy_box[2], xy_box[3]])
-    axes.set_xlim([60, 110]) # Himalaya
-    axes.set_ylim([20, 40])
-    #axes.set_xlim([5, 20]) # Alps
-    #axes.set_ylim([40, 50])
-    #axes.set_xlim([-85, -70]) # Ecuador Andes
-    #axes.set_ylim([-10, 10])
-    #axes.set_xlim([-125, -115]) # Cascades
-    #axes.set_ylim([40, 50])
+    axes.set_xlim(xlim)
+    axes.set_ylim(ylim)
     axes.set_xlabel('Lon [deg]')
     axes.set_ylabel('Lat [deg]')
     sp0.colorbar.set_label('DEM [m]')
     # sp0.set_clim([0, np.round(np.array(orig_dem.dat).max(), 100)])
-    sp0.set_clim([0, 8000])  # 100*round(np.max(dem.values/100))
+    sp0.set_clim([0, 5000])  # 100*round(np.max(dem.values/100))
 
     x, y = line.xy
     axes.plot(x, y, color='tab:red')
@@ -167,10 +84,15 @@ for name in name_list:
     fig2 = plt.figure(figsize=(4, 4), constrained_layout=True)
     axes2 = plt.axes()
 
+    color = iter(cm.plasma(np.linspace(0, 1, len(mp))))
+
     # loop over swaths
     for p in range(0, len(mp)-1):
+        nextcolor = next(color)
+
         print('')
         print(p)
+
         xs = [point.x for point in mp]
         ys = [point.y for point in mp]
         xx = (np.array(xs[1:])+np.array(xs[0:-1]))/2
@@ -189,6 +111,7 @@ for name in name_list:
         plt.show()
         plt.axis('equal')
         """
+
         # write line (typically goes from north to south - curved lines can make this a bit tricky...)
         line = geometry.LineString([geometry.Point(x2, y2),
                                     geometry.Point(x1, y1)]) #xx[p], yy[p]
@@ -216,11 +139,13 @@ for name in name_list:
 
         swath_polygon = orig_dem.out_polygon()
         px, py = swath_polygon.exterior.xy
+        axes.plot(px, py, c=nextcolor)
+        """
         if p % 10 == 0:
             axes.plot(px, py, c='tab:purple')
         else:
             axes.plot(px, py, c='tab:orange')
-
+        """
         #axes.plot(lx, ly, color='C3', label="Baseline")
         axes.set_aspect('equal', adjustable='box')
         #axes.set_title("Swath profile lines")
@@ -298,7 +223,7 @@ for name in name_list:
             print(p)
 
         # plot elevation profile
-        axes2.plot(clim_swath.mean(axis=1), dem_swath.mean(axis=1), alpha=0.5)
+        axes2.plot(clim_swath.mean(axis=1), dem_swath.mean(axis=1), color=nextcolor, alpha=0.75)
         """
         if p % 10 == 0:
             axes2.plot(clim_swath.mean(axis=1), dem_swath.mean(axis=1),
