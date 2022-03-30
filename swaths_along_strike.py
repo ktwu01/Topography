@@ -29,18 +29,21 @@ dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 clim_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 clim2_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 
-line_path = "lines/European_Alps.shp"#r"C:/Users/gnann/Documents/PYTHON/Transects/Himalaya_Line/Himalaya_Arc.shp" #r"C:/Users/Sebastian/Documents/Python/Topography/Transects/Himalaya_Line/Himalaya_Arc.shp"
+line_path = "lines/Himalaya_Arc.shp"#r"C:/Users/gnann/Documents/PYTHON/Transects/Himalaya_Line/Himalaya_Arc.shp" #r"C:/Users/Sebastian/Documents/Python/Topography/Transects/Himalaya_Line/Himalaya_Arc.shp"
 
-name_list = ["European_Alps"]#["Sierra Nevada", "Alps", "Ecuador Andes", "France", "Himalaya", "NorthernAlps", "Kilimanjaro", "Cascades"]
+name_list = ["Himalaya"]#["Sierra Nevada", "Alps", "Ecuador Andes", "France", "Himalaya", "NorthernAlps", "Kilimanjaro", "Cascades"]
 
-
+# todo: add function that loads region
 
 for name in name_list:
 
     # check if folder exists
     if not os.path.isdir(results_path + name + "/"):
         os.makedirs(results_path + name + "/")
-    # todo: empty folder
+
+    # remove all files in folder
+    for f in os.listdir(results_path + name + "/"):
+        os.remove(os.path.join(results_path + name + "/", f))
 
     # create geometries
     """
@@ -106,14 +109,16 @@ for name in name_list:
     """
 
     # swath dimensions
-    d = 0.5
-    w = 0.5
+    d = 0.75 # length of swath
+    w = 0.5 # width
     distances = np.arange(0, line.length, w)[:-1]
     # or alternatively without NumPy:
-    # points_count = int(line.length // distance_delta) + 1
+    # points_count = int(line.length // d) + 1
     # distances = (distance_delta * i for i in range(points_count))
     points = [line.interpolate(distance) for distance in distances] + [line.boundary[1]]
-    mp = shapely.ops.unary_union(points)  # or new_line = LineString(points)
+    #mp = shapely.ops.unary_union(points)  # or new_line = LineString(points)
+    from shapely.geometry import Point, MultiPoint
+    mp = MultiPoint(list(points))
 
     """
     n = 10
@@ -140,12 +145,14 @@ for name in name_list:
     # axes.axis('equal')
     # axes.set_xlim([xy_box[0], xy_box[1]])
     # axes.set_ylim([xy_box[2], xy_box[3]])
-    #axes.set_xlim([60, 110]) # Himalaya
-    #axes.set_ylim([20, 40])
-    axes.set_xlim([5, 20])
-    axes.set_ylim([40, 50])
-    #axes.set_xlim([-85, -70])
+    axes.set_xlim([60, 110]) # Himalaya
+    axes.set_ylim([20, 40])
+    #axes.set_xlim([5, 20]) # Alps
+    #axes.set_ylim([40, 50])
+    #axes.set_xlim([-85, -70]) # Ecuador Andes
     #axes.set_ylim([-10, 10])
+    #axes.set_xlim([-125, -115]) # Cascades
+    #axes.set_ylim([40, 50])
     axes.set_xlabel('Lon [deg]')
     axes.set_ylabel('Lat [deg]')
     sp0.colorbar.set_label('DEM [m]')
@@ -155,8 +162,14 @@ for name in name_list:
     x, y = line.xy
     axes.plot(x, y, color='tab:red')
 
+    # create plot for elevation profiles
+    fig2 = plt.figure(figsize=(4, 4), constrained_layout=True)
+    axes2 = plt.axes()
+
     # loop over swaths
     for p in range(0, len(mp)-1):
+        print('')
+        print(p)
         xs = [point.x for point in mp]
         ys = [point.y for point in mp]
         xx = (np.array(xs[1:])+np.array(xs[0:-1]))/2
@@ -164,19 +177,20 @@ for name in name_list:
 
         import perp_pts
         m = (ys[p+1] - ys[p]) / (xs[p+1] - xs[p])
-        x1, y1, x2, y2 = perp_pts.perp_pts(xx[p], yy[p], m, d*2, [xs[p], ys[p], xs[p+1], ys[p+1]])
+        x1, y1, x2, y2 = perp_pts.perp_pts(xx[p], yy[p], m, d, [xs[p], ys[p], xs[p+1], ys[p+1]])
 
-        #plt.scatter(xs, ys)
-        #plt.plot(x, y)
-        #plt.scatter(xx, yy)
-        #plt.scatter(x1,y1)
-        #plt.scatter(x2,y2)
-        #plt.show()
-        #plt.axis('equal')
-
-        # write line
-        line = geometry.LineString([geometry.Point(x1, y1),
-                                    geometry.Point(x2, y2)]) #xx[p], yy[p]
+        """
+        plt.scatter(xs, ys)
+        plt.plot(x, y)
+        plt.scatter(xx, yy)
+        plt.scatter(x1,y1)
+        plt.scatter(x2,y2)
+        plt.show()
+        plt.axis('equal')
+        """
+        # write line (typically goes from north to south - curved lines can make this a bit tricky...)
+        line = geometry.LineString([geometry.Point(x2, y2),
+                                    geometry.Point(x1, y1)]) #xx[p], yy[p]
 
         schema = {'geometry': 'LineString', 'properties': {'id': 'int'}}
         # write a new shapefile
@@ -219,17 +233,24 @@ for name in name_list:
             #for i in range(len(orig_dem.dat[0])):
             dist = orig_dem.distance
             dem_swath = np.array(orig_dem.dat)
-            dem_swath[dem_swath==-999] = np.nan
-            if len(dist) > len(dem_swath):
+            if (len(dist) == len(dem_swath) + 1): # sometimes dist is longer than swath
                 dist = orig_dem.distance[0:-1]
+            dem_swath[dem_swath==-32768.] = np.nan # Note: works only because this is returned as nodata value
+            isnan = np.isnan(dem_swath).any(axis=1)
+            dem_swath = dem_swath[~isnan]
             #ma.masked_invalid(dem_swath)
-            clim_swath = np.array(orig_clim.dat)
-            clim_swath[clim_swath==-999] = np.nan
+            clim_swath = orig_clim.dat
+            clim_swath = [d for (d, remove) in zip(clim_swath, isnan) if not remove]
+            clim_swath = np.array(clim_swath)
+            #clim_swath[clim_swath==-999] = np.nan
             #ma.masked_invalid(clim_swath)
-            clim2_swath = np.array(orig_clim2.dat)
-            clim2_swath[clim2_swath==-999] = np.nan
+            clim2_swath = orig_clim2.dat
+            clim2_swath = [d for (d, remove) in zip(clim2_swath, isnan) if not remove]
+            clim2_swath = np.array(clim2_swath)
+            #clim2_swath[clim2_swath==-999] = np.nan
             clim2_swath = clim2_swath*1000 # transform to Pa
             #ma.masked_invalid(clim_swath)
+            dist = dist[~isnan]
 
             # plot the swath profile lines
             fig1 = plt.figure(figsize=(8, 3), constrained_layout=True)
@@ -268,12 +289,30 @@ for name in name_list:
             #axes1b.set_ylim(0,5000)
 
             #plt.show()
-            fig1.savefig(results_path + name + "/" + "swath_along_strike_profiles_" + str(p) + "_" + name + ".png", dpi=600, bbox_inches='tight')
+            fig1.savefig(results_path + name + "/" + "swath_along_strike_profiles_" + str(p+1) + "_" + name + ".png", dpi=600, bbox_inches='tight')
             plt.close(fig1)
+
         except:
+            print('')
             print(p)
-        # to do: plot elevation profile
+
+        # plot elevation profile
+        axes2.plot(clim_swath.mean(axis=1), dem_swath.mean(axis=1), alpha=0.5)
+        """
+        if p % 10 == 0:
+            axes2.plot(clim_swath.mean(axis=1), dem_swath.mean(axis=1),
+                       color='tab:purple', alpha=0.5)
+        else:
+            axes2.plot(clim_swath.mean(axis=1), dem_swath.mean(axis=1),
+                       color='tab:orange', alpha=0.5)
+        """
 
     # plt.show()
     fig.savefig(results_path + name + "/" + "swaths_along_strike_" + name + ".png", dpi=600, bbox_inches='tight')
-    # plt.close(fig)
+    plt.close(fig)
+
+    # plt.show()
+    axes2.set_xlabel('Precipitation [mm/y]')
+    axes2.set_ylabel('Elevation [km]')
+    fig2.savefig(results_path + name + "/" + "swaths_elevation_profiles_" + name + ".png", dpi=600, bbox_inches='tight')
+    plt.close(fig2)
