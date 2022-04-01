@@ -1,20 +1,4 @@
-import os
-import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
-from shapely.geometry import mapping
 import rioxarray as rxr
-import xarray as xr
-import geopandas as gpd
-import earthpy as et
-import earthpy.spatial as es
-import earthpy.plot as ep
-from scipy import stats
-import pandas as pd
-from shapely import geometry
-import pyosp
-import fiona
-import numpy.ma as ma
 
 # specify paths
 data_path = r"C:/Users/Sebastian/Documents/Data/" #r"C:/Users/gnann/Documents/Data/"#r"C:/Users/Sebastian/Documents/Data/" #
