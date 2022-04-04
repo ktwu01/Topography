@@ -1,3 +1,5 @@
+# Taken from https://github.com/tasmi/Transects (GNU General Public License v3.0; see https://www.gnu.org/licenses/gpl-3.0.html)
+
 import math
 
 def perp_pts(x, y, m, edge_length, edges):
