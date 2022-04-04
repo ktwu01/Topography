@@ -20,8 +20,9 @@ shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 clim_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 clim2_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
+clim3_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
-name_list = ["Cascades"]
+name_list = ["Himalaya"]
 #["Sierra_Nevada", "European_Alps", "Ecuadorian_Andes", "France", "Himalaya", "Northern_Alps", "Kilimanjaro", "Cascades"]
 
 for name in name_list:
@@ -84,10 +85,19 @@ for name in name_list:
     #raster_clim2 = results_path + 'tmp/tmp_' + name + '_clim2.tif'
     #clim2_clipped = rxr.open_rasterio(raster_clim2).squeeze()
 
+    clim3 = rxr.open_rasterio(clim3_path, masked=True).squeeze()
+    #clim3_clipped = clim2.rio.clip(polygon, clim3.rio.crs)
+    #clim3_clipped.__array__()[np.isnan(clim3_clipped.__array__())] = -999
+    #clim3_clipped.rio.to_raster(results_path + 'tmp/tmp_' + name + '_clim3.tif')
+    #raster_clim3 = results_path + 'tmp/tmp_' + name + '_clim3.tif'
+    #clim3_clipped = rxr.open_rasterio(raster_clim3).squeeze()
+
     # generate swath objects
-    orig_dem = pyosp.Orig_curv(baseline, dem_path, width=2.0, line_stepsize=.01, cross_stepsize=0.1)
-    orig_clim = pyosp.Orig_curv(baseline, clim_path, width=2.0, line_stepsize=.01, cross_stepsize=0.1)
-    orig_clim2 = pyosp.Orig_curv(baseline, clim2_path, width=2.0, line_stepsize=.01, cross_stepsize=0.1)
+    w = 0.5
+    orig_dem = pyosp.Orig_curv(baseline, dem_path, width=w, line_stepsize=.01, cross_stepsize=0.1)
+    orig_clim = pyosp.Orig_curv(baseline, clim_path, width=w, line_stepsize=.01, cross_stepsize=0.1)
+    orig_clim2 = pyosp.Orig_curv(baseline, clim2_path, width=w, line_stepsize=.01, cross_stepsize=0.1)
+    orig_clim3 = pyosp.Orig_curv(baseline, clim3_path, width=w, line_stepsize=.01, cross_stepsize=0.01)
 
     # plot the swath profile lines
     fig = plt.figure(figsize=(12, 3), constrained_layout=True)
@@ -149,7 +159,12 @@ for name in name_list:
     clim2_swath = np.array(clim2_swath)
     # clim2_swath[clim2_swath==-999] = np.nan
     clim2_swath = clim2_swath * 1000  # transform to Pa
-    # ma.masked_invalid(clim_swath)
+    # ma.masked_invalid(clim2_swath)
+    clim3_swath = orig_clim3.dat
+    clim3_swath = [d for (d, remove) in zip(clim3_swath, isnan) if not remove]
+    clim3_swath = np.array(clim3_swath)
+    # clim3_swath[clim3_swath==-999] = np.nan
+    # ma.masked_invalid(clim3_swath)
     dist = dist[~isnan] + line_shape.xy[0][0] # works only if line goes from east to west
 
     axes1.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1),
@@ -256,3 +271,28 @@ for name in name_list:
 
     #plt.show()
     plt.savefig(results_path + "profile_" + name + ".png", dpi=600, bbox_inches='tight')
+
+    # plot T profile
+    fig3 = plt.figure(figsize=(2, 4), constrained_layout=True)
+    axes3 = plt.axes()
+    axes3.plot(clim3_swath.mean(axis=1), dem_swath.mean(axis=1), color="tab:purple", alpha=0.75)
+    axes3.fill_betweenx(dem_swath.mean(axis=1), clim3_swath.mean(axis=1) - clim3_swath.std(axis=1),
+                     clim3_swath.mean(axis=1) + clim3_swath.std(axis=1),
+                     facecolor='tab:purple', alpha=0.25)
+    axes3.set_ylabel('Elevation [m]')
+    axes3.set_xlabel('T [°C]')
+    axes3.set_xlim(-20,20)
+    axes3.set_ylim(1000,7000)
+
+    # Move left and bottom spines outward by 10 points
+    axes3.spines.left.set_position(('outward', 10))
+    axes3.spines.bottom.set_position(('outward', 10))
+    # Hide the right and top spines
+    axes3.spines.right.set_visible(False)
+    axes3.spines.top.set_visible(False)
+    #axes3.set_xticklabels([])
+    #axes3.set_xticks([])
+    #axes3.grid()
+
+    #plt.show()
+    plt.savefig(results_path + "T_profile_" + name + ".png", dpi=600, bbox_inches='tight')

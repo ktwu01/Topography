@@ -30,9 +30,9 @@ landform_table = pd.read_csv(landform_table_path, sep=';')
 
 # reclassify
 # create key
-for i in range(0,431):
-    landform_class = landform_table._values[i,3]
-    landforms.data[landforms.data==i+1] = landform_class
+#for i in range(0,431):
+#    landform_class = landform_table._values[i,3]
+#    landforms.data[landforms.data==i+1] = landform_class
 
 f, ax = plt.subplots(figsize=(10, 5))
 sp = landforms.plot.imshow()
@@ -44,3 +44,14 @@ sp.set_clim([0, 431])
 plt.savefig(results_path + "landforms" ".png", dpi=600, bbox_inches='tight')
 
 #print(landforms)
+
+import json
+import subprocess
+
+dataset_uri = data_path + r"Landforms/USGSEsriTNCWorldTerrestrialEcosystems2020/commondata/raster_data/WorldEcosystem.tif"
+_rat = subprocess.check_output('gdalinfo -json ' + dataset_uri, shell=True)
+data = json.loads(_rat) # load json string into dictionary
+print(data)
+
+# to get band-level data
+bands = data['bands']

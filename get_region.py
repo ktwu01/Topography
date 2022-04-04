@@ -25,7 +25,8 @@ def get_region(region_name):
         xy_line = [-80.5, -76.5, -1.0, -1.0001] # Ecuador Andes
         xy_box = [-82.0, -76.0, -4.0, 1.0]
     elif region_name == 'Himalaya':
-        xy_line = [85.0, 87.0, 26.0, 29.0] # Himalaya
+        #xy_line = [85.0, 87.0, 26.0, 29.0] # Himalaya
+        xy_line = [86.6, 86.8, 27.3, 28.1]
         xy_box = [84.0, 88.0, 25.0, 30.0]
     elif region_name == 'France':
         xy_line = [-1.0, 2.0, 45.0, 45.001] # France

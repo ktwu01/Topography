@@ -223,6 +223,7 @@ for name in name_list:
             print(p)
 
         # plot elevation profile
+        # todo: use binning
         axes2.plot(clim_swath.mean(axis=1), dem_swath.mean(axis=1), color=nextcolor, alpha=0.75)
         """
         if p % 10 == 0:
