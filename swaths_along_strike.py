@@ -14,7 +14,7 @@ import fiona
 from matplotlib.pyplot import cm
 
 # specify paths
-data_path = r"D:/Data/" #r"C:/Users/Sebastian/Documents/Data/" #r"C:/Users/gnann/Documents/Data/"#
+data_path = r"C:/Users/Sebastian/Documents/Data/" #r"C:/Users/gnann/Documents/Data/"#r"D:/Data/" #
 results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
@@ -23,11 +23,11 @@ clim_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 clim2_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
-name_list = ["European_Alps", "Ecuadorian_Andes", "Himalaya", "Cascades"]
+name_list = ["Himalaya"]#["European_Alps", "Ecuadorian_Andes", "Himalaya", "Cascades"]
 
 for name in name_list:
 
-    from get_region_data import get_region
+    from functions.get_region_data import get_region
     line_path, xlim, ylim = get_region(name)
 
     # check if folder exists

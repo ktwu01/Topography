@@ -13,7 +13,7 @@ import fiona
 import numpy.ma as ma
 
 # specify paths
-data_path = r"D:/Data/" #r"C:/Users/Sebastian/Documents/Data/" #
+data_path = r"C:/Users/Sebastian/Documents/Data/" #r"D:/Data/"
 results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
@@ -28,8 +28,8 @@ name_list = ["Himalaya"]
 for name in name_list:
 
     # create geometries
-    import get_region
-    xy_line, xy_box = get_region.get_region(name)
+    from functions.get_region import get_region
+    xy_line, xy_box = get_region(name)
 
     line = geometry.LineString([geometry.Point(xy_line[0], xy_line[2]),
                                 geometry.Point(xy_line[1], xy_line[3])])

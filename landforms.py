@@ -17,34 +17,26 @@ data_path = r"D:/Data/" #r"C:/Users/Sebastian/Documents/Data/"
 results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/"
 
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
-landform_path = data_path + r"Landforms/USGSEsriTNCWorldTerrestrialEcosystems2020/commondata/raster_data/WorldEcosystem.tif"
-landform_table_path = data_path + r"Landforms/Landform_table.csv"
+landform_path = data_path + "" #todo: add reclassified landforms
 
 # open raster and plot
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
 landforms = rxr.open_rasterio(landform_path, masked=True).squeeze()
-landform_table = pd.read_csv(landform_table_path, sep=';')
 
-#!!! DOES NOT WORK - RAM error !!!
-# Reclassification can be done using r.reclass in QGIS - need to figure out how to do it in Python
+#todo: add histogram
 
-# reclassify
-# create key
-#for i in range(0,431):
-#    landform_class = landform_table._values[i,3]
-#    landforms.data[landforms.data==i+1] = landform_class
-
+# plot
 f, ax = plt.subplots(figsize=(10, 5))
 sp = landforms.plot.imshow()
 ax.set(title="Landforms")
 ax.set_axis_off()
 #plt.show()
-sp.set_clim([0, 431])
-
-plt.savefig(results_path + "landforms" ".png", dpi=600, bbox_inches='tight')
+#sp.set_clim([0, 431])
+plt.savefig(results_path + "landforms.png", dpi=600, bbox_inches='tight')
 
 #print(landforms)
 
+"""
 import json
 import subprocess
 
@@ -55,3 +47,4 @@ print(data)
 
 # to get band-level data
 bands = data['bands']
+"""
