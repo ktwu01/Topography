@@ -49,7 +49,7 @@ plt.show()
 # loop over mountain ranges
 mountain_list = ["Cambrian Mountains", "European Alps", "Pyrenees", "Cordillera Patagonica Sur",
                  "Ethiopian Highlands", "Himalaya", "Cordillera Central Ecuador", "Sierra Nevada",
-                 "Pennines","Cascade Range", "Appalachian Mountains", "Cordillera Occidental Peru Bolivia Chile"]
+                 "Pennines", "Cascade Range", "Appalachian Mountains", "Cordillera Occidental Peru Bolivia Chile"]
 mountain_list = ["Cordillera Central Ecuador", "Tenerife", "Himalaya", "European Alps", "Scandinavian Mountains"]
 
 for mountain_name in mountain_list:

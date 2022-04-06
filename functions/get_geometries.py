@@ -48,17 +48,17 @@ def get_strike_geometries(region_name):
         xlim = [65, 105]
         ylim = [24, 40]
 
-    elif region_name == 'Cascades':
+    elif region_name == 'Cascade Range':
         line_path = "data/lines/Cascades.shp"
         xlim = [-125, -118]
         ylim = [40, 50]
 
-    elif region_name == 'European_Alps':
+    elif region_name == 'European Alps':
         line_path = "data/lines/European_Alps.shp"
         xlim = [4, 18]
         ylim = [42, 50]
 
-    elif region_name == 'Ecuadorian_Andes':
+    elif region_name == 'Cordillera Central Ecuador':
         line_path = "data/lines/Ecuadorian_Andes.shp"
         xlim = [-82, -76]
         ylim = [-8, 4]

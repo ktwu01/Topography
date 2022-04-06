@@ -24,14 +24,18 @@ pet_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
-name_list = ["European_Alps", "Ecuadorian_Andes", "Himalaya", "Cascades"]
+name_list = ["European Alps", "Cordillera Central Ecuador", "Himalaya", "Cascade Range"]
 
 # load dem shapefile
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
 
 for name in name_list:
 
-    # check if folder exists
+    # check if folders exist
+    path = results_path + name + "/shapefiles/"
+    if not os.path.isdir(path):
+        os.makedirs(path)
+
     path = results_path + name + "/swaths_along_strike/"
     if not os.path.isdir(path):
         os.makedirs(path)
@@ -111,7 +115,7 @@ for name in name_list:
         """
 
         # create line (typically goes from north to south - curved lines can make this a bit tricky...)
-        baseline = results_path + name + '/shapefiles/line.shp'
+        baseline = results_path + name + '/shapefiles/line_tmp.shp'
         create_line_shp([x2, x1, y2, y1], baseline)
         line_shape = pyosp.read_shape(baseline)
         lx, ly = line_shape.xy
