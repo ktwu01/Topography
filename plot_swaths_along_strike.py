@@ -24,7 +24,7 @@ pet_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
-name_list = ["Himalaya"]#["European_Alps", "Ecuadorian_Andes", "Himalaya", "Cascades"]
+name_list = ["European_Alps", "Ecuadorian_Andes", "Himalaya", "Cascades"]
 
 # load dem shapefile
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze()

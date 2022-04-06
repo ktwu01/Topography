@@ -50,10 +50,16 @@ plt.show()
 mountain_list = ["Cambrian Mountains", "European Alps", "Pyrenees", "Cordillera Patagonica Sur",
                  "Ethiopian Highlands", "Himalaya", "Cordillera Central Ecuador", "Sierra Nevada",
                  "Pennines","Cascade Range", "Appalachian Mountains", "Cordillera Occidental Peru Bolivia Chile"]
-mountain_list = ["Himalaya"]
+mountain_list = ["Cordillera Central Ecuador", "Tenerife", "Himalaya", "European Alps", "Scandinavian Mountains"]
 
 for mountain_name in mountain_list:
+
     mountain_range = mountain_shp.loc[mountain_shp.Name == mountain_name]
+
+    # check if folder exists
+    path = results_path + mountain_name + "/"
+    if not os.path.isdir(path):
+        os.makedirs(path)
 
     # plot raster and shapefile
     """
@@ -160,13 +166,13 @@ for mountain_name in mountain_list:
     ax.fill_betweenx(bin_medians, mean_stat2.statistic - std_stat2.statistic, mean_stat2.statistic + std_stat2.statistic,
                      facecolor='tab:orange', alpha=0.25)
 
-    ax.plot(mean_stat3.statistic, bin_medians, c='tab:purple', label='Temperature')
-    ax.fill_betweenx(bin_medians, mean_stat3.statistic - std_stat3.statistic,
-                     mean_stat3.statistic + std_stat3.statistic,
-                     facecolor='tab:purple', alpha=0.25)
+    #ax.plot(mean_stat3.statistic, bin_medians, c='tab:purple', label='Temperature')
+    #ax.fill_betweenx(bin_medians, mean_stat3.statistic - std_stat3.statistic,
+    #                 mean_stat3.statistic + std_stat3.statistic,
+    #                 facecolor='tab:purple', alpha=0.25)
 
     ax.set_ylabel('Elevation [m]')
-    ax.set_xlabel('P or PET [mm/year] or T [100*°C]')
+    ax.set_xlabel('P or PET [mm/year]') # or T [100*°C]
     #ax.set_xlim([0, 5000])
     #ax.set_ylim([0, 6000])
     #plt.colorbar(sc)
