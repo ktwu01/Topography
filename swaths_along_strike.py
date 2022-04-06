@@ -3,51 +3,49 @@ import matplotlib.pyplot as plt
 import numpy as np
 from shapely.geometry import mapping
 import rioxarray as rxr
-import xarray as xr
-import geopandas as gpd
-from scipy import stats
-import pandas as pd
-from shapely import geometry
-import shapely
 import pyosp
 import fiona
 from matplotlib.pyplot import cm
+from functions.get_geometries import get_strike_geometries
+from functions.perp_pts import perp_pts
+from functions.create_shapefiles import create_line_shp
+from functions.create_shapefiles import create_polygon_shp
+from functions.get_swath_data import get_swath_data
 
 # specify paths
-data_path = r"C:/Users/Sebastian/Documents/Data/" #r"C:/Users/gnann/Documents/Data/"#r"D:/Data/" #
-results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/"
+data_path = r"C:/Users/Sebastian/Documents/Data/"
+#data_path = r"D:/Data/"
+results_path = "results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
-clim_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
-clim2_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
+pr_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
+pet_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
+t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
 name_list = ["Himalaya"]#["European_Alps", "Ecuadorian_Andes", "Himalaya", "Cascades"]
 
+# load dem shapefile
+dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
+
 for name in name_list:
 
-    from functions.get_region_data import get_region
-    line_path, xlim, ylim = get_region(name)
-
     # check if folder exists
-    if not os.path.isdir(results_path + name + "/"):
-        os.makedirs(results_path + name + "/")
+    path = results_path + name + "/swaths_along_strike/"
+    if not os.path.isdir(path):
+        os.makedirs(path)
 
     # remove all files in folder
-    for f in os.listdir(results_path + name + "/"):
-        os.remove(os.path.join(results_path + name + "/", f))
+    for f in os.listdir(path):
+        os.remove(os.path.join(path, f))
 
-    # create geometries
+    line_path, xlim, ylim = get_strike_geometries(name)
 
+    # create line
     line = pyosp.read_shape(line_path)
     #mountain_shp = gpd.read_file(shp_path)
     #mountain_range = mountain_shp.loc[mountain_shp.Name==name]
-
-    # preprocess shapefiles
-    dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
-    clim = rxr.open_rasterio(clim_path, masked=True).squeeze()
-    clim2 = rxr.open_rasterio(clim2_path, masked=True).squeeze()
 
     # swath dimensions
     d = 1.0 # length of swath
@@ -58,9 +56,10 @@ for name in name_list:
     # distances = (distance_delta * i for i in range(points_count))
     points = [line.interpolate(distance) for distance in distances] + [line.boundary[1]]
     #mp = shapely.ops.unary_union(points)  # or new_line = LineString(points)
-    from shapely.geometry import Point, MultiPoint
+    from shapely.geometry import MultiPoint
     mp = MultiPoint(list(points))
 
+    ### PLOT 1 ###
     # plot the swath profile lines
     fig = plt.figure(figsize=(6, 3), constrained_layout=True)
     axes = plt.axes()
@@ -88,8 +87,8 @@ for name in name_list:
 
     # loop over swaths
     for p in range(0, len(mp)-1):
-        nextcolor = next(color)
 
+        nextcolor = next(color)
         print('')
         print(p)
 
@@ -98,9 +97,8 @@ for name in name_list:
         xx = (np.array(xs[1:])+np.array(xs[0:-1]))/2
         yy = (np.array(ys[1:])+np.array(ys[0:-1]))/2
 
-        import perp_pts
         m = (ys[p+1] - ys[p]) / (xs[p+1] - xs[p])
-        x1, y1, x2, y2 = perp_pts.perp_pts(xx[p], yy[p], m, d, [xs[p], ys[p], xs[p+1], ys[p+1]])
+        x1, y1, x2, y2 = perp_pts(xx[p], yy[p], m, d, [xs[p], ys[p], xs[p+1], ys[p+1]])
 
         """
         plt.scatter(xs, ys)
@@ -112,16 +110,9 @@ for name in name_list:
         plt.axis('equal')
         """
 
-        # write line (typically goes from north to south - curved lines can make this a bit tricky...)
-        line = geometry.LineString([geometry.Point(x2, y2),
-                                    geometry.Point(x1, y1)]) #xx[p], yy[p]
-
-        schema = {'geometry': 'LineString', 'properties': {'id': 'int'}}
-        # write a new shapefile
-        with fiona.open(results_path + 'tmp/tmp_' + name + '_line.shp', 'w', 'ESRI Shapefile', schema) as c:
-            c.write({'geometry': mapping(line), 'properties': {'id': 123}})
-
-        baseline = results_path + 'tmp/tmp_' + name + '_line.shp'
+        # create line (typically goes from north to south - curved lines can make this a bit tricky...)
+        baseline = results_path + name + '/shapefiles/line.shp'
+        create_line_shp([x2, x1, y2, y1], baseline)
         line_shape = pyosp.read_shape(baseline)
         lx, ly = line_shape.xy
 
@@ -129,8 +120,9 @@ for name in name_list:
         line_stepsize = 0.05
         cross_stepsize = 0.05
         orig_dem = pyosp.Orig_curv(baseline, dem_path, width=w, line_stepsize=line_stepsize, cross_stepsize=cross_stepsize)
-        orig_clim = pyosp.Orig_curv(baseline, clim_path, width=w, line_stepsize=line_stepsize, cross_stepsize=cross_stepsize)
-        orig_clim2 = pyosp.Orig_curv(baseline, clim2_path, width=w, line_stepsize=line_stepsize, cross_stepsize=cross_stepsize)
+        orig_pr = pyosp.Orig_curv(baseline, pr_path, width=w, line_stepsize=line_stepsize, cross_stepsize=cross_stepsize)
+        orig_pet = pyosp.Orig_curv(baseline, pet_path, width=w, line_stepsize=line_stepsize, cross_stepsize=cross_stepsize)
+        orig_t = pyosp.Orig_curv(baseline, t_path, width=w, line_stepsize=line_stepsize, cross_stepsize=cross_stepsize)
 
         swath_polylines = orig_dem.out_polylines()
         #for line in swath_polylines:
@@ -151,32 +143,10 @@ for name in name_list:
         #axes.set_title("Swath profile lines")
         #axes.legend()
 
-        ###
+        ### PLOTS showing transects for individual swaths ###
         try:
-            # plot swath
-            #orig_dem.profile_plot(ax=axes1, color='grey', label='Elevation')
-            #orig_clim.profile_plot(ax=axes1, color='navy', label='Precipitation')
-            #for i in range(len(orig_dem.dat[0])):
-            dist = orig_dem.distance
-            dem_swath = np.array(orig_dem.dat)
-            if (len(dist) == len(dem_swath) + 1): # sometimes dist is longer than swath
-                dist = orig_dem.distance[0:-1]
-            dem_swath[dem_swath==-32768.] = np.nan # Note: works only because this is returned as nodata value
-            isnan = np.isnan(dem_swath).any(axis=1)
-            dem_swath = dem_swath[~isnan]
-            #ma.masked_invalid(dem_swath)
-            clim_swath = orig_clim.dat
-            clim_swath = [d for (d, remove) in zip(clim_swath, isnan) if not remove]
-            clim_swath = np.array(clim_swath)
-            #clim_swath[clim_swath==-999] = np.nan
-            #ma.masked_invalid(clim_swath)
-            clim2_swath = orig_clim2.dat
-            clim2_swath = [d for (d, remove) in zip(clim2_swath, isnan) if not remove]
-            clim2_swath = np.array(clim2_swath)
-            #clim2_swath[clim2_swath==-999] = np.nan
-            clim2_swath = clim2_swath*1000 # transform to Pa
-            #ma.masked_invalid(clim_swath)
-            dist = dist[~isnan]
+            dist, dem_swath, pr_swath, pet_swath, t_swath = \
+                get_swath_data(orig_dem, orig_pr, orig_pet, orig_t, line_shape)
 
             # plot the swath profile lines
             fig1 = plt.figure(figsize=(8, 3), constrained_layout=True)
@@ -191,15 +161,15 @@ for name in name_list:
             #axes1.plot(dist, dem_swath.mean(axis=1), c='tab:grey', label='Elevation') #np.array(orig_dem.dat)[:,i]
 
             axes1b = axes1.twinx()
-            axes1b.plot(dist, clim_swath.mean(axis=1),
+            axes1b.plot(dist, pr_swath.mean(axis=1),
                        c='tab:blue', label='Precipitation') #np.array(orig_dem.dat)[:,i]
-            axes1b.fill_between(dist, clim_swath.mean(axis=1)-clim_swath.std(axis=1), clim_swath.mean(axis=1)+clim_swath.std(axis=1),
+            axes1b.fill_between(dist, pr_swath.mean(axis=1)-pr_swath.std(axis=1), pr_swath.mean(axis=1)+pr_swath.std(axis=1),
                                 facecolor='tab:blue', alpha=0.25)
 
-            axes1b.plot(dist, clim2_swath.mean(axis=1),
+            axes1b.plot(dist, pet_swath.mean(axis=1),
                         c='tab:green', label='Vapor pressure')  # np.array(orig_dem.dat)[:,i]
-            axes1b.fill_between(dist, clim2_swath.mean(axis=1) - clim2_swath.std(axis=1),
-                                clim2_swath.mean(axis=1) + clim2_swath.std(axis=1),
+            axes1b.fill_between(dist, pet_swath.mean(axis=1) - pet_swath.std(axis=1),
+                                pet_swath.mean(axis=1) + pet_swath.std(axis=1),
                                 facecolor='tab:green', alpha=0.25)
 
 
@@ -211,35 +181,35 @@ for name in name_list:
             axes1.set_xlabel('Distance [deg]')
             axes1.set_ylabel('Elevation [m]')
             axes1b.set_ylabel('Precipitation [mm/y] / Vapor pressure [Pa]')
-            #axes1.set_ylim(0,5000)
+            #axes1.set_ylim(0,5000) # todo: adjust limits
             #axes1b.set_ylim(0,5000)
 
             #plt.show()
-            fig1.savefig(results_path + name + "/" + "swath_along_strike_profiles_" + str(p+1) + "_" + name + ".png", dpi=600, bbox_inches='tight')
+            fig1.savefig(results_path + name + "/swaths_along_strike/" + "swath_along_strike_profiles_" + str(p+1) + "_" + name + ".png", dpi=600, bbox_inches='tight')
             plt.close(fig1)
 
         except:
-            print('')
-            print(p)
+            print('error in swath ' + str(p))
 
         # plot elevation profile
         # todo: use binning
-        axes2.plot(clim_swath.mean(axis=1), dem_swath.mean(axis=1), color=nextcolor, alpha=0.75)
+        axes2.plot(pr_swath.mean(axis=1), dem_swath.mean(axis=1), color=nextcolor, alpha=0.75)
         """
         if p % 10 == 0:
-            axes2.plot(clim_swath.mean(axis=1), dem_swath.mean(axis=1),
+            axes2.plot(pr_swath.mean(axis=1), dem_swath.mean(axis=1),
                        color='tab:purple', alpha=0.5)
         else:
-            axes2.plot(clim_swath.mean(axis=1), dem_swath.mean(axis=1),
+            axes2.plot(pr_swath.mean(axis=1), dem_swath.mean(axis=1),
                        color='tab:orange', alpha=0.5)
         """
 
     # plt.show()
-    fig.savefig(results_path + name + "/" + "swaths_along_strike_" + name + ".png", dpi=600, bbox_inches='tight')
+    fig.savefig(results_path + name + "/swaths_along_strike/" + "swaths_along_strike_" + name + ".png", dpi=600, bbox_inches='tight')
     plt.close(fig)
 
-    # plt.show()
     axes2.set_xlabel('Precipitation [mm/y]')
     axes2.set_ylabel('Elevation [km]')
-    fig2.savefig(results_path + name + "/" + "swaths_elevation_profiles_" + name + ".png", dpi=600, bbox_inches='tight')
+
+    # plt.show()
+    fig2.savefig(results_path + name + "/swaths_along_strike/" + "swaths_elevation_profiles_" + name + ".png", dpi=600, bbox_inches='tight')
     plt.close(fig2)

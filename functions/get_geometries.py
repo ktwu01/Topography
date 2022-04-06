@@ -1,6 +1,6 @@
 # helper function to define geometries
 
-def get_region(region_name):
+def get_swath_geometries(region_name):
     # create geometries
     # line needs to be shorter than rectangle
     if region_name == 'Kilimanjaro':
@@ -38,3 +38,32 @@ def get_region(region_name):
         raise('Region not defined.')
 
     return xy_line, xy_box
+
+
+def get_strike_geometries(region_name):
+    # get data for different regions
+
+    if region_name == 'Himalaya':
+        line_path = "data/lines/Himalaya_Arc.shp"
+        xlim = [65, 105]
+        ylim = [24, 40]
+
+    elif region_name == 'Cascades':
+        line_path = "data/lines/Cascades.shp"
+        xlim = [-125, -118]
+        ylim = [40, 50]
+
+    elif region_name == 'European_Alps':
+        line_path = "data/lines/European_Alps.shp"
+        xlim = [4, 18]
+        ylim = [42, 50]
+
+    elif region_name == 'Ecuadorian_Andes':
+        line_path = "data/lines/Ecuadorian_Andes.shp"
+        xlim = [-82, -76]
+        ylim = [-8, 4]
+
+    else:
+        raise('Region not defined.')
+
+    return line_path, xlim, ylim
