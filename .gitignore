@@ -1,7 +1,4 @@
-outputs/*
-outputs2a/*
 __pycache__/*
-figures/_old/*
 old/*
 *.bak
 .idea/*

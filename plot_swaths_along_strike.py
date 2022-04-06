@@ -7,7 +7,7 @@ import pyosp
 import fiona
 from matplotlib.pyplot import cm
 from functions.get_geometries import get_strike_geometries
-from functions.perp_pts import perp_pts
+from functions.get_perp_pts import perp_pts
 from functions.create_shapefiles import create_line_shp
 from functions.create_shapefiles import create_polygon_shp
 from functions.get_swath_data import get_swath_data

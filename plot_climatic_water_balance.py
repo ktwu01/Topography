@@ -1,34 +1,32 @@
 import os
 import matplotlib.pyplot as plt
-import seaborn as sns
 import numpy as np
 from shapely.geometry import mapping
 import rioxarray as rxr
-import xarray as xr
 import geopandas as gpd
-import earthpy as et
-import earthpy.spatial as es
-import earthpy.plot as ep
 from scipy import stats
 
+#todo: clean up a bit...
+
 # specify paths
-data_path = r"C:/Users/Sebastian/Documents/Data/" #r"C:/Users/gnann/Documents/QGIS/Topography/"
-results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/"
+data_path = r"C:/Users/Sebastian/Documents/Data/"
+#data_path = r"D:/Data/"
+results_path = "results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
-P_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
-PET_path = data_path + "7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
-T_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
-P_name = "P" #"PET"
-PET_name = "PET" #"PET"
-PET_name = "T" #"PET"
+pr_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
+pet_path = data_path + "7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
+t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
+p_name = "P"
+pet_name = "PET"
+t_name = "T"
 
 # open raster and plot
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
-P = rxr.open_rasterio(P_path, masked=True).squeeze()
-PET = rxr.open_rasterio(PET_path, masked=True).squeeze()
-T = rxr.open_rasterio(T_path, masked=True).squeeze()
+pr = rxr.open_rasterio(pr_path, masked=True).squeeze()
+pet = rxr.open_rasterio(pet_path, masked=True).squeeze()
+t = rxr.open_rasterio(t_path, masked=True).squeeze()
 
 """
 f, ax = plt.subplots(figsize=(10, 5))
@@ -41,8 +39,6 @@ plt.show()
 # open shapefile and plot
 mountain_shp = gpd.read_file(shp_path)
 
-#print('SHP crs: ', mountain_shp.crs)
-#print('DEM crs: ', dem.rio.crs)
 """
 fig, ax = plt.subplots(figsize=(6, 6))
 mountain_shp.plot(ax=ax)
@@ -54,10 +50,10 @@ plt.show()
 mountain_list = ["Cambrian Mountains", "European Alps", "Pyrenees", "Cordillera Patagonica Sur",
                  "Ethiopian Highlands", "Himalaya", "Cordillera Central Ecuador", "Sierra Nevada",
                  "Pennines","Cascade Range", "Appalachian Mountains", "Cordillera Occidental Peru Bolivia Chile"]
-#mountain_list = ["Kilimanjaro"]
+mountain_list = ["Himalaya"]
 
 for mountain_name in mountain_list:
-    mountain_range = mountain_shp.loc[mountain_shp.Name==mountain_name]
+    mountain_range = mountain_shp.loc[mountain_shp.Name == mountain_name]
 
     # plot raster and shapefile
     """
@@ -71,9 +67,9 @@ for mountain_name in mountain_list:
 
     # clip raster with shapefile
     dem_clipped = dem.rio.clip(mountain_range.geometry.apply(mapping), dem.rio.crs)
-    P_clipped = P.rio.clip(mountain_range.geometry.apply(mapping), dem.rio.crs)
-    PET_clipped = PET.rio.clip(mountain_range.geometry.apply(mapping), dem.rio.crs)
-    T_clipped = T.rio.clip(mountain_range.geometry.apply(mapping), dem.rio.crs)
+    pr_clipped = pr.rio.clip(mountain_range.geometry.apply(mapping), dem.rio.crs)
+    pet_clipped = pet.rio.clip(mountain_range.geometry.apply(mapping), dem.rio.crs)
+    t_clipped = t.rio.clip(mountain_range.geometry.apply(mapping), dem.rio.crs)
 
     """
     hillshade = es.hillshade(dem_clipped)
@@ -91,9 +87,9 @@ for mountain_name in mountain_list:
 
     # calculate elevation profile
 
-    x1 = P_clipped.__array__()
-    x2 = PET_clipped.__array__()
-    x3 = T_clipped.__array__()*100
+    x1 = pr_clipped.__array__()
+    x2 = pet_clipped.__array__()
+    x3 = t_clipped.__array__()*100
     y = dem_clipped.__array__()
     lat = dem_clipped.y.__array__()
     lon = dem_clipped.x.__array__()
@@ -175,4 +171,6 @@ for mountain_name in mountain_list:
     #ax.set_ylim([0, 6000])
     #plt.colorbar(sc)
 
-    plt.savefig(results_path + mountain_name + " " + "climatic_water_balance3" + ".png", dpi=600,  bbox_inches='tight')
+    #plt.show()
+    plt.savefig(results_path + mountain_name + "/" + "climatic_water_balance" + ".png", dpi=600,  bbox_inches='tight')
+    plt.close()

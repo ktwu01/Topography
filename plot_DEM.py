@@ -2,20 +2,16 @@ import os
 import matplotlib.pyplot as plt
 import rioxarray as rxr
 import time
-#import cartopy.crs as ccrs
-import shapely.geometry as sgeom
 
-# dask
+# todo: dask
 
+# time script run
 start = time.time()
-print("hello")
+print(start)
 
 # specify paths
 data_path = r"/home/hydrosys/data/MERIT_DEM/" #r"D:/Data/MERIT_DEM/"#
 results_path = "results/"
-
-#dem_package = data_path + "dem_tif_n30e090/"
-# dem_tiles = []
 
 name = "MERIT_DEM"
 
@@ -58,8 +54,6 @@ for foldername in os.listdir(data_path):
 
     #if i > 3: # for testing script
     #    break
-
-#dem_merged = merge_arrays(dem_merged)
 
 ax.set(title=None) #"DEM [m]"
 #ax.set_axis_off()
