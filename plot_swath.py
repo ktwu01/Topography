@@ -16,11 +16,12 @@ results_path = "results/"
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 pr_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
-pet_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
+#pet_path = data_path + "....tif"
+vap_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
-name_list = ["Himalaya"]
-#["Sierra_Nevada", "European_Alps", "Ecuadorian_Andes", "France", "Himalaya", "Northern_Alps", "Kilimanjaro", "Cascades"]
+name_list = ["Cascade Range"]
+#["Sierra_Nevada", "European Alps", "Cordillera Central Ecuador", "France", "Himalaya", "Northern Alps", "Kilimanjaro", "Cascade Range"]
 
 # load dem shapefile
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
@@ -48,7 +49,7 @@ for name in name_list:
     cs = w/10
     orig_dem = pyosp.Orig_curv(baseline, dem_path, width=w, line_stepsize=ls, cross_stepsize=cs)
     orig_pr = pyosp.Orig_curv(baseline, pr_path, width=w, line_stepsize=ls, cross_stepsize=cs)
-    orig_pet = pyosp.Orig_curv(baseline, pet_path, width=w, line_stepsize=ls, cross_stepsize=cs)
+    orig_vap = pyosp.Orig_curv(baseline, vap_path, width=w, line_stepsize=ls, cross_stepsize=cs)
     orig_t = pyosp.Orig_curv(baseline, t_path, width=w, line_stepsize=ls, cross_stepsize=cs)
 
     ### PLOT 1 ###
@@ -89,8 +90,8 @@ for name in name_list:
     sp0.set_clim([0, 100*round(np.nanmax(dem.values/100))])
 
     # plot swath profile
-    dist, dem_swath, pr_swath, pet_swath, t_swath = \
-        get_swath_data(orig_dem, orig_pr, orig_pet, orig_t, line_shape)
+    dist, dem_swath, pr_swath, vap_swath, t_swath = \
+        get_swath_data(orig_dem, orig_pr, orig_vap, orig_t, line_shape)
 
     axes1.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1),
                        facecolor='tab:gray', alpha=0.25, label='Elevation')
@@ -106,10 +107,10 @@ for name in name_list:
     axes1b.fill_between(dist, pr_swath.mean(axis=1)-pr_swath.std(axis=1), pr_swath.mean(axis=1)+pr_swath.std(axis=1),
                         facecolor='tab:blue', alpha=0.25)
 
-    axes1b.plot(dist, pet_swath.mean(axis=1),
+    axes1b.plot(dist, vap_swath.mean(axis=1),
                 c='tab:green', label='Vapor pressure')  # np.array(orig_dem.dat)[:,i]
-    axes1b.fill_between(dist, pet_swath.mean(axis=1) - pet_swath.std(axis=1),
-                        pet_swath.mean(axis=1) + pet_swath.std(axis=1),
+    axes1b.fill_between(dist, vap_swath.mean(axis=1) - vap_swath.std(axis=1),
+                        vap_swath.mean(axis=1) + vap_swath.std(axis=1),
                         facecolor='tab:green', alpha=0.25)
 
     lines, labels = axes1.get_legend_handles_labels()
@@ -145,11 +146,12 @@ for name in name_list:
     fig = plt.figure(figsize=(8, 2), constrained_layout=True)
     ax = plt.axes()
 
-    ax.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1),
+    axa = ax.twinx()
+    axa.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1),
                        facecolor='tab:gray', alpha=0.25, label='Elevation')
-    ax.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1)-dem_swath.std(axis=1),
+    axa.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1)-dem_swath.std(axis=1),
                        facecolor='tab:gray', alpha=0.25)
-    ax.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1)+dem_swath.std(axis=1),
+    axa.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1)+dem_swath.std(axis=1),
                        facecolor='tab:gray', alpha=0.25)
     #axes1.plot(dist, dem_swath.mean(axis=1), c='tab:grey', label='Elevation') #np.array(orig_dem.dat)[:,i]
 
@@ -159,10 +161,11 @@ for name in name_list:
     axb.fill_between(dist, pr_swath.mean(axis=1)-pr_swath.std(axis=1), pr_swath.mean(axis=1)+pr_swath.std(axis=1),
                         facecolor='tab:blue', alpha=0.25)
 
-    axb.plot(dist, pet_swath.mean(axis=1),
+    axc = ax.twinx()
+    axc.plot(dist, vap_swath.mean(axis=1),
                 c='tab:green', label='Vapor pressure')  # np.array(orig_dem.dat)[:,i]
-    axb.fill_between(dist, pet_swath.mean(axis=1) - pet_swath.std(axis=1),
-                        pet_swath.mean(axis=1) + pet_swath.std(axis=1),
+    axc.fill_between(dist, vap_swath.mean(axis=1) - vap_swath.std(axis=1),
+                        vap_swath.mean(axis=1) + vap_swath.std(axis=1),
                         facecolor='tab:green', alpha=0.25)
 
 
@@ -172,12 +175,50 @@ for name in name_list:
     #axes1.legend().set_visible(False)
     #axes1.legend(loc='upper left')
     #ax.set_xlabel('Distance [deg]')
-    ax.set_ylabel('Elevation [m]')
-    axb.set_ylabel('Precipitation [mm/y] / Vapor pressure [Pa]')
+    #axa.set_ylabel('Elevation [m]')
+    #axb.set_ylabel('Precipitation [mm/y]')
+    #axc.set_ylabel('Vapor pressure [Pa]')
+    #axb.set_ylabel('Precipitation [mm/y] / Vapor pressure [Pa]')
+    axa.set_ylim(0,2000)
+    axb.set_ylim(0,4000)
+    axc.set_ylim(0,2000)
     #ax.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
     #ax.set_ylim(0,5000) #todo: adjust limits
     #axb.set_ylim(0,5000)
 
+    ax.spines.right.set_visible(False)
+    ax.spines.left.set_visible(False)
+    ax.spines.top.set_visible(False)
+    ax.spines.bottom.set_visible(False)
+    ax.set_xticklabels([])
+    ax.set_xticks([])
+    ax.set_yticklabels([])
+    ax.set_yticks([])
+
+    axa.spines.left.set_visible(False)
+    axa.spines.top.set_visible(False)
+    axa.spines.bottom.set_visible(False)
+    axa.yaxis.label.set_color('tab:gray')
+    axa.tick_params(axis='y', colors='tab:gray')
+    axa.spines['right'].set_color('tab:gray')
+
+    axb.spines['right'].set_position(('outward', 40))
+    axb.yaxis.label.set_color('tab:blue')
+    axb.tick_params(axis='y', colors='tab:blue')
+    axb.spines['right'].set_color('tab:blue')
+    axb.spines.left.set_visible(False)
+    axb.spines.top.set_visible(False)
+    axb.spines.bottom.set_visible(False)
+
+    axc.spines['right'].set_position(('outward', 80))
+    axc.yaxis.label.set_color('tab:green')
+    axc.tick_params(axis='y', colors='tab:green')
+    axc.spines['right'].set_color('tab:green')
+    axc.spines.left.set_visible(False)
+    axc.spines.top.set_visible(False)
+    axc.spines.bottom.set_visible(False)
+
+    """
     # move left and bottom spines outward by 10 points
     ax.spines.left.set_position(('outward', 10))
     ax.spines.bottom.set_position(('outward', 10))
@@ -194,13 +235,14 @@ for name in name_list:
     axb.spines.bottom.set_visible(False)
     axb.set_xticklabels([])
     axb.set_xticks([])
-
+    """
     #plt.show()
     plt.savefig(results_path + name + "/transect_" + name + ".png", dpi=600, bbox_inches='tight')
     plt.close()
 
     ### PLOT 3 ###
     # plot T profile
+    #todo: plot profile using grid cells
     fig3 = plt.figure(figsize=(2, 4), constrained_layout=True)
     axes3 = plt.axes()
     axes3.plot(t_swath.mean(axis=1), dem_swath.mean(axis=1), color="tab:purple", alpha=0.75)
@@ -221,6 +263,15 @@ for name in name_list:
     #axes3.set_xticklabels([])
     #axes3.set_xticks([])
     #axes3.grid()
+
+    x_line = np.linspace(-20,20,2)
+    axes3.fill_between(x_line, 5000*np.ones_like(x_line), 5500*np.ones_like(x_line),
+                        facecolor='tab:gray', alpha=0.25, label='Snowline')
+
+    axes3.fill_between(x_line, 3500*np.ones_like(x_line), 4000*np.ones_like(x_line),
+                        facecolor='tab:green', alpha=0.25, label='Treeline')
+
+    #plt.grid()
 
     #plt.show()
     plt.savefig(results_path + name + "/T_profile_" + name + ".png", dpi=600, bbox_inches='tight')

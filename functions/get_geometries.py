@@ -8,20 +8,20 @@ def get_swath_geometries(region_name):
         xy_box = [36.0, 39.0, -4.0, -2.0]
         #xy_line = [37.0, 37.8, -0.3, 0.1] # Kilimanjaro
         #xy_box = [36.0, 39.0, -1.0, 1.0]
-    elif region_name == 'Cascades':
+    elif region_name == 'Cascade Range':
         xy_line = [-124.5, -120.5, 45.0, 45.001] # Cascades
         #xy_box = [-125.5, -119.5, 44.0, 46.0]
         xy_box = [-125.5, -119.5, 44.0, 46.0]
-    elif region_name == 'Northern_Alps':
+    elif region_name == 'Northern Alps':
         xy_line = [11.0, 11.001, 47.7, 46.7] # Northern Alps
         xy_box = [10.0, 12.0, 46.0, 48.0]
-    elif region_name == 'European_Alps':
+    elif region_name == 'European Alps':
         xy_line = [11.0, 11.001, 48.5, 45.5] # Alps
         xy_box = [9.0, 13.0, 44.0, 50.0]
-    elif region_name == 'Sierra_Nevada':
+    elif region_name == 'Sierra Nevada':
         xy_line = [-120.0, -118.001, 37.0, 38.5] # Sierra Nevada
         xy_box = [-121.0, -117.0, 36.0, 40.0]
-    elif region_name == 'Ecuadorian_Andes':
+    elif region_name == 'Cordillera Central Ecuador':
         xy_line = [-80.5, -76.5, -1.0, -1.0001] # Ecuador Andes
         xy_box = [-82.0, -76.0, -4.0, 1.0]
     elif region_name == 'Himalaya':
