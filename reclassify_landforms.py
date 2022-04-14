@@ -56,10 +56,17 @@ plt.close()
 
 # reclassify
 bins = [0.5,4.5,6.5,8.5,10.5,12.5,16.5,17.5]
-reclassified = xr.apply_ufunc(np.digitize, landforms, bins)
+
+# create chunked dask version of data
+data_chunked = landforms.chunk({'x': 1})
+# use dask's version of digitize
+import dask.array as da
+reclassified = xr.apply_ufunc(da.digitize, data_chunked, bins, dask='allowed')
+#reclassified = xr.apply_ufunc(np.digitize, landforms, bins)
 del landforms
 #reclassified = reclassified.where(reclassified != 8)
 # to do: save and reload reclassified map
+print("finished with reclassification")
 
 # plot
 f, ax = plt.subplots(figsize=(10, 5))
