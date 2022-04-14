@@ -1,4 +1,5 @@
 import os
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -13,12 +14,13 @@ data_path =  r"/home/hydrosys/data/" #r"D:/Data/" #r"C:/Users/Sebastian/Document
 results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/"
 
 #dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
-landform_path = data_path + "Landforms/WorldSubLandform_Germany.tif" #todo: add reclassified landforms
+landform_path = data_path + "Landforms/WorldSubLandform.tif"
 
 # open raster and plot
 #dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
 landforms = rxr.open_rasterio(landform_path, masked=True).squeeze()
 #landforms = rasterio.open(landform_path)
+# drop na?
 
 #h = xhistogram(da, bins=[bins])
 #display(h)
@@ -49,32 +51,28 @@ for i in range(0,16):
 #ax.set_yscale('log')
 ax.set_xticks([2.5, 6.5, 10.5, 14.5, 17], ["Plains", "Hills", "Mountains", "Plateaus", "Water"])
 plt.savefig(results_path + "landform_histogram.png", dpi=600, bbox_inches='tight')
+print("done with histogram")
+plt.close()
 
-#todo: reclassify
-landforms.rio.nodata
-bins = [1,4,6,8,10,12,17]
-reclassified = xr.apply_ufunc(np.digitize,landforms, bins)
+# reclassify
+bins = [0.5,4.5,6.5,8.5,10.5,12.5,16.5,17.5]
+reclassified = xr.apply_ufunc(np.digitize, landforms, bins)
+del landforms
+#reclassified = reclassified.where(reclassified != 8)
+# to do: save and reload reclassified map
 
 # plot
 f, ax = plt.subplots(figsize=(10, 5))
-colormap = 1
-sp = reclassified.plot.imshow(ax=ax, cmap="Accent")
+colors = ['palegoldenrod', 'yellowgreen', 'olivedrab', 'darkgoldenrod', 'gray', 'plum', 'steelblue', 'white']
+class_bins = [.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5]
+cmap = mpl.colors.ListedColormap(colors)
+norm = mpl.colors.BoundaryNorm(class_bins, len(colors))
+sp = reclassified.plot.imshow(ax=ax, cmap=cmap, norm=norm)
+sp.colorbar.set_ticks([1, 2, 3, 4, 5, 6, 7, 8])
 ax.set(title="Landforms")
 ax.set_axis_off()
 ax.axis('equal')
 #plt.show()
 plt.savefig(results_path + "landforms.png", dpi=600, bbox_inches='tight')
-
-
-"""
-import json
-import subprocess
-
-dataset_uri = data_path + r"Landforms/USGSEsriTNCWorldTerrestrialEcosystems2020/commondata/raster_data/WorldEcosystem.tif"
-_rat = subprocess.check_output('gdalinfo -json ' + dataset_uri, shell=True)
-data = json.loads(_rat) # load json string into dictionary
-print(data)
-
-# to get band-level data
-bands = data['bands']
-"""
+plt.close()
+print("done with map")
