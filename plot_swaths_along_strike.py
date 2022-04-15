@@ -27,7 +27,7 @@ t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 name_list = ["European Alps", "Cordillera Central Ecuador", "Himalaya", "Cascade Range"]
 
 # load dem shapefile
-dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
+dem = rxr.open_rasterio(dem_path, masked=True).squeeze() #todo: remove masked ...
 
 for name in name_list:
 

@@ -24,7 +24,7 @@ name_list = ["Cascade Range"]
 #["Sierra_Nevada", "European Alps", "Cordillera Central Ecuador", "France", "Himalaya", "Northern Alps", "Kilimanjaro", "Cascade Range"]
 
 # load dem shapefile
-dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
+dem = rxr.open_rasterio(dem_path, masked=True).squeeze() #todo: remove masked ...
 
 # loop over mountain ranges
 for name in name_list:

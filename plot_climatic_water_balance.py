@@ -23,7 +23,7 @@ pet_name = "PET"
 t_name = "T"
 
 # open raster and plot
-dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
+dem = rxr.open_rasterio(dem_path, masked=True).squeeze() #todo: remove masked...
 pr = rxr.open_rasterio(pr_path, masked=True).squeeze()
 pet = rxr.open_rasterio(pet_path, masked=True).squeeze()
 t = rxr.open_rasterio(t_path, masked=True).squeeze()

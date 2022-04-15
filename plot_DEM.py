@@ -44,7 +44,7 @@ for foldername in os.listdir(data_path):
         #    print(f)
 
         # preprocess shapefiles
-        dem_tmp = rxr.open_rasterio(f, masked=True).squeeze()
+        dem_tmp = rxr.open_rasterio(f, masked=True).squeeze() #todo: remove masked ...
         #dem_merged.append(dem_tmp)
 
         # plot tile
