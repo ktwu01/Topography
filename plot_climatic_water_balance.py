@@ -51,6 +51,7 @@ mountain_list = ["Cambrian Mountains", "European Alps", "Pyrenees", "Cordillera 
                  "Ethiopian Highlands", "Himalaya", "Cordillera Central Ecuador", "Sierra Nevada",
                  "Pennines", "Cascade Range", "Appalachian Mountains", "Cordillera Occidental Peru Bolivia Chile"]
 mountain_list = ["Cordillera Central Ecuador", "Tenerife", "Himalaya", "European Alps", "Scandinavian Mountains"]
+mountain_list = ["Tenerife"]
 
 for mountain_name in mountain_list:
 

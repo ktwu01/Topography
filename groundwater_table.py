@@ -1,13 +1,9 @@
-import os
 import matplotlib.pyplot as plt
 import numpy as np
-from shapely.geometry import mapping
-import rioxarray as rxr
 import geopandas as gpd
-from scipy import stats
 import pandas as pd
-import cartopy.crs as ccrs
 import rasterio as rio
+import plotting_fcts
 
 # specify paths
 data_path = "/home/hydrosys/data/" #r"C:/Users/Sebastian/Documents/Data/"
@@ -16,6 +12,10 @@ results_path = "results/"
 
 dem_path = data_path + "WorldClim/" + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 slope_path = data_path + "Geomorpho90m/" + "dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
+conv_path = data_path + "Geomorpho90m/" + "dtm_convergence_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
+pr_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
+pet_path = data_path + "WorldClim/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
+t_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
 wtd_path_list = ["Fan_2013_WTD/All-Africa-Data-lat-lon-z-wtd/All-Africa-Data-lat-lon-z-wtd.txt",
                  "Fan_2013_WTD/All-Asia-Data-lat-lon-z-wtd/All-Asia-Data-lat-lon-z-wtd.txt",
@@ -24,13 +24,22 @@ wtd_path_list = ["Fan_2013_WTD/All-Africa-Data-lat-lon-z-wtd/All-Africa-Data-lat
                  "Fan_2013_WTD/All-Europe-Data-lat-lon-z-wtd/All-Europe-Data-lat-lon-z-wtd.txt",
                  "Fan_2013_WTD/All-S-America-Data-lat-lon-z-wtd/All-S-America-Data-lat-lon-z-wtd.txt",
                  "Fan_2013_WTD/All-US-Data-lat-lon-z-wtd/All-US-Data-lat-lon-z-wtd.txt"]
-
+"""
+wtd_path_list = ["Fan_2013_WTD/All-Africa-Data-lat-lon-z-wtd/All-Africa-Data-lat-lon-z-wtd.txt",
+                 "Fan_2013_WTD/All-Asia-Data-lat-lon-z-wtd/All-Asia-Data-lat-lon-z-wtd.txt",
+                 "Fan_2013_WTD/All-Australia-Data-lat-lon-z-wtd/All-Australia-Data-lat-lon-z-wtd.txt"]
+"""
 wtd_path_list_full = [data_path + s for s in wtd_path_list]
 
 # open raster
 #dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
 dem = rio.open(dem_path, masked=True)
 slope = rio.open(slope_path, masked=True)
+conv = rio.open(conv_path, masked=True)
+dem = rio.open(dem_path, masked=True)
+pr = rio.open(pr_path, masked=True)
+pet = rio.open(pet_path, masked=True)
+t = rio.open(t_path, masked=True)
 
 # load wtd data
 li = []
@@ -91,25 +100,41 @@ plt.close()
 
 # extract point values from shapefile
 coord_list = [(x,y) for x,y in zip(gdf['geometry'].x , gdf['geometry'].y)]
-gdf['value'] = [x for x in slope.sample(coord_list)]
+gdf['dem'] = [x for x in dem.sample(coord_list)]
+gdf['slope'] = [x for x in slope.sample(coord_list)]
+gdf['conv'] = [x for x in conv.sample(coord_list)]
+gdf['pr'] = [x for x in pr.sample(coord_list)]
+gdf['pet'] = [x for x in pet.sample(coord_list)]
+gdf['t'] = [x for x in t.sample(coord_list)]
 #gdf.head()
-gdf['value'] = np.concatenate(df['value'].to_numpy())
+gdf['dem'] = np.concatenate(df['dem'].to_numpy())
+gdf['slope'] = np.concatenate(df['slope'].to_numpy())
+gdf['conv'] = np.concatenate(df['conv'].to_numpy())
+gdf['pr'] = np.concatenate(df['pr'].to_numpy())
+gdf['pet'] = np.concatenate(df['pet'].to_numpy())
+gdf['t'] = np.concatenate(df['t'].to_numpy())
+gdf['aridity'] = gdf['pet']/gdf['pr']
 
+gdf.to_file(results_path + 'dataframe.shp')
+
+"""
 fig = plt.figure(figsize=(5, 5))
 ax = plt.axes()#projection=ccrs.Robinson()
-ax.scatter(gdf['value'], gdf['wtd'], s=.5, facecolor='black', edgecolor='none', alpha=0.05)
-ax.set_xlabel('Slope [?]')
+ax.scatter(gdf['aridity'], gdf['wtd'], s=5, facecolor='tab:blue', edgecolor='none', alpha=0.1)
+plotting_fcts.plot_bins(gdf['aridity'], gdf['wtd'])
+ax.set_xlabel('PET/P [-]')
 #ax.set_xlabel('Elevation [m]')
 ax.set_ylabel('WTD [m]')
-ax.set_xlim([-100, 1000])
-#ax.set_xscale('log')
+ax.set_xlim([0.2, 50])
+ax.set_xscale('log')
 #ax.set_xlim([-100, 3900])
-ax.set_ylim([-10, 100])
-#ax.set_yscale('log')
-idx = np.isfinite(gdf['value']) & np.isfinite(gdf['wtd'])
-m, b = np.polyfit(gdf['value'][idx], gdf['wtd'][idx], 1)
-plt.plot(np.linspace(0,10000,10), m*np.linspace(0,10000,10) + b)
+ax.set_ylim([0.1, 100])
+ax.set_yscale('log')
+idx = np.isfinite(gdf['aridity']) & np.isfinite(gdf['wtd'])
+m, b = np.polyfit(gdf['aridity'][idx], gdf['wtd'][idx], 1)
+#plt.plot(np.linspace(0,10000,10), m*np.linspace(0,10000,10) + b)
 #plt.show()
 #print(stats.spearmanr(gdf['value'], gdf['wtd'], nan_policy='omit'))
-plt.savefig(results_path + "wtd_vs_slope.png", dpi=600, bbox_inches='tight')
+plt.savefig(results_path + "wtd_vs_aridity.png", dpi=600, bbox_inches='tight')
 plt.close()
+"""
