@@ -90,6 +90,7 @@ def get_binned_stats(x, y):
 
     # calculate binned statistics
     bin_edges = stats.mstats.mquantiles(x[~np.isnan(x)], np.linspace(0, 1, 11))
+    #bin_edges = np.linspace(-.5,10.5,12)
     mean_stat = stats.binned_statistic(x, y, statistic=lambda y: np.nanmean(y), bins=bin_edges)
     std_stat = stats.binned_statistic(x, y, statistic=lambda y: np.nanstd(y), bins=bin_edges)
     median_stat = stats.binned_statistic(x, y, statistic=np.nanmedian, bins=bin_edges)

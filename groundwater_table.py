@@ -13,6 +13,8 @@ results_path = "results/"
 dem_path = data_path + "WorldClim/" + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 slope_path = data_path + "Geomorpho90m/" + "dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
 conv_path = data_path + "Geomorpho90m/" + "dtm_convergence_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
+twi_path = data_path + "Geomorpho90m/" + "dtm_cti_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
+geom_path = data_path + "Geomorpho90m/" + "dtm_geom_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
 pr_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 pet_path = data_path + "WorldClim/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
 t_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
@@ -36,7 +38,8 @@ wtd_path_list_full = [data_path + s for s in wtd_path_list]
 dem = rio.open(dem_path, masked=True)
 slope = rio.open(slope_path, masked=True)
 conv = rio.open(conv_path, masked=True)
-dem = rio.open(dem_path, masked=True)
+twi = rio.open(twi_path, masked=True)
+geom = rio.open(geom_path, masked=True)
 pr = rio.open(pr_path, masked=True)
 pet = rio.open(pet_path, masked=True)
 t = rio.open(t_path, masked=True)
@@ -103,6 +106,8 @@ coord_list = [(x,y) for x,y in zip(gdf['geometry'].x , gdf['geometry'].y)]
 gdf['dem'] = [x for x in dem.sample(coord_list)]
 gdf['slope'] = [x for x in slope.sample(coord_list)]
 gdf['conv'] = [x for x in conv.sample(coord_list)]
+gdf['twi'] = [x for x in twi.sample(coord_list)]
+gdf['geom'] = [x for x in geom.sample(coord_list)]
 gdf['pr'] = [x for x in pr.sample(coord_list)]
 gdf['pet'] = [x for x in pet.sample(coord_list)]
 gdf['t'] = [x for x in t.sample(coord_list)]
@@ -110,6 +115,8 @@ gdf['t'] = [x for x in t.sample(coord_list)]
 gdf['dem'] = np.concatenate(df['dem'].to_numpy())
 gdf['slope'] = np.concatenate(df['slope'].to_numpy())
 gdf['conv'] = np.concatenate(df['conv'].to_numpy())
+gdf['twi'] = np.concatenate(df['twi'].to_numpy())
+gdf['geom'] = np.concatenate(df['geom'].to_numpy())
 gdf['pr'] = np.concatenate(df['pr'].to_numpy())
 gdf['pet'] = np.concatenate(df['pet'].to_numpy())
 gdf['t'] = np.concatenate(df['t'].to_numpy())
