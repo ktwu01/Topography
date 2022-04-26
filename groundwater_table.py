@@ -18,6 +18,7 @@ geom_path = data_path + "Geomorpho90m/" + "dtm_geom_merit.dem_m_250m_s0..0cm_201
 pr_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 pet_path = data_path + "WorldClim/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
 t_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
+wtd_model_path = data_path + "WorldClim/wtd.tif"
 
 wtd_path_list = ["Fan_2013_WTD/All-Africa-Data-lat-lon-z-wtd/All-Africa-Data-lat-lon-z-wtd.txt",
                  "Fan_2013_WTD/All-Asia-Data-lat-lon-z-wtd/All-Asia-Data-lat-lon-z-wtd.txt",
@@ -43,6 +44,7 @@ geom = rio.open(geom_path, masked=True)
 pr = rio.open(pr_path, masked=True)
 pet = rio.open(pet_path, masked=True)
 t = rio.open(t_path, masked=True)
+wtd_model = rio.open(wtd_model_path, masked=True)
 
 # load wtd data
 li = []
@@ -111,6 +113,7 @@ gdf['geom'] = [x for x in geom.sample(coord_list)]
 gdf['pr'] = [x for x in pr.sample(coord_list)]
 gdf['pet'] = [x for x in pet.sample(coord_list)]
 gdf['t'] = [x for x in t.sample(coord_list)]
+gdf['wtd_model'] = [x for x in wtd_model.sample(coord_list)]
 #gdf.head()
 gdf['dem'] = np.concatenate(df['dem'].to_numpy())
 gdf['slope'] = np.concatenate(df['slope'].to_numpy())
@@ -120,6 +123,7 @@ gdf['geom'] = np.concatenate(df['geom'].to_numpy())
 gdf['pr'] = np.concatenate(df['pr'].to_numpy())
 gdf['pet'] = np.concatenate(df['pet'].to_numpy())
 gdf['t'] = np.concatenate(df['t'].to_numpy())
+gdf['wtd_model'] = np.concatenate(df['wtd_model'].to_numpy())
 gdf['aridity'] = gdf['pet']/gdf['pr']
 
 gdf.to_file(results_path + 'dataframe.shp')

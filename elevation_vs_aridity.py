@@ -31,22 +31,36 @@ t = rio.open(t_path, masked=True)
 
 #x = ai.read().squeeze() # only works for same grids
 y = dem.read().squeeze().flatten()
+y = y.astype(np.float32)
+y[y<-30000] = np.nan
 
 from rasterio.merge import merge
 x, _ = merge([ai, dem])
 x = x.squeeze().flatten()
+x = x.astype(np.float32)
+x[x<-30000] = np.nan
+x = x/10000
 
+isn = (np.isfinite(x) & np.isfinite(y))
+x = x[isn]
+y = y[isn]
+
+df = pd.DataFrame()
+df["x"] = x
+df["y"] = y
+
+#n=300000000
 fig = plt.figure(figsize=(5, 5))
 ax = plt.axes()#projection=ccrs.Robinson()
-ax.scatter(x, y, s=5, facecolor='tab:blue', edgecolor='none', alpha=0.1)
-#plotting_fcts.plot_bins(x,y)
-ax.set_xlabel('PET/P [-]')
-ax.set_ylabel('Elevation [m]')
-ax.set_xlim([0.2, 50])
-ax.set_xscale('log')
-ax.set_ylim([1, 10000])
+#ax.scatter(df["x"].sample(n), df["y"].sample(n), s=5, facecolor='tab:grey', edgecolor='none', alpha=0.1)
+plotting_fcts.plot_bins(df["y"],df["x"])
+ax.set_ylabel('P/PET [-]')
+ax.set_xlabel('Elevation [m]')
+ax.set_ylim([0.05, 5])
 ax.set_yscale('log')
-#rho_s, _ = stats.spearmanr(x,y)
-#ax.annotate("rho_s arid: {:.2f} ".format(rho_s), xy=(.1, .9), xycoords=ax.transAxes, fontsize=10)
+ax.set_xlim([10, 10000])
+ax.set_xscale('log')
+rho_s, _ = stats.spearmanr(df["y"],df["x"])
+ax.annotate("rho_s: {:.2f} ".format(rho_s), xy=(.1, .9), xycoords=ax.transAxes, fontsize=10)
 plt.savefig(results_path + "elev_vs_aridity.png", dpi=600, bbox_inches='tight')
 plt.close()

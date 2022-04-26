@@ -18,7 +18,7 @@ gdf = gdf.dropna()
 # todo: make bin work for geom
 # todo: clean up if statements...
 
-var_list = ["dem", "slope", "conv", "aridity", "twi", "geom"]
+var_list = ["wtd_model"]#["dem", "slope", "conv", "aridity", "twi", "geom", "wtd_model"]
 for var in var_list:
     print(var)
     fig = plt.figure(figsize=(5, 5))
