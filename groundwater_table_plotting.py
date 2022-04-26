@@ -36,6 +36,9 @@ for var in var_list:
         pass
     elif var == "twi":
         ax.set_xlim([np.nanquantile(gdf[var],0.01), np.nanquantile(gdf[var],0.99)])
+    elif var =="wtd_model":
+        ax.set_xscale('log')
+        ax.set_xlim([.1, 100])
     else:
         ax.set_xscale('log')
         ax.set_xlim([np.nanquantile(gdf[var],0.01), np.nanquantile(gdf[var],0.99)])
