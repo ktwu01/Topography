@@ -18,10 +18,10 @@ gdf = gdf.dropna()
 # todo: make bin work for geom
 # todo: clean up if statements...
 
-var_list = ["wtd_model"]#["dem", "slope", "conv", "aridity", "twi", "geom", "wtd_model"]
+var_list =["dem", "slope", "conv", "aridity", "twi", "wtd_model"]
 for var in var_list:
     print(var)
-    fig = plt.figure(figsize=(5, 5))
+    fig = plt.figure(figsize=(3, 3))
     ax = plt.axes()#projection=ccrs.Robinson()
     gdf.loc[gdf["aridity"] < 1, "wtd"]
     ax.scatter(gdf.loc[gdf["aridity"] > 1, var], gdf.loc[gdf["aridity"] > 1, "wtd"], s=1, facecolor='tab:orange', edgecolor='none', alpha=0.1)
@@ -51,5 +51,41 @@ for var in var_list:
     ax.annotate("rho_s arid: {:.2f} ".format(rho_s1), xy=(.1, .9), xycoords=ax.transAxes, fontsize=10)
     ax.annotate("rho_s humid: {:.2f} ".format(rho_s2), xy=(.1, .85), xycoords=ax.transAxes, fontsize=10)
     plt.savefig(results_path + "wtd_vs_" + var + ".png", dpi=600, bbox_inches='tight')
+    plt.close()
+
+
+var_list = ["dem", "slope", "conv", "aridity", "twi"]
+for var in var_list:
+    print(var)
+    fig = plt.figure(figsize=(3, 3))
+    ax = plt.axes()#projection=ccrs.Robinson()
+    gdf.loc[gdf["aridity"] < 1, "wtd"]
+    ax.scatter(gdf.loc[gdf["aridity"] > 1, var], gdf.loc[gdf["aridity"] > 1, "wtd_model"], s=1, facecolor='tab:orange', edgecolor='none', alpha=0.1)
+    plotting_fcts.plot_bins(gdf.loc[gdf["aridity"] > 1, var], gdf.loc[gdf["aridity"] > 1, "wtd_model"], fillcolor='tab:orange')
+    ax.scatter(gdf.loc[gdf["aridity"] < 1, var], gdf.loc[gdf["aridity"] < 1, "wtd_model"], s=1, facecolor='tab:blue', edgecolor='none', alpha=0.1)
+    plotting_fcts.plot_bins(gdf.loc[gdf["aridity"] < 1, var], gdf.loc[gdf["aridity"] < 1, "wtd_model"], fillcolor='tab:blue')
+    ax.set_xlabel(var)
+    ax.set_ylabel('WTD model [m]')
+    if var == "conv":
+        ax.set_xlim([np.nanquantile(gdf[var],0.01), np.nanquantile(gdf[var],0.99)])
+    elif var == "geom":
+        pass
+    elif var == "twi":
+        ax.set_xlim([np.nanquantile(gdf[var],0.01), np.nanquantile(gdf[var],0.99)])
+    elif var =="wtd_model":
+        ax.set_xscale('log')
+        ax.set_xlim([.1, 100])
+    else:
+        ax.set_xscale('log')
+        ax.set_xlim([np.nanquantile(gdf[var],0.01), np.nanquantile(gdf[var],0.99)])
+    #ax.set_ylim([np.nanquantile(gdf["wtd"],0.01), np.nanquantile(gdf["wtd"],0.99)])
+    ax.set_ylim([.1, 100])
+    ax.set_yscale('log')
+    #if var != "aridity":
+    rho_s1, _ = stats.spearmanr(gdf.loc[gdf["aridity"] > 1, var], gdf.loc[gdf["aridity"] > 1, "wtd_model"], nan_policy='omit')
+    rho_s2, _ = stats.spearmanr(gdf.loc[gdf["aridity"] < 1, var], gdf.loc[gdf["aridity"] < 1, "wtd_model"])
+    ax.annotate("rho_s arid: {:.2f} ".format(rho_s1), xy=(.1, .9), xycoords=ax.transAxes, fontsize=10)
+    ax.annotate("rho_s humid: {:.2f} ".format(rho_s2), xy=(.1, .85), xycoords=ax.transAxes, fontsize=10)
+    plt.savefig(results_path + "wtd_model_vs_" + var + ".png", dpi=600, bbox_inches='tight')
     plt.close()
 
