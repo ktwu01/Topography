@@ -1,5 +1,26 @@
 # helper function to define geometries
 
+def get_swath_indices(region_name):
+    # get indices of swaths to be plotted for different regions
+
+    if region_name == 'Himalaya':
+        ind = [30, 40, 50]
+
+    elif region_name == 'Cascade Range':
+        ind = [2, 5, 8]
+
+    elif region_name == 'European Alps':
+        ind = [4, 8, 12]
+
+    elif region_name == 'Cordillera Central Ecuador':
+        ind = [1, 3, 8]
+
+    else:
+        raise('Region not defined.')
+
+    return ind
+
+
 def get_swath_geometries(region_name):
     # create geometries
     # line needs to be shorter than rectangle
