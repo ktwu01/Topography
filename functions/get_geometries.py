@@ -4,7 +4,7 @@ def get_swath_indices(region_name):
     # get indices of swaths to be plotted for different regions
 
     if region_name == 'Himalaya':
-        ind = [30, 40, 50]
+        ind = [30, 35, 45]
 
     elif region_name == 'Cascade Range':
         ind = [2, 5, 8]

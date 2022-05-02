@@ -16,11 +16,11 @@ results_path = "results/"
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 pr_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
-#pet_path = data_path + "....tif"
+pet_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 vap_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
-name_list = ["Cascade Range"]
+name_list = ["Cordillera Central Ecuador"]
 #["Sierra_Nevada", "European Alps", "Cordillera Central Ecuador", "France", "Himalaya", "Northern Alps", "Kilimanjaro", "Cascade Range"]
 
 # load dem shapefile
@@ -49,6 +49,7 @@ for name in name_list:
     cs = w/10
     orig_dem = pyosp.Orig_curv(baseline, dem_path, width=w, line_stepsize=ls, cross_stepsize=cs)
     orig_pr = pyosp.Orig_curv(baseline, pr_path, width=w, line_stepsize=ls, cross_stepsize=cs)
+    orig_pet = pyosp.Orig_curv(baseline, pet_path, width=w, line_stepsize=ls, cross_stepsize=cs)
     orig_vap = pyosp.Orig_curv(baseline, vap_path, width=w, line_stepsize=ls, cross_stepsize=cs)
     orig_t = pyosp.Orig_curv(baseline, t_path, width=w, line_stepsize=ls, cross_stepsize=cs)
 
@@ -90,8 +91,8 @@ for name in name_list:
     sp0.set_clim([0, 100*round(np.nanmax(dem.values/100))])
 
     # plot swath profile
-    dist, dem_swath, pr_swath, vap_swath, t_swath = \
-        get_swath_data(orig_dem, orig_pr, orig_vap, orig_t, line_shape)
+    dist, dem_swath, pr_swath, pet_swath, t_swath = \
+        get_swath_data(orig_dem, orig_pr, orig_pet, orig_t, line_shape) #add orig_vap
 
     axes1.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1),
                        facecolor='tab:gray', alpha=0.25, label='Elevation')
@@ -107,11 +108,11 @@ for name in name_list:
     axes1b.fill_between(dist, pr_swath.mean(axis=1)-pr_swath.std(axis=1), pr_swath.mean(axis=1)+pr_swath.std(axis=1),
                         facecolor='tab:blue', alpha=0.25)
 
-    axes1b.plot(dist, vap_swath.mean(axis=1),
-                c='tab:green', label='Vapor pressure')  # np.array(orig_dem.dat)[:,i]
-    axes1b.fill_between(dist, vap_swath.mean(axis=1) - vap_swath.std(axis=1),
-                        vap_swath.mean(axis=1) + vap_swath.std(axis=1),
-                        facecolor='tab:green', alpha=0.25)
+    axes1b.plot(dist, pet_swath.mean(axis=1),
+                c='tab:orange', label='PET')  # np.array(orig_dem.dat)[:,i]
+    axes1b.fill_between(dist, pet_swath.mean(axis=1) - pet_swath.std(axis=1),
+                        pet_swath.mean(axis=1) + pet_swath.std(axis=1),
+                        facecolor='tab:orange', alpha=0.25)
 
     lines, labels = axes1.get_legend_handles_labels()
     lines2, labels2 = axes1b.get_legend_handles_labels()
@@ -120,7 +121,7 @@ for name in name_list:
     #axes1.legend(loc='upper left')
     axes1.set_xlabel('Distance [deg]')
     axes1.set_ylabel('Elevation [m]')
-    axes1b.set_ylabel('Precipitation [mm/y] / Vapor pressure [Pa]')
+    axes1b.set_ylabel('Flux [mm/y]')
     #axes1.set_ylim(0,5000) #todo: adjust limits
     #axes1b.set_ylim(0,5000)
 
@@ -162,11 +163,18 @@ for name in name_list:
                         facecolor='tab:blue', alpha=0.25)
 
     axc = ax.twinx()
+    """
     axc.plot(dist, vap_swath.mean(axis=1),
                 c='tab:green', label='Vapor pressure')  # np.array(orig_dem.dat)[:,i]
     axc.fill_between(dist, vap_swath.mean(axis=1) - vap_swath.std(axis=1),
                         vap_swath.mean(axis=1) + vap_swath.std(axis=1),
                         facecolor='tab:green', alpha=0.25)
+                        """
+    axc.plot(dist, pet_swath.mean(axis=1),
+                c='tab:orange', label='Potential evapotranspiration')  # np.array(orig_dem.dat)[:,i]
+    axc.fill_between(dist, pet_swath.mean(axis=1) - pet_swath.std(axis=1),
+                        pet_swath.mean(axis=1) + pet_swath.std(axis=1),
+                        facecolor='tab:orange', alpha=0.25)
 
 
     lines, labels = ax.get_legend_handles_labels()
@@ -179,9 +187,9 @@ for name in name_list:
     #axb.set_ylabel('Precipitation [mm/y]')
     #axc.set_ylabel('Vapor pressure [Pa]')
     #axb.set_ylabel('Precipitation [mm/y] / Vapor pressure [Pa]')
-    axa.set_ylim(0,2000)
-    axb.set_ylim(0,4000)
-    axc.set_ylim(0,2000)
+    axa.set_ylim(0,5000)
+    axb.set_ylim(0,5000)
+    axc.set_ylim(0,5000)
     #ax.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
     #ax.set_ylim(0,5000) #todo: adjust limits
     #axb.set_ylim(0,5000)
@@ -211,9 +219,9 @@ for name in name_list:
     axb.spines.bottom.set_visible(False)
 
     axc.spines['right'].set_position(('outward', 80))
-    axc.yaxis.label.set_color('tab:green')
-    axc.tick_params(axis='y', colors='tab:green')
-    axc.spines['right'].set_color('tab:green')
+    axc.yaxis.label.set_color('tab:orange')
+    axc.tick_params(axis='y', colors='tab:orange')
+    axc.spines['right'].set_color('tab:orange')
     axc.spines.left.set_visible(False)
     axc.spines.top.set_visible(False)
     axc.spines.bottom.set_visible(False)

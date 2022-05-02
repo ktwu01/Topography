@@ -49,7 +49,7 @@ for var in var_list:
     rho_s1, _ = stats.spearmanr(gdf.loc[gdf["aridity"] > 1, var], gdf.loc[gdf["aridity"] > 1, "wtd"], nan_policy='omit')
     rho_s2, _ = stats.spearmanr(gdf.loc[gdf["aridity"] < 1, var], gdf.loc[gdf["aridity"] < 1, "wtd"])
     ax.annotate("rho_s arid: {:.2f} ".format(rho_s1), xy=(.1, .9), xycoords=ax.transAxes, fontsize=10)
-    ax.annotate("rho_s humid: {:.2f} ".format(rho_s2), xy=(.1, .85), xycoords=ax.transAxes, fontsize=10)
+    ax.annotate("rho_s humid: {:.2f} ".format(rho_s2), xy=(.1, .83), xycoords=ax.transAxes, fontsize=10)
     plt.savefig(results_path + "wtd_vs_" + var + ".png", dpi=600, bbox_inches='tight')
     plt.close()
 
@@ -85,7 +85,7 @@ for var in var_list:
     rho_s1, _ = stats.spearmanr(gdf.loc[gdf["aridity"] > 1, var], gdf.loc[gdf["aridity"] > 1, "wtd_model"], nan_policy='omit')
     rho_s2, _ = stats.spearmanr(gdf.loc[gdf["aridity"] < 1, var], gdf.loc[gdf["aridity"] < 1, "wtd_model"])
     ax.annotate("rho_s arid: {:.2f} ".format(rho_s1), xy=(.1, .9), xycoords=ax.transAxes, fontsize=10)
-    ax.annotate("rho_s humid: {:.2f} ".format(rho_s2), xy=(.1, .85), xycoords=ax.transAxes, fontsize=10)
+    ax.annotate("rho_s humid: {:.2f} ".format(rho_s2), xy=(.1, .83), xycoords=ax.transAxes, fontsize=10)
     plt.savefig(results_path + "wtd_model_vs_" + var + ".png", dpi=600, bbox_inches='tight')
     plt.close()
 

@@ -115,8 +115,10 @@ for name in name_list:
         # create line (typically goes from north to south - curved lines can make this a bit tricky...)
         baseline = results_path + name + '/shapefiles/line_tmp.shp'
         #create_line_shp([x2, x1, y2, y1], baseline)
-        if name in ["Cordillera Central Ecuador", "Himalaya"]:
+        if name in ["Cordillera Central Ecuador"]:
             create_line_shp([x1, xx[p], y1, yy[p]], baseline)
+        elif name in ["Himalaya"]:
+            create_line_shp([x2, x1, y2, y1], baseline)
         else:
             create_line_shp([x2, xx[p], y2, yy[p]], baseline)
 
@@ -191,10 +193,12 @@ for name in name_list:
     fig.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_" + name + ".png", dpi=600, bbox_inches='tight')
     plt.close(fig)
 
-    axes2.set_xlabel('Aridity [mm/y]')
+    axes2.plot(np.ones_like(np.linspace(0,10000,10)), np.linspace(0,10000,10), '--', c='gray', linewidth=0.5)
+    axes2.set_xlabel('PET/P [-]')
     axes2.set_ylabel('Elevation [km]')
-    axes2.set_xlim([0, 2])
-    axes2.set_ylim([0, 4000])
+    axes2.set_xlim([0.1, 10])
+    axes2.set_xscale('log')
+    axes2.set_ylim([0, 6000])
 
     # plt.show()
     fig2.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_elevation_profiles_" + name + ".png", dpi=600, bbox_inches='tight')
@@ -203,7 +207,7 @@ for name in name_list:
     axes3.set_xlabel('Flux [mm/y]')
     axes3.set_ylabel('Elevation [km]')
     axes3.set_xlim([0, 4000])
-    axes3.set_ylim([0, 4000])
+    axes3.set_ylim([0, 6000])
 
     # plt.show()
     fig3.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_elevation_profiles_PET_P_" + name + ".png", dpi=600, bbox_inches='tight')

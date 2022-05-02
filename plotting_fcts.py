@@ -44,7 +44,7 @@ def plot_bins(x, y, fillcolor='black', **kwargs):
     color = 'black'
     ax.errorbar(bin_median, median_stat.statistic, xerr=None, yerr=asymmetric_error, capsize=2,
                 fmt='o', ms=4, elinewidth=1, c=color, ecolor=color, mec=color, mfc=fillcolor, alpha=0.9)
-    ax.plot(bin_median, median_stat.statistic, c=color, alpha=0.5, linewidth=1.0)
+    #ax.plot(bin_median, median_stat.statistic, c=color, alpha=0.5, linewidth=1.0)
 
     lim=ax.get_ylim()[1]
     ax.plot(np.linspace(np.min(x), np.max(x), 1000), 0.9 * lim * np.ones(1000),
