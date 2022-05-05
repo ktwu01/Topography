@@ -8,7 +8,7 @@ from scipy import stats
 
 # specify paths
 data_path = "/home/hydrosys/data/" #r"C:/Users/Sebastian/Documents/Data/"
-#data_path = r"D:/Data/"
+data_path = r"D:/Data/"
 results_path = "results/"
 
 dem_path = data_path + "WorldClim/" + "wc2.1_30s_elev/wc2.1_30s_elev.tif"

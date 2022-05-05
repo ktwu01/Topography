@@ -9,8 +9,8 @@ import os
 from functions.get_swath_data import get_swath_data
 
 # specify paths
-data_path = r"C:/Users/Sebastian/Documents/Data/"
-#data_path = r"D:/Data/"
+#data_path = r"C:/Users/Sebastian/Documents/Data/"
+data_path = r"D:/Data/"
 results_path = "results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
@@ -21,6 +21,7 @@ vap_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
 name_list = ["Cordillera Central Ecuador"]
+#name_list = ["Cordillera principal"]
 #["Sierra_Nevada", "European Alps", "Cordillera Central Ecuador", "France", "Himalaya", "Northern Alps", "Kilimanjaro", "Cascade Range"]
 
 # load dem shapefile
@@ -44,7 +45,7 @@ for name in name_list:
     lx, ly = line_shape.xy
 
     # generate swath objects
-    w = 0.5
+    w = 2 # 2 degrees + 2*cs
     ls = w/100
     cs = w/10
     orig_dem = pyosp.Orig_curv(baseline, dem_path, width=w, line_stepsize=ls, cross_stepsize=cs)
@@ -190,9 +191,12 @@ for name in name_list:
     axa.set_ylim(0,5000)
     axb.set_ylim(0,5000)
     axc.set_ylim(0,5000)
-    #ax.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
-    #ax.set_ylim(0,5000) #todo: adjust limits
-    #axb.set_ylim(0,5000)
+    #axa.set_ylim(0,2500)
+    #axb.set_ylim(0,2500)
+    #axc.set_ylim(0,2500)
+    axa.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
+    axb.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
+    axc.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
 
     ax.spines.right.set_visible(False)
     ax.spines.left.set_visible(False)
@@ -203,14 +207,16 @@ for name in name_list:
     ax.set_yticklabels([])
     ax.set_yticks([])
 
+    axa.spines['right'].set_position(('outward', 10))
     axa.spines.left.set_visible(False)
     axa.spines.top.set_visible(False)
-    axa.spines.bottom.set_visible(False)
-    axa.yaxis.label.set_color('tab:gray')
-    axa.tick_params(axis='y', colors='tab:gray')
-    axa.spines['right'].set_color('tab:gray')
+    #axa.spines.bottom.set_visible(False)
+    axa.spines['bottom'].set_position(('outward', 10))
+    #axa.yaxis.label.set_color('tab:gray')
+    #axa.tick_params(axis='y', colors='tab:gray')
+    #axa.spines['right'].set_color('tab:gray')
 
-    axb.spines['right'].set_position(('outward', 40))
+    axb.spines['right'].set_position(('outward', 50))
     axb.yaxis.label.set_color('tab:blue')
     axb.tick_params(axis='y', colors='tab:blue')
     axb.spines['right'].set_color('tab:blue')
@@ -218,7 +224,7 @@ for name in name_list:
     axb.spines.top.set_visible(False)
     axb.spines.bottom.set_visible(False)
 
-    axc.spines['right'].set_position(('outward', 80))
+    axc.spines['right'].set_position(('outward', 90))
     axc.yaxis.label.set_color('tab:orange')
     axc.tick_params(axis='y', colors='tab:orange')
     axc.spines['right'].set_color('tab:orange')

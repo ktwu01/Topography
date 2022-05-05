@@ -30,9 +30,10 @@ def get_swath_geometries(region_name):
         #xy_line = [37.0, 37.8, -0.3, 0.1] # Kilimanjaro
         #xy_box = [36.0, 39.0, -1.0, 1.0]
     elif region_name == 'Cascade Range':
-        xy_line = [-124.5, -120.5, 45.0, 45.001] # Cascades
+        #xy_line = [-124.5, -120.5, 45.0, 45.001] # Cascades
+        xy_line = [-125.0, -120.0, 45.0, 45.001] # Cascades
         #xy_box = [-125.5, -119.5, 44.0, 46.0]
-        xy_box = [-125.5, -119.5, 44.0, 46.0]
+        xy_box = [-125.0, -120.0, 44.0, 46.0]
     elif region_name == 'Northern Alps':
         xy_line = [11.0, 11.001, 47.7, 46.7] # Northern Alps
         xy_box = [10.0, 12.0, 46.0, 48.0]
@@ -43,8 +44,13 @@ def get_swath_geometries(region_name):
         xy_line = [-120.0, -118.001, 37.0, 38.5] # Sierra Nevada
         xy_box = [-121.0, -117.0, 36.0, 40.0]
     elif region_name == 'Cordillera Central Ecuador':
-        xy_line = [-80.5, -76.5, -1.0, -1.0001] # Ecuador Andes
-        xy_box = [-82.0, -76.0, -4.0, 1.0]
+        #xy_line = [-80.5, -76.5, -1.0, -1.0001] # Ecuador Andes
+        #xy_box = [-82.0, -76.0, -4.0, 1.0]
+        xy_line = [-81.0, -76.0, -1.0, -1.0001] # Andes in Argentina and Chile
+        xy_box = [-81.0, -76.0, -2.0, 0.0]
+    elif region_name == 'Cordillera principal':
+        xy_line = [-74.5, -69.5, -40.0, -40.0001] # Ecuador Andes
+        xy_box = [-74.5, -69.5, -42.0, -40.0]
     elif region_name == 'Himalaya':
         #xy_line = [85.0, 87.0, 26.0, 29.0] # Himalaya
         xy_line = [86.6, 86.8, 27.3, 28.1]
