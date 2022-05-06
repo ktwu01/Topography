@@ -20,7 +20,7 @@ pet_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 vap_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
-name_list = ["Cordillera Central Ecuador"]
+name_list = ["Cascade Range"]
 #name_list = ["Cordillera principal"]
 #["Sierra_Nevada", "European Alps", "Cordillera Central Ecuador", "France", "Himalaya", "Northern Alps", "Kilimanjaro", "Cascade Range"]
 
@@ -188,12 +188,10 @@ for name in name_list:
     #axb.set_ylabel('Precipitation [mm/y]')
     #axc.set_ylabel('Vapor pressure [Pa]')
     #axb.set_ylabel('Precipitation [mm/y] / Vapor pressure [Pa]')
-    axa.set_ylim(0,5000)
-    axb.set_ylim(0,5000)
-    axc.set_ylim(0,5000)
-    #axa.set_ylim(0,2500)
-    #axb.set_ylim(0,2500)
-    #axc.set_ylim(0,2500)
+    lim = 5000
+    axa.set_ylim(0,lim)
+    axb.set_ylim(0,lim)
+    axc.set_ylim(0,lim)
     axa.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
     axb.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
     axc.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths

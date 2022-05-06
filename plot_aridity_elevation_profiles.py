@@ -26,7 +26,7 @@ pet_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
-name_list = ["European Alps", "Cordillera Central Ecuador", "Himalaya", "Cascade Range"]
+name_list = ["Southern Andes"]#["Sierra Madre del Sur", "European Alps", "Cordillera Central Ecuador", "Cascade Range", "Cordillera principal", "Himalaya"]
 
 # load dem shapefile
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze() #todo: remove masked ...
@@ -55,7 +55,7 @@ for name in name_list:
     #mountain_range = mountain_shp.loc[mountain_shp.Name==name]
 
     # swath dimensions
-    d = 1.0 # length of swath
+    d = 2.0 # length of swath
     w = 0.5 # width
     distances = np.arange(0, line.length, w)[:-1]
     # or alternatively without NumPy:
@@ -68,20 +68,20 @@ for name in name_list:
 
     ### PLOT 1 ###
     # plot the swath profile lines
-    fig = plt.figure(figsize=(6, 3), constrained_layout=True)
+    fig = plt.figure(figsize=(3, 3), constrained_layout=True)
     axes = plt.axes()
 
     sp0 = dem.plot.imshow(ax=axes, cmap='gray')
     axes.set(title=None)  # "DEM [m]"
     # axes.set_axis_off()
-    # axes.axis('equal')
+    axes.axis('equal')
     axes.set_xlim(xlim)
     axes.set_ylim(ylim)
     axes.set_xlabel('Lon [deg]')
     axes.set_ylabel('Lat [deg]')
     sp0.colorbar.set_label('DEM [m]')
     # sp0.set_clim([0, np.round(np.array(orig_dem.dat).max(), 100)])
-    sp0.set_clim([0, 4000])  # 100*round(np.max(dem.values/100))
+    sp0.set_clim([0, 3000])  # 100*round(np.max(dem.values/100))
 
     x, y = line.xy
     #axes.plot(x, y, color='silver')
@@ -138,6 +138,9 @@ for name in name_list:
         #    x, y = line.xy
         #    axes0.plot(x, y, color='C2')
 
+        x, y = line.xy
+        axes.plot(x, y, color='tab:red')
+
         swath_polygon = orig_dem.out_polygon()
         px, py = swath_polygon.exterior.xy
         if p in swath_ind:
@@ -171,15 +174,19 @@ for name in name_list:
             mean_stat = stats.binned_statistic(dem_swath.flatten(), aridity, statistic=lambda y: np.nanmean(y), bins=bin_edges)
             std_stat = stats.binned_statistic(dem_swath.flatten(), aridity, statistic=lambda y: np.nanstd(y), bins=bin_edges)
 
-            axes2.plot(mean_stat.statistic, bin_medians, color=nextcolor)
-            axes2.fill_betweenx(bin_medians, mean_stat.statistic - std_stat.statistic,
-                             mean_stat.statistic + std_stat.statistic, facecolor=nextcolor, alpha=0.25)
-
             # PET and P
             mean_stat_PET = stats.binned_statistic(dem_swath.flatten(), pet_swath.flatten(), statistic=lambda y: np.nanmean(y), bins=bin_edges)
             std_stat_PET = stats.binned_statistic(dem_swath.flatten(), pet_swath.flatten(), statistic=lambda y: np.nanstd(y), bins=bin_edges)
             mean_stat_P = stats.binned_statistic(dem_swath.flatten(), pr_swath.flatten(), statistic=lambda y: np.nanmean(y), bins=bin_edges)
             std_stat_P = stats.binned_statistic(dem_swath.flatten(), pr_swath.flatten(), statistic=lambda y: np.nanstd(y), bins=bin_edges)
+
+            axes2.plot(mean_stat.statistic, bin_medians, color=nextcolor)
+            axes2.fill_betweenx(bin_medians, mean_stat.statistic - std_stat.statistic,
+                             mean_stat.statistic + std_stat.statistic, facecolor=nextcolor, alpha=0.25)
+
+            #axes2.plot(mean_stat_PET.statistic/mean_stat_P.statistic, bin_medians, color=nextcolor)
+            #axes2.fill_betweenx(bin_medians, mean_stat_PET.statistic/mean_stat_P.statistic - std_stat_PET.statistic/std_stat_P.statistic,
+            #                 mean_stat_PET.statistic/mean_stat_P.statistic + std_stat_PET.statistic/std_stat_P.statistic, facecolor=nextcolor, alpha=0.25)
 
             axes3.plot(mean_stat_PET.statistic, bin_medians, color='tab:orange')
             axes3.fill_betweenx(bin_medians, mean_stat_PET.statistic - std_stat_PET.statistic,
@@ -196,9 +203,10 @@ for name in name_list:
     axes2.plot(np.ones_like(np.linspace(0,10000,10)), np.linspace(0,10000,10), '--', c='gray', linewidth=0.5)
     axes2.set_xlabel('PET/P [-]')
     axes2.set_ylabel('Elevation [km]')
-    axes2.set_xlim([0.1, 10])
+    axes2.set_xlim([0.2, 5])
     axes2.set_xscale('log')
-    axes2.set_ylim([0, 6000])
+    axes2.set_xticks(ticks=[0.5, 1, 2], labels=["0.5", "1", "2"])
+    axes2.set_ylim([0, 4000])
 
     # plt.show()
     fig2.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_elevation_profiles_" + name + ".png", dpi=600, bbox_inches='tight')
@@ -207,7 +215,7 @@ for name in name_list:
     axes3.set_xlabel('Flux [mm/y]')
     axes3.set_ylabel('Elevation [km]')
     axes3.set_xlim([0, 4000])
-    axes3.set_ylim([0, 6000])
+    axes3.set_ylim([0, 4000])
 
     # plt.show()
     fig3.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_elevation_profiles_PET_P_" + name + ".png", dpi=600, bbox_inches='tight')

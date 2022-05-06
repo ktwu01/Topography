@@ -14,7 +14,7 @@ from functions.get_swath_data import get_swath_data
 
 # specify paths
 data_path = r"C:/Users/Sebastian/Documents/Data/"
-#data_path = r"D:/Data/"
+data_path = r"D:/Data/"
 results_path = "results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
@@ -24,7 +24,7 @@ pet_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
-name_list = ["European Alps", "Cordillera Central Ecuador", "Himalaya", "Cascade Range"]
+name_list = ["Southern Andes"]#["Cordillera principal"]#["European Alps", "Cordillera Central Ecuador", "Himalaya", "Cascade Range"]
 
 # load dem shapefile
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze() #todo: remove masked ...
@@ -53,7 +53,7 @@ for name in name_list:
 
     # swath dimensions
     d = 1.0 # length of swath
-    w = 1.0 # width
+    w = 0.5 # width
     distances = np.arange(0, line.length, w)[:-1]
     # or alternatively without NumPy:
     # points_count = int(line.length // d) + 1

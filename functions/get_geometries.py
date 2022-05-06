@@ -15,6 +15,15 @@ def get_swath_indices(region_name):
     elif region_name == 'Cordillera Central Ecuador':
         ind = [1, 3, 8]
 
+    elif region_name == 'Cordillera principal':
+        ind = [3, 4, 8]
+
+    elif region_name == 'Southern Andes':
+        ind = [4, 6, 8]
+
+    elif region_name == 'Sierra Madre del Sur':
+        ind = [1, 2, 3] # tropical range
+
     else:
         raise('Region not defined.')
 
@@ -49,7 +58,10 @@ def get_swath_geometries(region_name):
         xy_line = [-81.0, -76.0, -1.0, -1.0001] # Andes in Argentina and Chile
         xy_box = [-81.0, -76.0, -2.0, 0.0]
     elif region_name == 'Cordillera principal':
-        xy_line = [-74.5, -69.5, -40.0, -40.0001] # Ecuador Andes
+        xy_line = [-74.5, -69.5, -41.0, -41.0001] # Ecuador Andes
+        xy_box = [-74.5, -69.5, -42.0, -40.0]
+    elif region_name == 'Southern Andes':
+        xy_line = [-74.5, -69.5, -41.0, -41.0001] # Ecuador Andes
         xy_box = [-74.5, -69.5, -42.0, -40.0]
     elif region_name == 'Himalaya':
         #xy_line = [85.0, 87.0, 26.0, 29.0] # Himalaya
@@ -75,6 +87,11 @@ def get_strike_geometries(region_name):
         xlim = [65, 105]
         ylim = [24, 40]
 
+    elif region_name == 'Sierra Madre del Sur':
+        line_path = "data/lines/Sierra_Madre_Mexico.shp"
+        xlim = [-105, -95]
+        ylim = [15, 20]
+
     elif region_name == 'Cascade Range':
         line_path = "data/lines/Cascades.shp"
         xlim = [-125, -118]
@@ -89,6 +106,16 @@ def get_strike_geometries(region_name):
         line_path = "data/lines/Ecuadorian_Andes.shp"
         xlim = [-82, -76]
         ylim = [-8, 4]
+
+    elif region_name == 'Cordillera principal':
+        line_path = "data/lines/Chile_Andes.shp"
+        xlim = [-75, -68]
+        ylim = [-41, -33]
+
+    elif region_name == 'Southern Andes':
+        line_path = "data/lines/Southern_Andes.shp"
+        xlim = [-75, -68]
+        ylim = [-47, -33]
 
     else:
         raise('Region not defined.')
