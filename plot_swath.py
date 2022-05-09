@@ -21,7 +21,8 @@ vap_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
 name_list = ["Cascade Range"]
-#name_list = ["Cordillera principal"]
+name_list = ["Cordillera principal"]
+name_list = ["Southern Andes"]
 #["Sierra_Nevada", "European Alps", "Cordillera Central Ecuador", "France", "Himalaya", "Northern Alps", "Kilimanjaro", "Cascade Range"]
 
 # load dem shapefile
@@ -188,7 +189,7 @@ for name in name_list:
     #axb.set_ylabel('Precipitation [mm/y]')
     #axc.set_ylabel('Vapor pressure [Pa]')
     #axb.set_ylabel('Precipitation [mm/y] / Vapor pressure [Pa]')
-    lim = 5000
+    lim = 3000
     axa.set_ylim(0,lim)
     axb.set_ylim(0,lim)
     axc.set_ylim(0,lim)

@@ -26,6 +26,7 @@ pet_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
 t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
+name_list = ["Cordillera Central Ecuador"]#
 name_list = ["Southern Andes"]#["Sierra Madre del Sur", "European Alps", "Cordillera Central Ecuador", "Cascade Range", "Cordillera principal", "Himalaya"]
 
 # load dem shapefile
@@ -56,7 +57,7 @@ for name in name_list:
 
     # swath dimensions
     d = 2.0 # length of swath
-    w = 0.5 # width
+    w = 0.25 # width
     distances = np.arange(0, line.length, w)[:-1]
     # or alternatively without NumPy:
     # points_count = int(line.length // d) + 1

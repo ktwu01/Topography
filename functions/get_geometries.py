@@ -13,13 +13,13 @@ def get_swath_indices(region_name):
         ind = [4, 8, 12]
 
     elif region_name == 'Cordillera Central Ecuador':
-        ind = [1, 3, 8]
+        ind = [2, 6, 10]
 
     elif region_name == 'Cordillera principal':
         ind = [3, 4, 8]
 
     elif region_name == 'Southern Andes':
-        ind = [4, 6, 8]
+        ind = [7, 11, 14]
 
     elif region_name == 'Sierra Madre del Sur':
         ind = [1, 2, 3] # tropical range
@@ -58,11 +58,11 @@ def get_swath_geometries(region_name):
         xy_line = [-81.0, -76.0, -1.0, -1.0001] # Andes in Argentina and Chile
         xy_box = [-81.0, -76.0, -2.0, 0.0]
     elif region_name == 'Cordillera principal':
-        xy_line = [-74.5, -69.5, -41.0, -41.0001] # Ecuador Andes
-        xy_box = [-74.5, -69.5, -42.0, -40.0]
+        xy_line = [-74.5, -69.5, -40.5, -40.5001] # Ecuador Andes
+        xy_box = [-74.5, -69.5, -41.5, -39.5]
     elif region_name == 'Southern Andes':
-        xy_line = [-74.5, -69.5, -41.0, -41.0001] # Ecuador Andes
-        xy_box = [-74.5, -69.5, -42.0, -40.0]
+        xy_line = [-74.0, -69.0, -38.5, -38.5001] # Ecuador Andes
+        xy_box = [-74.0, -69.0, -39.5, -37.5]
     elif region_name == 'Himalaya':
         #xy_line = [85.0, 87.0, 26.0, 29.0] # Himalaya
         xy_line = [86.6, 86.8, 27.3, 28.1]
