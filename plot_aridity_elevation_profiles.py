@@ -27,7 +27,7 @@ t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
 name_list = ["Cordillera Central Ecuador"]#
-name_list = ["Southern Andes"]#["Sierra Madre del Sur", "European Alps", "Cordillera Central Ecuador", "Cascade Range", "Cordillera principal", "Himalaya"]
+#name_list = ["Southern Andes"]#["Sierra Madre del Sur", "European Alps", "Cordillera Central Ecuador", "Cascade Range", "Cordillera principal", "Himalaya"]
 
 # load dem shapefile
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze() #todo: remove masked ...
@@ -169,7 +169,7 @@ for name in name_list:
             """
 
             aridity = (pet_swath/pr_swath).flatten()
-            n_bins = 10
+            n_bins = 20
             bin_edges = stats.mstats.mquantiles(dem_swath.flatten(), np.linspace(0, 1, n_bins+1))
             bin_medians = stats.mstats.mquantiles(dem_swath.flatten(), np.linspace(0.05,0.95,n_bins))
             mean_stat = stats.binned_statistic(dem_swath.flatten(), aridity, statistic=lambda y: np.nanmean(y), bins=bin_edges)

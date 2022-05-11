@@ -22,7 +22,8 @@ t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
 name_list = ["Cascade Range"]
 name_list = ["Cordillera principal"]
-name_list = ["Southern Andes"]
+#name_list = ["Southern Andes"]
+#name_list = ["Cordillera Central Ecuador"]
 #["Sierra_Nevada", "European Alps", "Cordillera Central Ecuador", "France", "Himalaya", "Northern Alps", "Kilimanjaro", "Cascade Range"]
 
 # load dem shapefile
@@ -172,11 +173,11 @@ for name in name_list:
                         vap_swath.mean(axis=1) + vap_swath.std(axis=1),
                         facecolor='tab:green', alpha=0.25)
                         """
-    axc.plot(dist, pet_swath.mean(axis=1),
-                c='tab:orange', label='Potential evapotranspiration')  # np.array(orig_dem.dat)[:,i]
-    axc.fill_between(dist, pet_swath.mean(axis=1) - pet_swath.std(axis=1),
-                        pet_swath.mean(axis=1) + pet_swath.std(axis=1),
-                        facecolor='tab:orange', alpha=0.25)
+    #axc.plot(dist, pet_swath.mean(axis=1),
+    #            c='tab:orange', label='Potential evapotranspiration')  # np.array(orig_dem.dat)[:,i]
+    #axc.fill_between(dist, pet_swath.mean(axis=1) - pet_swath.std(axis=1),
+    #                    pet_swath.mean(axis=1) + pet_swath.std(axis=1),
+    #                    facecolor='tab:orange', alpha=0.25)
 
 
     lines, labels = ax.get_legend_handles_labels()
