@@ -4,6 +4,8 @@ import geopandas as gpd
 import pandas as pd
 import rasterio as rio
 import plotting_fcts
+from rasterio.crs import CRS
+import rioxarray as rxr
 
 # specify paths
 data_path = "/home/hydrosys/data/" #r"C:/Users/Sebastian/Documents/Data/"
@@ -15,6 +17,9 @@ slope_path = data_path + "DEMs/Geomorpho90m/" + "dtm_slope_merit.dem_m_250m_s0..
 conv_path = data_path + "DEMs/Geomorpho90m/" + "dtm_convergence_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
 twi_path = data_path + "DEMs/Geomorpho90m/" + "dtm_cti_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
 geom_path = data_path + "DEMs/Geomorpho90m/" + "dtm_geom_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
+wtr_path = data_path + "Groundwater/Cuthbert_2019_WTR/" + "LOG_WTR_NL_01.tif"
+l_path = data_path + "Groundwater/Cuthbert_2019_WTR/" + "L01_m.tif"
+grt_path = data_path + "Groundwater/Cuthbert_2019_WTR/" + "Log_GRT_a.tif"
 pr_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 pet_path = data_path + "WorldClim/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
 t_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
@@ -36,19 +41,27 @@ wtd_path_list = [Fan_data_path + "All-Africa-Data-lat-lon-z-wtd/All-Africa-Data-
 """
 wtd_path_list_full = [data_path + s for s in wtd_path_list]
 
+crs_wgs84 = CRS.from_string('EPSG:4326')
 # open raster
-#dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
+dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
+l = rxr.open_rasterio(l_path, masked=True)
+l = l.rio.reproject(crs_wgs84)
+
 dem = rio.open(dem_path, masked=True)
+dem = dem.rio.reproject(crs_wgs84)
 slope = rio.open(slope_path, masked=True)
 conv = rio.open(conv_path, masked=True)
 twi = rio.open(twi_path, masked=True)
 geom = rio.open(geom_path, masked=True)
+wtr = rio.open(wtr_path, masked=True)
+l = rio.open(l_path, masked=True)
+grt = rio.open(grt_path, masked=True)
 pr = rio.open(pr_path, masked=True)
 pet = rio.open(pet_path, masked=True)
 t = rio.open(t_path, masked=True)
 wtd_model = rio.open(wtd_model_path, masked=True)
 
-wtd_all = pd.read_csv(WTD_all_path, sep=',')
+#wtd_all = pd.read_csv(WTD_all_path, sep=',')
 
 # load wtd data
 li = []
@@ -67,46 +80,23 @@ df = pd.concat(li, axis=0)
 #df['z'] = df['z'].str.replace(',','') # some values contain commas...
 
 # todo: check with Robert how many data points there are
-df.loc[df['wtd'] > 9999, 'wtd'] = np.nan
+#df.loc[df['wtd'] > 9999, 'wtd'] = np.nan
 # open shapefile and plot
 #mountain_shp = gpd.read_file(shp_path)
 
-# plot histogram
-bins = np.linspace(-1,100,102)
-h, bins = np.histogram(df['wtd'], bins=bins)
-f, ax = plt.subplots(figsize=(6, 3))
-#sp = landforms.plot.hist(ax=ax, bins=bins)
-sp = ax.bar((bins[0:-1]+bins[1:])/2, h)
-ax.set_xlabel('WTD [m]')
-ax.set_ylabel('Count')
-plt.savefig(results_path + "wtd_histogram.png", dpi=600, bbox_inches='tight')
-plt.close()
 
-# create geodataframe
+# create geodataframe.
 gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.lon, df.lat))
 # todo: ask Robert about link between df and gdf
 
+#df_obs = wtd_all.loc[wtd_all['Model'] == 'Fan et al. 2013 (observations)'] # ..
+# todo: multiple point with same coordiantes (90 lat... remove?)
+"""
+df_obs.columns = ["lon", "lat", "wtd_robert", "model"]
+df_test = pd.merge(df_obs, gdf, on=['lat', 'lon'], how='outer')
+"""
+
 # todo: CLEAN UP CODE - first do proper saving of data, then proper saving of general dataframe, then use dataframe to play around with...
-"""
-fig = plt.figure(figsize=(12, 6), constrained_layout=True)
-ax = plt.axes()#projection=ccrs.Robinson()
-sp0 = dem.plot.imshow(ax=ax, cmap='Greys')
-ax.set(title=None)  # "DEM [m]"
-# axes.set_axis_off()
-# axes.axis('equal')
-ax.set_xlim([-180, 180])
-ax.set_ylim([-60, 90])
-ax.set_xlabel('Lon [deg]')
-ax.set_ylabel('Lat [deg]')
-sp0.colorbar.set_label('DEM [m]')
-# sp0.set_clim([0, np.round(np.array(orig_dem.dat).max(), 100)])
-sp0.set_clim([0, 5000])  # 100*round(np.max(dem.values/100))
-
-gdf.plot("wtd", ax=ax, markersize=0.01, cmap="YlGnBu", vmin=0, vmax=50)
-
-plt.savefig(results_path + "wtd_map.png", dpi=600, bbox_inches='tight')
-plt.close()
-"""
 
 # extract point values from gridded files / shapefile
 coord_list = [(x,y) for x,y in zip(gdf['geometry'].x , gdf['geometry'].y)]
@@ -115,6 +105,9 @@ gdf['slope'] = [x for x in slope.sample(coord_list)]
 gdf['conv'] = [x for x in conv.sample(coord_list)]
 gdf['twi'] = [x for x in twi.sample(coord_list)]
 gdf['geom'] = [x for x in geom.sample(coord_list)]
+gdf['wtr'] = [x for x in wtr.sample(coord_list)]
+gdf['l'] = [x for x in l.sample(coord_list)]
+gdf['grt'] = [x for x in grt.sample(coord_list)]
 gdf['pr'] = [x for x in pr.sample(coord_list)]
 gdf['pet'] = [x for x in pet.sample(coord_list)]
 gdf['t'] = [x for x in t.sample(coord_list)]
@@ -125,11 +118,19 @@ gdf['slope'] = np.concatenate(df['slope'].to_numpy())
 gdf['conv'] = np.concatenate(df['conv'].to_numpy())
 gdf['twi'] = np.concatenate(df['twi'].to_numpy())
 gdf['geom'] = np.concatenate(df['geom'].to_numpy())
+gdf['wtr'] = np.concatenate(df['wtr'].to_numpy())
+gdf['l'] = np.concatenate(df['l'].to_numpy())
+gdf['grt'] = np.concatenate(df['grt'].to_numpy())
 gdf['pr'] = np.concatenate(df['pr'].to_numpy())
 gdf['pet'] = np.concatenate(df['pet'].to_numpy())
 gdf['t'] = np.concatenate(df['t'].to_numpy())
 gdf['wtd_model'] = np.concatenate(df['wtd_model'].to_numpy())
 gdf['aridity'] = gdf['pet']/gdf['pr']
+
+
+# use Robert's dataframe
+# = wtd_all.loc[wtd_all['Model'] == 'G³M']
+#gdf['model_g3m'] = [x for x in wtd_tmp.sample(coord_list)]
 
 gdf.to_file(results_path + 'dataframe.shp')
 
