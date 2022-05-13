@@ -64,6 +64,8 @@ def prepare_data(data_path, results_path):
     grt = grt.rio.reproject(crs_wgs84)
     grt.rio.to_raster(results_path + "GRT_reprojected.tif")
 
+    # todo: prepare more data, e.g. permeability and other drainage density data
+
 def load_data(data_path, results_path):
     # specify file paths
     dem_path = data_path + "WorldClim/" + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
@@ -83,6 +85,8 @@ def load_data(data_path, results_path):
 
     wtd_path = results_path + "WTD_Fan_2013.csv"
     WTD_all_path = data_path + "Groundwater/WTD_all/water_table_depth_all_models.csv"
+    # todo: add more models and possibly WTD data
+    # todo: check how to extract nearest point (either make raster or find other solution)
 
     # open all datasets
     df = pd.read_csv(results_path + "WTD_Fan_2013.csv", sep=',')
@@ -101,8 +105,12 @@ def load_data(data_path, results_path):
 
     #wtd_all = pd.read_csv(WTD_all_path, sep=',')
 
+    # todo: check if extraction works
     # extract point values from gridded files / shapefile
     coord_list = [(x,y) for x,y in zip(df['lon'], df['lat'])]
+
+    var_list =["dem", "slope", "conv", "aridity", "twi", "wtd_model", "l", "wtr", "grt"]
+    # todo: for loop
     df['dem'] = [x for x in dem.sample(coord_list)]
     df['l'] = [x for x in l.sample(coord_list)]
     df['slope'] = [x for x in slope.sample(coord_list)]
@@ -141,6 +149,8 @@ def plot_data(data_path, results_path):
     # todo: clean up if statements...
 
     var_list =["dem", "slope", "conv", "aridity", "twi", "wtd_model", "l", "wtr", "grt"]
+    lim_list = []
+    log_list = []
     #var_list =["l", "wtr", "grt"]
     for var in var_list:
         print(var)
@@ -173,8 +183,10 @@ def plot_data(data_path, results_path):
         #if var != "aridity":
         rho_s1, _ = stats.spearmanr(df.loc[df["aridity"] > 1, var], df.loc[df["aridity"] > 1, "wtd"], nan_policy='omit')
         rho_s2, _ = stats.spearmanr(df.loc[df["aridity"] < 1, var], df.loc[df["aridity"] < 1, "wtd"])
+        rho_s3, _ = stats.spearmanr(df["aridity"], df["wtd"])
         ax.annotate("rho_s arid: {:.2f} ".format(rho_s1), xy=(.1, .9), xycoords=ax.transAxes, fontsize=10)
-        ax.annotate("rho_s humid: {:.2f} ".format(rho_s2), xy=(.1, .83), xycoords=ax.transAxes, fontsize=10)
+        ax.annotate("rho_s humid: {:.2f} ".format(rho_s2), xy=(.1, .82), xycoords=ax.transAxes, fontsize=10)
+        ax.annotate("rho_s total: {:.2f} ".format(rho_s3), xy=(.1, .74), xycoords=ax.transAxes, fontsize=10)
         plt.savefig(results_path + "wtd_vs_" + var + ".png", dpi=600, bbox_inches='tight')
         plt.close()
 
@@ -210,18 +222,19 @@ def plot_data(data_path, results_path):
         #if var != "aridity":
         rho_s1, _ = stats.spearmanr(df.loc[df["aridity"] > 1, var], df.loc[df["aridity"] > 1, "wtd_model"], nan_policy='omit')
         rho_s2, _ = stats.spearmanr(df.loc[df["aridity"] < 1, var], df.loc[df["aridity"] < 1, "wtd_model"])
+        rho_s3, _ = stats.spearmanr(df["aridity"], df["wtd_model"])
         ax.annotate("rho_s arid: {:.2f} ".format(rho_s1), xy=(.1, .9), xycoords=ax.transAxes, fontsize=10)
         ax.annotate("rho_s humid: {:.2f} ".format(rho_s2), xy=(.1, .83), xycoords=ax.transAxes, fontsize=10)
+        ax.annotate("rho_s total: {:.2f} ".format(rho_s3), xy=(.1, .74), xycoords=ax.transAxes, fontsize=10)
         plt.savefig(results_path + "wtd_model_vs_" + var + ".png", dpi=600, bbox_inches='tight')
         plt.close()
-
 
 #prepare_data(data_path, results_path)
 #load_data(data_path, results_path)
 plot_data(data_path, results_path)
 
 #df_obs = wtd_all.loc[wtd_all['Model'] == 'Fan et al. 2013 (observations)'] # ..
-# todo: multiple point with same coordintes (90 lat... remove?)
+# todo: multiple points with same coordintes (90 lat... remove?)
 # use Robert's dataframe
 # = wtd_all.loc[wtd_all['Model'] == 'G³M']
 #df['model_g3m'] = [x for x in wtd_tmp.sample(coord_list)]
