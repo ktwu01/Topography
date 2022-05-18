@@ -22,11 +22,11 @@ results_path = "results/"
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 pr_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
-pet_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
+pet_path = data_path + "/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
 t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
-name_list = ["Cordillera Central Ecuador"]#
+name_list = ["Cordillera Central Ecuador","Southern Andes"]#
 #name_list = ["Southern Andes"]#["Sierra Madre del Sur", "European Alps", "Cordillera Central Ecuador", "Cascade Range", "Cordillera principal", "Himalaya"]
 
 # load dem shapefile
@@ -169,7 +169,7 @@ for name in name_list:
             """
 
             aridity = (pet_swath/pr_swath).flatten()
-            n_bins = 20
+            n_bins = 10
             bin_edges = stats.mstats.mquantiles(dem_swath.flatten(), np.linspace(0, 1, n_bins+1))
             bin_medians = stats.mstats.mquantiles(dem_swath.flatten(), np.linspace(0.05,0.95,n_bins))
             mean_stat = stats.binned_statistic(dem_swath.flatten(), aridity, statistic=lambda y: np.nanmean(y), bins=bin_edges)
@@ -204,10 +204,11 @@ for name in name_list:
     axes2.plot(np.ones_like(np.linspace(0,10000,10)), np.linspace(0,10000,10), '--', c='gray', linewidth=0.5)
     axes2.set_xlabel('PET/P [-]')
     axes2.set_ylabel('Elevation [km]')
-    axes2.set_xlim([0.2, 5])
+    axes2.set_xlim([0.1, 10])
+    #axes2.set_xlim([0, 2])
     axes2.set_xscale('log')
-    axes2.set_xticks(ticks=[0.5, 1, 2], labels=["0.5", "1", "2"])
-    axes2.set_ylim([0, 4000])
+    axes2.set_xticks(ticks=[0.2, 0.5, 1, 2, 5], labels=["0.2", "0.5", "1", "2", "5"])
+    axes2.set_ylim([0, 5000])
 
     # plt.show()
     fig2.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_elevation_profiles_" + name + ".png", dpi=600, bbox_inches='tight')
@@ -215,8 +216,8 @@ for name in name_list:
 
     axes3.set_xlabel('Flux [mm/y]')
     axes3.set_ylabel('Elevation [km]')
-    axes3.set_xlim([0, 4000])
-    axes3.set_ylim([0, 4000])
+    axes3.set_xlim([0, 6000])
+    axes3.set_ylim([0, 5000])
 
     # plt.show()
     fig3.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_elevation_profiles_PET_P_" + name + ".png", dpi=600, bbox_inches='tight')

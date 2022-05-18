@@ -13,15 +13,15 @@ def get_swath_indices(region_name):
         ind = [4, 8, 12]
 
     elif region_name == 'Cordillera Central Ecuador':
-        ind = [2, 6, 10]
-        #ind = [6, 11, 17]
+        #ind = [2, 6, 10]
+        ind = [6, 11, 17]
 
     elif region_name == 'Cordillera principal':
         ind = [3, 4, 8]
 
     elif region_name == 'Southern Andes':
-        ind = [7, 11, 14]
-        #ind = [6, 14, 22]
+        #ind = [7, 11, 14]
+        ind = [6, 14, 22]
 
     elif region_name == 'Sierra Madre del Sur':
         ind = [1, 2, 3] # tropical range
