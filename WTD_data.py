@@ -240,4 +240,3 @@ plot_data(data_path, results_path)
 #df['model_g3m'] = [x for x in wtd_tmp.sample(coord_list)]
 #df_obs.columns = ["lon", "lat", "wtd_robert", "model"]
 #df_test = pd.merge(df_obs, df, on=['lat', 'lon'], how='outer')
-
