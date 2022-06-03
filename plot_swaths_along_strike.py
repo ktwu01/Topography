@@ -20,7 +20,7 @@ results_path = "results/"
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
 dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 pr_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
-pet_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
+pet_path = data_path + "/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
 t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)

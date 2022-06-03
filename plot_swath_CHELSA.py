@@ -14,13 +14,19 @@ data_path = r"D:/Data/"
 results_path = "results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
-dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
-pr_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
-pet_path = data_path + "/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
-vap_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
-t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
+#dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
+dem_path = data_path + "hyd_glo_dem_30s\hyd_glo_dem_30s.tif"
+#pr_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
+pr_path = data_path + "CHELSA/CHELSA_bio12_1981-2010_V.2.1.tif"
+#pet_path = data_path + "/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
+pet_path = data_path + "CHELSA/CHELSA_pet_penman_mean_1981-2010_V.2.1.tif"
+#vap_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
+#t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
+t_path = data_path + "CHELSA/CHELSA_bio1_1981-2010_V.2.1.tif"
 
 name_list = ["Cascade Range"]
+#name_list = ["Cordillera principal"]
+name_list = ["Southern Andes"]
 name_list = ["Cordillera Central Ecuador", "Southern Andes"]
 #["Sierra_Nevada", "European Alps", "Cordillera Central Ecuador", "France", "Himalaya", "Northern Alps", "Kilimanjaro", "Cascade Range"]
 
@@ -51,7 +57,7 @@ for name in name_list:
     orig_dem = pyosp.Orig_curv(baseline, dem_path, width=w, line_stepsize=ls, cross_stepsize=cs)
     orig_pr = pyosp.Orig_curv(baseline, pr_path, width=w, line_stepsize=ls, cross_stepsize=cs)
     orig_pet = pyosp.Orig_curv(baseline, pet_path, width=w, line_stepsize=ls, cross_stepsize=cs)
-    orig_vap = pyosp.Orig_curv(baseline, vap_path, width=w, line_stepsize=ls, cross_stepsize=cs)
+    #orig_vap = pyosp.Orig_curv(baseline, vap_path, width=w, line_stepsize=ls, cross_stepsize=cs)
     orig_t = pyosp.Orig_curv(baseline, t_path, width=w, line_stepsize=ls, cross_stepsize=cs)
 
     ### PLOT 1 ###
@@ -94,6 +100,10 @@ for name in name_list:
     # plot swath profile
     dist, dem_swath, pr_swath, pet_swath, t_swath = \
         get_swath_data(orig_dem, orig_pr, orig_pet, orig_t, line_shape) #add orig_vap
+    # account for offset and scale
+    pr_swath = pr_swath*0.1 #
+    pet_swath = pet_swath*0.01*12 # also convert to mm/y
+    t_swath = t_swath*0.1 - 273.15 #
 
     axes1.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1),
                        facecolor='tab:gray', alpha=0.25, label='Elevation')
