@@ -25,6 +25,8 @@ df_tmp = pd.read_csv(data_path + "Niederschlag_1991-2020_Stationsliste.txt", sep
 df = pd.merge(df, df_tmp, on=['Stations_id'], how='outer')
 df = df[["Jahr", "Stationshoehe", "geogr. Laenge"]].dropna()
 
+df = df.loc[df["Stationshoehe"] > 0]
+
 r_sp1, _ = stats.spearmanr(df["Jahr"], df["Stationshoehe"], nan_policy='omit')
 
 n = 10
@@ -42,7 +44,7 @@ bin_medians = stats.mstats.mquantiles(df["Stationshoehe"], np.linspace(0.05, 0.9
 
 # plot precipitation
 f, ax = plt.subplots(figsize=(4, 4))
-ax.scatter(df["Jahr"],df["Stationshoehe"], c=df["geogr. Laenge"], s=1, alpha=0.5)#, norm=matplotlib.colors.LogNorm())
+ax.scatter(df["Jahr"],df["Stationshoehe"], c='grey', s=1, alpha=0.5)#, norm=matplotlib.colors.LogNorm())
 #ax.scatter(mean_stat1.statistic, bin_medians, s=5, c='black', label='Precipitation')
 #ax.plot(mean_stat1.statistic, bin_medians, c='tab:blue', label='Precipitation')
 #ax.fill_betweenx(bin_medians, mean_stat1.statistic - std_stat1.statistic, mean_stat1.statistic + std_stat1.statistic,
