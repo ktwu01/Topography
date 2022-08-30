@@ -11,7 +11,7 @@ from functions.get_perp_pts import perp_pts
 from functions.create_shapefiles import create_line_shp
 from functions.create_shapefiles import create_polygon_shp
 from functions.get_swath_data import get_swath_data
-from functions.get_geometries import get_swath_indices
+from functions.get_geometries import get_swath_indices_new
 from scipy import stats
 
 # specify paths
@@ -20,25 +20,25 @@ data_path = r"D:/Data/"
 results_path = "results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
-#dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
+#dem_path = data_path + "WorldClim/wc2.1_30s_elev/wc2.1_30s_elev.tif"
+#pr_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
+#pet_path = data_path + "WorldClim/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
+#t_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 dem_path = data_path + "DEMs/hyd_glo_dem_30s/hyd_glo_dem_30s.tif"
-#pr_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 pr_path = data_path + "CHELSA/CHELSA_bio12_1981-2010_V.2.1.tif"
-#pet_path = data_path + "/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
 pet_path = data_path + "CHELSA/CHELSA_pet_penman_mean_1981-2010_V.2.1.tif"
-#vap_path = data_path + "wc2.1_30s_vapr/wc2.1_30s_vapr_avg.tif"
-#t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
 t_path = data_path + "CHELSA/CHELSA_bio1_1981-2010_V.2.1.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
-name_list = ["Cordillera Central Ecuador", "Southern Andes"]#
-#name_list = ["Southern Andes"]
-# #["Sierra Madre del Sur", "European Alps", "Cordillera Central Ecuador", "Cascade Range", "Cordillera principal", "Himalaya"]
-
+name_list = ["Cordillera Central Ecuador", "Himalaya", "Sierra Madre del Sur", "Pegunungan Maoke",
+             "Southern Andes", "Sierra Nevada", "European Alps", "Pyrenees"]#
+#name_list = ["Sierra Madre del Sur"]
 # load dem shapefile
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze() #todo: remove masked ...
 
 for name in name_list:
+
+    print(name)
 
     # check if folders exist
     path = results_path + name + "/shapefiles/"
@@ -50,11 +50,11 @@ for name in name_list:
         os.makedirs(path)
 
     # remove all files in folder
-    for f in os.listdir(path):
-        os.remove(os.path.join(path, f))
+    #for f in os.listdir(path):
+    #    os.remove(os.path.join(path, f))
 
     line_path, xlim, ylim = get_strike_geometries(name)
-    swath_ind = get_swath_indices(name)
+    swath_ind = get_swath_indices_new(name)
 
     # create line
     line = pyosp.read_shape(line_path)
@@ -63,7 +63,7 @@ for name in name_list:
 
     # swath dimensions
     d = 2.0 # length of swath
-    w = 0.25 # width
+    w = 0.5 # width
     distances = np.arange(0, line.length, w)[:-1]
     # or alternatively without NumPy:
     # points_count = int(line.length // d) + 1
@@ -75,7 +75,7 @@ for name in name_list:
 
     ### PLOT 1 ###
     # plot the swath profile lines
-    fig = plt.figure(figsize=(3, 3), constrained_layout=True)
+    fig = plt.figure(figsize=(2, 2), constrained_layout=True)
     axes = plt.axes()
 
     sp0 = dem.plot.imshow(ax=axes, cmap='gray')
@@ -92,16 +92,6 @@ for name in name_list:
 
     x, y = line.xy
     #axes.plot(x, y, color='silver')
-
-    ### PLOT 2 ###
-    # create plot for elevation profiles
-    fig2 = plt.figure(figsize=(4, 4), constrained_layout=True)
-    axes2 = plt.axes()
-
-    ### PLOT 3 ###
-    # PET and P elevation profiles
-    fig3 = plt.figure(figsize=(4, 4), constrained_layout=True)
-    axes3 = plt.axes()
 
     color = iter(cm.plasma(np.linspace(0, 1, len(swath_ind)*2)))
 
@@ -122,7 +112,7 @@ for name in name_list:
         # create line (typically goes from north to south - curved lines can make this a bit tricky...)
         baseline = results_path + name + '/shapefiles/line_tmp.shp'
         #create_line_shp([x2, x1, y2, y1], baseline)
-        if name in ["Cordillera Central Ecuador"]:
+        if name in ["Cordillera Central Ecuador", "Sierra Nevada"]:
             create_line_shp([x1, xx[p], y1, yy[p]], baseline)
         elif name in ["Himalaya"]:
             create_line_shp([x2, x1, y2, y1], baseline)
@@ -150,9 +140,10 @@ for name in name_list:
 
         swath_polygon = orig_dem.out_polygon()
         px, py = swath_polygon.exterior.xy
+
         if p in swath_ind:
             nextcolor = next(color)
-            axes.plot(px, py, c=nextcolor)
+            axes.plot(px, py, c='tab:green') #nextcolor
         else:
             pass
             #axes.plot(px, py, c='silver')
@@ -168,6 +159,16 @@ for name in name_list:
         # todo: use binning
         if p in swath_ind:
 
+            ### PLOT 2 ###
+            # create plot for elevation profiles
+            fig2 = plt.figure(figsize=(2, 2), constrained_layout=True)
+            axes2 = plt.axes()
+
+            ### PLOT 3 ###
+            # PET and P elevation profiles
+            fig3 = plt.figure(figsize=(2, 2), constrained_layout=True)
+            axes3 = plt.axes()
+
             # aridity
             """
             aridity = pet_swath/pr_swath
@@ -179,9 +180,11 @@ for name in name_list:
             """
 
             aridity = (pet_swath/pr_swath).flatten()
-            n_bins = 50
-            bin_edges = stats.mstats.mquantiles(dem_swath.flatten(), np.linspace(0, 1, n_bins+1))
-            bin_medians = stats.mstats.mquantiles(dem_swath.flatten(), np.linspace(0.05,0.95,n_bins))
+            n_bins = 10
+            #bin_edges = stats.mstats.mquantiles(dem_swath.flatten(), np.linspace(0, 1, n_bins+1))
+            #bin_medians = stats.mstats.mquantiles(dem_swath.flatten(), np.linspace(0.05,0.95,n_bins))
+            bin_edges = np.linspace(np.min(dem_swath.flatten()), np.max(dem_swath.flatten()), n_bins+1)
+            bin_medians = (bin_edges[1:]+bin_edges[:-1])/2 # actually means...
             mean_stat = stats.binned_statistic(dem_swath.flatten(), aridity, statistic=lambda y: np.nanmean(y), bins=bin_edges)
             std_stat = stats.binned_statistic(dem_swath.flatten(), aridity, statistic=lambda y: np.nanstd(y), bins=bin_edges)
 
@@ -191,9 +194,9 @@ for name in name_list:
             mean_stat_P = stats.binned_statistic(dem_swath.flatten(), pr_swath.flatten(), statistic=lambda y: np.nanmean(y), bins=bin_edges)
             std_stat_P = stats.binned_statistic(dem_swath.flatten(), pr_swath.flatten(), statistic=lambda y: np.nanstd(y), bins=bin_edges)
 
-            axes2.plot(mean_stat.statistic, bin_medians, color=nextcolor)
+            axes2.plot(mean_stat.statistic, bin_medians, color='tab:green') #nextcolor
             axes2.fill_betweenx(bin_medians, mean_stat.statistic - std_stat.statistic,
-                             mean_stat.statistic + std_stat.statistic, facecolor=nextcolor, alpha=0.25)
+                             mean_stat.statistic + std_stat.statistic, facecolor='tab:green', alpha=0.25) #nextcolor
 
             #axes2.plot(mean_stat_PET.statistic/mean_stat_P.statistic, bin_medians, color=nextcolor)
             #axes2.fill_betweenx(bin_medians, mean_stat_PET.statistic/mean_stat_P.statistic - std_stat_PET.statistic/std_stat_P.statistic,
@@ -201,34 +204,31 @@ for name in name_list:
 
             axes3.plot(mean_stat_PET.statistic, bin_medians, color='tab:orange')
             axes3.fill_betweenx(bin_medians, mean_stat_PET.statistic - std_stat_PET.statistic,
-                             mean_stat_PET.statistic + std_stat_PET.statistic, facecolor='tab:orange', alpha=0.5)
+                             mean_stat_PET.statistic + std_stat_PET.statistic, facecolor='tab:orange', alpha=0.25)
             axes3.plot(mean_stat_P.statistic, bin_medians, color='tab:blue')
             axes3.fill_betweenx(bin_medians, mean_stat_P.statistic - std_stat_P.statistic,
-                             mean_stat_P.statistic + std_stat_P.statistic, facecolor='tab:blue', alpha=0.5)
+                             mean_stat_P.statistic + std_stat_P.statistic, facecolor='tab:blue', alpha=0.25)
 
+            axes2.plot(np.ones_like(np.linspace(0,bin_edges[-1],10)), np.linspace(0,bin_edges[-1],10), '--', c='gray', linewidth=0.5)
+            axes2.set_xlabel('PET/P [-]')
+            axes2.set_ylabel('Elevation [km]')
+            axes2.set_xlim([0.1, 10])
+            #axes2.set_xlim([0, 2])
+            axes2.set_xscale('log')
+            axes2.set_xticks(ticks=[0.2, 0.5, 1, 2, 5], labels=["0.2", "0.5", "1", "2", "5"])
+            #axes2.set_ylim([0, 5000])
+            # plt.show()
+            fig2.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_elevation_profiles_" + name + "_" + str(p) + ".png", dpi=600, bbox_inches='tight')
+            plt.close(fig2)
+
+            axes3.set_xlabel('Flux [mm/y]')
+            axes3.set_ylabel('Elevation [km]')
+            axes3.set_xlim([0, np.ceil(np.max(mean_stat_P.statistic[~np.isnan(mean_stat_P.statistic)])/1000)*1000])
+            axes3.set_ylim([0, 5000])
+            # plt.show()
+            fig3.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_elevation_profiles_PET_P_" + name + "_" + str(p) + ".png", dpi=600, bbox_inches='tight')
+            plt.close(fig3)
 
     # plt.show()
     fig.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_" + name + ".png", dpi=600, bbox_inches='tight')
     plt.close(fig)
-
-    axes2.plot(np.ones_like(np.linspace(0,10000,10)), np.linspace(0,10000,10), '--', c='gray', linewidth=0.5)
-    axes2.set_xlabel('PET/P [-]')
-    axes2.set_ylabel('Elevation [km]')
-    axes2.set_xlim([0.1, 10])
-    #axes2.set_xlim([0, 2])
-    axes2.set_xscale('log')
-    axes2.set_xticks(ticks=[0.2, 0.5, 1, 2, 5], labels=["0.2", "0.5", "1", "2", "5"])
-    axes2.set_ylim([0, 5000])
-
-    # plt.show()
-    fig2.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_elevation_profiles_" + name + ".png", dpi=600, bbox_inches='tight')
-    plt.close(fig2)
-
-    axes3.set_xlabel('Flux [mm/y]')
-    axes3.set_ylabel('Elevation [km]')
-    axes3.set_xlim([0, 6000])
-    axes3.set_ylim([0, 5000])
-
-    # plt.show()
-    fig3.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_elevation_profiles_PET_P_" + name + ".png", dpi=600, bbox_inches='tight')
-    plt.close(fig3)

@@ -9,15 +9,19 @@ from scipy import stats
 #todo: clean up a bit...
 
 # specify paths
-data_path = r"C:/Users/Sebastian/Documents/Data/"
-#data_path = r"D:/Data/"
+#data_path = r"C:/Users/Sebastian/Documents/Data/"
+data_path = r"D:/Data/"
 results_path = "results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
-dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
-pr_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
-pet_path = data_path + "7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
-t_path = data_path + "wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
+#dem_path = data_path + "WorldClim/wc2.1_30s_elev/wc2.1_30s_elev.tif"
+#pr_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
+#pet_path = data_path + "WorldClim/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
+#t_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
+dem_path = data_path + "DEMs/hyd_glo_dem_30s/hyd_glo_dem_30s.tif"
+pr_path = data_path + "CHELSA/CHELSA_bio12_1981-2010_V.2.1.tif"
+pet_path = data_path + "CHELSA/CHELSA_pet_penman_mean_1981-2010_V.2.1.tif"
+t_path = data_path + "CHELSA/CHELSA_bio1_1981-2010_V.2.1.tif"
 p_name = "P"
 pet_name = "PET"
 t_name = "T"
@@ -47,11 +51,11 @@ plt.show()
 """
 
 # loop over mountain ranges
-mountain_list = ["Cambrian Mountains", "European Alps", "Pyrenees", "Cordillera Patagonica Sur",
-                 "Ethiopian Highlands", "Himalaya", "Cordillera Central Ecuador", "Sierra Nevada",
-                 "Pennines", "Cascade Range", "Appalachian Mountains", "Cordillera Occidental Peru Bolivia Chile"]
-mountain_list = ["Cordillera Central Ecuador", "Tenerife", "Himalaya", "European Alps", "Scandinavian Mountains"]
-mountain_list = ["Tenerife"]
+#mountain_list = ["Cambrian Mountains", "European Alps", "Pyrenees", "Cordillera Patagonica Sur",
+#                 "Ethiopian Highlands", "Himalaya", "Cordillera Central Ecuador", "Sierra Nevada",
+#                 "Pennines", "Cascade Range", "Appalachian Mountains", "Cordillera Occidental Peru Bolivia Chile"]
+mountain_list = ["Cordillera Patagonica Sur", "Cascade Range", "Pyrenees",
+                 "Himalaya", "Cordillera Central Ecuador", "Albertine Rift Mountains"]
 
 for mountain_name in mountain_list:
 
@@ -94,9 +98,12 @@ for mountain_name in mountain_list:
 
     # calculate elevation profile
 
-    x1 = pr_clipped.__array__()
-    x2 = pet_clipped.__array__()
-    x3 = t_clipped.__array__()*100
+    #x1 = pr_clipped.__array__()
+    #x2 = pet_clipped.__array__()
+    #x3 = t_clipped.__array__()*100
+    x1 = pr_clipped.__array__() * 0.1
+    x2 = pet_clipped.__array__() * 0.1
+    x3 = t_clipped.__array__() * 0.1 - 273.15
     y = dem_clipped.__array__()
     lat = dem_clipped.y.__array__()
     lon = dem_clipped.x.__array__()

@@ -1,5 +1,46 @@
 # helper function to define geometries
 
+def get_swath_indices_new(region_name):
+    # get indices of swaths to be plotted for different regions
+
+    if region_name == 'Himalaya':
+        ind = [15, 38, 45]
+
+    elif region_name == 'Cascade Range':
+        ind = [4, 6, 9]
+
+    elif region_name == 'Pyrenees':
+        ind = [1, 3, 5]
+
+    elif region_name == 'European Alps':
+        ind = [3, 8, 12]
+
+    elif region_name == 'Cordillera Central Ecuador':
+        ind = [1, 4, 11]
+
+    elif region_name == 'Cordillera principal':
+        ind = [3, 4, 8]
+
+    elif region_name == 'Southern Andes':
+        ind = [5, 8, 11]
+
+    elif region_name == 'Sierra Madre del Sur':
+        ind = [3, 8, 12]
+
+    elif region_name == 'Sierra Nevada':
+        ind = [3, 8, 10]
+
+    elif region_name == 'Pegunungan Maoke':
+        ind = [3, 6, 10]
+
+    elif region_name == 'Albertine Rift Mountains':
+        ind = [1, 3, 5]
+
+    else:
+        raise('Region not defined.')
+
+    return ind
+
 def get_swath_indices(region_name):
     # get indices of swaths to be plotted for different regions
 
@@ -15,6 +56,7 @@ def get_swath_indices(region_name):
     elif region_name == 'Cordillera Central Ecuador':
         #ind = [2, 6, 10]
         ind = [6, 11, 17]
+        ind = [11]
 
     elif region_name == 'Cordillera principal':
         ind = [3, 4, 8]
@@ -22,6 +64,7 @@ def get_swath_indices(region_name):
     elif region_name == 'Southern Andes':
         #ind = [7, 11, 14]
         ind = [6, 14, 22]
+        ind = [14]
 
     elif region_name == 'Sierra Madre del Sur':
         ind = [1, 2, 3] # tropical range
@@ -118,6 +161,26 @@ def get_strike_geometries(region_name):
         line_path = "data/lines/Southern_Andes.shp"
         xlim = [-75, -68]
         ylim = [-47, -33]
+
+    elif region_name == 'Albertine Rift Mountains':
+        line_path = "data/lines/Albertine_Rift_Mountains.shp"
+        xlim = [26, 33]
+        ylim = [-6, 2]
+
+    elif region_name == 'Pegunungan Maoke':
+        line_path = "data/lines/Pegunungan_Maoke.shp"
+        xlim = [133, 143]
+        ylim = [-6, -2]
+
+    elif region_name == 'Pyrenees':
+        line_path = "data/lines/Pyrenees.shp"
+        xlim = [-4, 5]
+        ylim = [41, 44]
+
+    elif region_name == 'Sierra Nevada':
+        line_path = "data/lines/Sierra_Nevada.shp"
+        xlim = [-123, -117]
+        ylim = [34, 43]
 
     else:
         raise('Region not defined.')
