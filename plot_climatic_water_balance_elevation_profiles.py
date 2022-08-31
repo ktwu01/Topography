@@ -30,9 +30,9 @@ pet_path = data_path + "CHELSA/CHELSA_pet_penman_mean_1981-2010_V.2.1.tif"
 t_path = data_path + "CHELSA/CHELSA_bio1_1981-2010_V.2.1.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
-name_list = ["Cordillera Central Ecuador", "Himalaya", "Sierra Madre del Sur", "Pegunungan Maoke",
+name_list = ["Cordillera Central Ecuador", "Himalaya", "Sierra Madre del Sur", "Ethiopian Highlands",
              "Southern Andes", "Sierra Nevada", "European Alps", "Pyrenees"]#
-#name_list = ["Sierra Madre del Sur"]
+name_list = ["Southern Andes"]
 # load dem shapefile
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze() #todo: remove masked ...
 
@@ -50,8 +50,8 @@ for name in name_list:
         os.makedirs(path)
 
     # remove all files in folder
-    #for f in os.listdir(path):
-    #    os.remove(os.path.join(path, f))
+    for f in os.listdir(path):
+        os.remove(os.path.join(path, f))
 
     line_path, xlim, ylim = get_strike_geometries(name)
     swath_ind = get_swath_indices_new(name)

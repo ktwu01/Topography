@@ -13,7 +13,7 @@ def get_swath_indices_new(region_name):
         ind = [1, 3, 5]
 
     elif region_name == 'European Alps':
-        ind = [3, 8, 12]
+        ind = [3, 6, 14]
 
     elif region_name == 'Cordillera Central Ecuador':
         ind = [1, 4, 11]
@@ -22,7 +22,7 @@ def get_swath_indices_new(region_name):
         ind = [3, 4, 8]
 
     elif region_name == 'Southern Andes':
-        ind = [5, 8, 11]
+        ind = [1, 3, 11]
 
     elif region_name == 'Sierra Madre del Sur':
         ind = [3, 8, 12]
@@ -35,6 +35,9 @@ def get_swath_indices_new(region_name):
 
     elif region_name == 'Albertine Rift Mountains':
         ind = [1, 3, 5]
+
+    elif region_name == 'Ethiopian Highlands':
+        ind = [15, 20, 25]
 
     else:
         raise('Region not defined.')
@@ -181,6 +184,11 @@ def get_strike_geometries(region_name):
         line_path = "data/lines/Sierra_Nevada.shp"
         xlim = [-123, -117]
         ylim = [34, 43]
+
+    elif region_name == 'Ethiopian Highlands':
+        line_path = "data/lines/Ethiopian_Highlands.shp"
+        xlim = [32, 43]
+        ylim = [3, 20]
 
     else:
         raise('Region not defined.')
