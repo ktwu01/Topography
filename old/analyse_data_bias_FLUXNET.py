@@ -16,7 +16,7 @@ import rasterio as rio
 data_path = "D:/Data/"
 
 # check if folder exists
-results_path = "figures/fluxnet/"
+results_path = "../results/fluxnet/"
 if not os.path.isdir(results_path):
     os.makedirs(results_path)
 

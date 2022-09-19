@@ -11,7 +11,7 @@ print(start)
 
 # specify paths
 data_path = r"/home/hydrosys/data/MERIT_DEM/" #r"D:/Data/MERIT_DEM/"#
-results_path = "results/"
+results_path = "../results/"
 
 name = "MERIT_DEM"
 

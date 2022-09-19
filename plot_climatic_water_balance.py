@@ -8,6 +8,8 @@ from scipy import stats
 
 #todo: clean up a bit...
 
+# Creates plots of elevation vs. the climatic water balance for whole mountain ranges.
+
 # specify paths
 #data_path = r"C:/Users/Sebastian/Documents/Data/"
 data_path = r"D:/Data/"

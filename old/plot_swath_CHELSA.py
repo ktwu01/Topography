@@ -11,7 +11,7 @@ from functions.get_swath_data import get_swath_data
 # specify paths
 #data_path = r"C:/Users/Sebastian/Documents/Data/"
 data_path = r"D:/Data/"
-results_path = "results/"
+results_path = "../results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
 #dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"

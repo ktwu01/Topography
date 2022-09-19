@@ -7,7 +7,7 @@ from functools import reduce
 
 # specify paths
 data_path = r"C:/Users/Sebastian/Documents/Data/" #r"D:/Data/" #
-results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/"
+results_path = "../results/"  #r"C:/Users/gnann/Documents/PYTHON/Topography/results/"
 folder_path = "GlobSnow_v3.0_monthly_biascorrected_SWE/"
 file_name = "_northern_hemisphere_monthly_biascorrected_swe_0.25grid.nc"
 

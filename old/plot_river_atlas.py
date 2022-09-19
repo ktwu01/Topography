@@ -20,7 +20,7 @@ results_path = "results/"
 shp_path = data_path + r"\HydroATLAS\RiverATLAS_Data_v10_shp\RiverATLAS_v10_shp\RiverATLAS_v10_na.shp"
 
 # check if folder exists
-results_path = "figures/riveratlas/"
+results_path = "results/riveratlas/"
 if not os.path.isdir(results_path):
     os.makedirs(results_path)
 

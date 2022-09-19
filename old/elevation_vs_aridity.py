@@ -1,15 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import geopandas as gpd
 import pandas as pd
 import rasterio as rio
-import plotting_fcts
+from functions import plotting_fcts
 from scipy import stats
 
 # specify paths
 data_path = "/home/hydrosys/data/" #r"C:/Users/Sebastian/Documents/Data/"
 data_path = r"D:/Data/"
-results_path = "results/"
+results_path = "../results/"
 
 dem_path = data_path + "WorldClim/" + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 slope_path = data_path + "Geomorpho90m/" + "dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
@@ -53,7 +52,7 @@ df["y"] = y
 fig = plt.figure(figsize=(5, 5))
 ax = plt.axes()#projection=ccrs.Robinson()
 #ax.scatter(df["x"].sample(n), df["y"].sample(n), s=5, facecolor='tab:grey', edgecolor='none', alpha=0.1)
-plotting_fcts.plot_bins(df["y"],df["x"])
+plotting_fcts.plot_bins(df["y"], df["x"])
 ax.set_ylabel('P/PET [-]')
 ax.set_xlabel('Elevation [m]')
 ax.set_ylim([0.05, 5])

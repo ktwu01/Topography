@@ -23,7 +23,7 @@ from scipy import stats
 # specify paths
 data_path = r"C:/Users/Sebastian/Documents/Data/"
 data_path = r"D:/Data/"
-results_path = "results/"
+results_path = "../results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
 dem_path = data_path + "CHELSA/CHELSA_hyd_glo_dem_30s.tif"

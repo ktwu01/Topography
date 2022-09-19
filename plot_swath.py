@@ -8,6 +8,10 @@ from functions.create_shapefiles import create_polygon_shp
 import os
 from functions.get_swath_data import get_swath_data
 
+#todo: clean up a bit...
+
+# Creates plots of elevation vs. different variables (incl. T) for a swaths in a mountain regions.
+
 # specify paths
 #data_path = r"C:/Users/Sebastian/Documents/Data/"
 data_path = r"D:/Data/"

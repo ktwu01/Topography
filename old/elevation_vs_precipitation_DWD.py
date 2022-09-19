@@ -11,10 +11,10 @@ from shapely.geometry import Point
 # This script ...
 
 # prepare data
-data_path = "data/"
+data_path = "../data/"
 
 # check if folder exists
-results_path = "figures/dwd/"
+results_path = "../results/dwd/"
 if not os.path.isdir(results_path):
     os.makedirs(results_path)
 
