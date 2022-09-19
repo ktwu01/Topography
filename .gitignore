@@ -1,4 +1,5 @@
-__pycache__/*
+/__pycache__/*
+/functions/__pycache__/*
 #old/*
 *.bak
 .idea/*
