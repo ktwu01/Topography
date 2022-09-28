@@ -4,3 +4,5 @@
 *.bak
 .idea/*
 results/*
+data/attributes/*
+data/CAMELS_table.csv

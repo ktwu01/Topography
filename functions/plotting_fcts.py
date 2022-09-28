@@ -27,6 +27,36 @@ def plot_Budyko_limits(x, y, **kwargs):
     ax.plot(np.linspace(1, lim, 100), np.linspace(1, 1, 100), '--', c='gray')
 
 
+def plot_bins_group(x, y, color="tab:blue", group_type="aridity_class", group="energy-limited", **kwargs):
+
+    # extract data
+    df = kwargs.get('data')
+
+    # get correlations
+    df = df.dropna()
+    df_group = df.loc[df[group_type]==group]
+
+    # calculate binned statistics
+    bin_edges, \
+    mean_stat, std_stat, median_stat, \
+    p_05_stat, p_25_stat, p_75_stat, p_95_stat, \
+    asymmetric_error, bin_median = get_binned_stats(df_group[x], df_group[y])
+
+    ax = plt.gca()
+    corr_str = ''
+    r_sp, _ = stats.spearmanr(df.loc[df[group_type] == group, x], df.loc[df[group_type] == group, y], nan_policy='omit')
+    #corr_str = corr_str + r' $\rho_s$ ' + str(group) + " = " + str(np.round(r_sp,2))
+    corr_str = corr_str + str(np.round(r_sp,2))
+    print(corr_str)
+    r_sp_tot, _ = stats.spearmanr(df[x], df[y], nan_policy='omit')
+    print("(" + str(np.round(r_sp_tot,2)) + ")")
+
+    # plot bins
+    ax = plt.gca()
+    ax.errorbar(bin_median, median_stat.statistic, xerr=None, yerr=asymmetric_error, capsize=2,
+                fmt='o', ms=4, elinewidth=1, c='black', ecolor='black', mec='black', mfc=color, alpha=0.9, label=corr_str)
+
+
 def plot_bins(x, y, fillcolor='black', **kwargs):
 
     # calculate binned statistics
