@@ -37,7 +37,7 @@ df.loc[df["ari_ix_sav"]/100 > 1, "aridity_class"] = "water-limited"
 sns.set(rc={'figure.figsize': (4, 4)})
 sns.set_style("ticks")
 g = sns.FacetGrid(df, col="dummy", col_wrap=4)
-g.map_dataframe(plt.scatter, x_name, y_name, color="silver", marker='o', alpha=0.5, s=5, label=None)
+g.map_dataframe(sns.scatterplot, x_name, y_name, color="silver", marker='o', linewidth=0, alpha=0.5, s=10, label=None)
 #g.set(xlim=[1, 1000], ylim=[0, 1])
 #g.map_dataframe(plotting_fcts.plot_means_group, x_name, y_name, color="tab:orange", group_type="aridity_class", group="water-limited")
 #g.map_dataframe(plotting_fcts.plot_means_group, x_name, y_name, color="tab:blue", group_type="aridity_class", group="energy-limited")

@@ -27,6 +27,25 @@ def plot_Budyko_limits(x, y, **kwargs):
     ax.plot(np.linspace(1, lim, 100), np.linspace(1, 1, 100), '--', c='gray')
 
 
+def plot_coloured_scatter_random(x, y, domains, palette, alpha=0.1, s=1, **kwargs):
+
+    # domains and palette have to fit
+    #palette = {"energy-limited": 'tab:blue', "water-limited": 'tab:orange'}
+
+    # extract data
+    df = kwargs.get('data')
+    df_shuffled = df.sample(frac=1)
+    df_shuffled = df_shuffled.dropna()
+
+    # specify colours
+    df_shuffled["colour"] = df_shuffled[domains]
+    df_shuffled = df_shuffled.replace({"colour": palette})
+
+    # make plot
+    ax = plt.gca()
+    plt.scatter(df_shuffled[x], df_shuffled[y], marker='o', alpha=alpha, s=s, lw=0, c=df_shuffled["colour"])
+
+
 def plot_bins_group(x, y, color="tab:blue", group_type="aridity_class", group="energy-limited", **kwargs):
 
     # extract data
