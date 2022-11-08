@@ -94,7 +94,7 @@ sns.set_style("ticks")
 g = sns.FacetGrid(df, col="dummy", col_wrap=4)
 #g.map_dataframe(plotting_fcts.plot_coloured_scatter_random, x_name, y_name,
 #                domains="aridity_class", alpha=0.1, s=10)
-g.map_dataframe(plt.scatter, x_name, y_name,  alpha=1, s=10, lw = 0, color='lightgrey')
+g.map_dataframe(plt.scatter, x_name, y_name,  alpha=1, s=10, lw=0, color='lightgrey')
 g.set(xlim=[1, 10000], ylim=[-100, 1400])
 #g.map(plotting_fcts.plot_origin_line, var, wtd)
 #g.map(sns.rugplot, var, wtd, lw=1, alpha=.002, color="lightgrey")
