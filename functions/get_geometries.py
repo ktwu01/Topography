@@ -4,45 +4,57 @@ def get_swath_indices_new(region_name):
     # get indices of swaths to be plotted for different regions
 
     if region_name == 'Himalaya':
-        ind = [15, 38, 45]
+        ind = [15, 22]
+        forcinglim = [0, 6000]
 
     elif region_name == 'Cascade Range':
         ind = [4, 6, 9]
+        forcinglim = [0, 3000]
 
     elif region_name == 'Pyrenees':
         ind = [1, 3, 5]
+        forcinglim = [0, 3000]
 
     elif region_name == 'European Alps':
-        ind = [3, 6, 14]
+        ind = [8, 14]
+        forcinglim = [0, 3000]
 
     elif region_name == 'Cordillera Central Ecuador':
-        ind = [1, 4, 11]
+        ind = [4, 8]
+        forcinglim = [0, 6000]
 
     elif region_name == 'Cordillera principal':
         ind = [3, 4, 8]
+        forcinglim = [0, 5000]
 
     elif region_name == 'Southern Andes':
         ind = [1, 3, 11]
+        forcinglim = [0, 4000]
 
     elif region_name == 'Sierra Madre del Sur':
         ind = [3, 8, 12]
+        forcinglim = [0, 3000]
 
     elif region_name == 'Sierra Nevada':
-        ind = [3, 8, 10]
+        ind = [6, 10]
+        forcinglim = [0, 3000]
 
     elif region_name == 'Pegunungan Maoke':
         ind = [3, 6, 10]
+        forcinglim = [0, 5000]
 
     elif region_name == 'Albertine Rift Mountains':
         ind = [1, 3, 5]
+        forcinglim = [0, 3000]
 
     elif region_name == 'Ethiopian Highlands':
         ind = [15, 20, 25]
+        forcinglim = [0, 3000]
 
     else:
         raise('Region not defined.')
 
-    return ind
+    return ind, forcinglim
 
 def get_swath_indices(region_name):
     # get indices of swaths to be plotted for different regions
@@ -131,7 +143,7 @@ def get_strike_geometries(region_name):
     # get data for different regions
 
     if region_name == 'Himalaya':
-        line_path = "data/lines/Himalaya_Arc.shp"
+        line_path = "data/lines/Himalaya.shp"
         xlim = [65, 105]
         ylim = [24, 40]
 
