@@ -13,7 +13,7 @@ from scipy import stats
 # specify paths
 #data_path = r"C:/Users/Sebastian/Documents/Data/"
 data_path = r"D:/Data/"
-results_path = "results/"
+results_path = "../results/"
 
 shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
 #dem_path = data_path + "WorldClim/wc2.1_30s_elev/wc2.1_30s_elev.tif"
@@ -106,7 +106,7 @@ for mountain_name in mountain_list:
     #x2 = pet_clipped.__array__()
     #x3 = t_clipped.__array__()*100
     x1 = pr_clipped.__array__() * 0.1
-    x2 = pet_clipped.__array__() * 0.1
+    x2 = pet_clipped.__array__() * 0.01 * 12
     x3 = t_clipped.__array__() * 0.1 - 273.15
     y = dem_clipped.__array__()
     lat = dem_clipped.y.__array__()

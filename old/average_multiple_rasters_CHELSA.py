@@ -3,7 +3,7 @@ import rioxarray as rxr
 # specify paths
 #data_path = r"C:/Users/Sebastian/Documents/Data/"
 data_path = r"D:/Data/"
-results_path = "results/"
+results_path = "../results/"
 
 #raster_path = data_path + "/wc2.1_30s_vapr/wc2.1_30s_vapr_"
 raster_path = data_path + "CHELSA/pet/" + "CHELSA_pet_penman_"

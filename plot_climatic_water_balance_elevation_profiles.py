@@ -1,20 +1,16 @@
 import os
 import matplotlib.pyplot as plt
 import numpy as np
-from shapely.geometry import mapping
 import rioxarray as rxr
 import pyosp
-import fiona
 from matplotlib.pyplot import cm
 from functions.get_geometries import get_strike_geometries
 from functions.get_perp_pts import perp_pts
 from functions.create_shapefiles import create_line_shp
-from functions.create_shapefiles import create_polygon_shp
 from functions.get_swath_data import get_swath_data
 from functions.get_geometries import get_swath_indices_new
 from scipy import stats
-
-#todo: clean up a bit...
+from shapely.geometry import MultiPoint
 
 # Creates plots of elevation vs. the climatic water balance for several swaths in different mountain regions.
 
@@ -23,21 +19,21 @@ data_path = r"C:/Users/Sebastian/Documents/Data/"
 data_path = r"D:/Data/"
 results_path = "results/"
 
-shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain Inventory_v1.2-World.shp"
 #dem_path = data_path + "WorldClim/wc2.1_30s_elev/wc2.1_30s_elev.tif"
 #pr_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 #pet_path = data_path + "WorldClim/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
 #t_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
-dem_path = data_path + "DEMs/hyd_glo_dem_30s/hyd_glo_dem_30s.tif"
+#dem_path = data_path + "DEMs/hyd_glo_dem_30s/hyd_glo_dem_30s.tif"
+dem_path = data_path + "DEMs/MERIT_250m/Elevation_MERIT_30s.tif"
 pr_path = data_path + "CHELSA/CHELSA_bio12_1981-2010_V.2.1.tif"
 pet_path = data_path + "CHELSA/CHELSA_pet_penman_mean_1981-2010_V.2.1.tif"
 t_path = data_path + "CHELSA/CHELSA_bio1_1981-2010_V.2.1.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
-name_list = ["Cordillera Central Ecuador", "Himalaya", "Sierra Madre del Sur", "Ethiopian Highlands",
-             "Southern Andes", "Sierra Nevada", "European Alps", "Pyrenees"]#
+#name_list = ["Cordillera Central Ecuador", "Himalaya", "Sierra Madre del Sur", "Ethiopian Highlands",
+#             "Southern Andes", "Sierra Nevada", "European Alps", "Pyrenees"]#
 name_list = ["Cordillera Central Ecuador", "Himalaya", "Sierra Nevada", "European Alps"]
-#name_list = ["Southern Andes"]
+
 # load dem shapefile
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze() #todo: remove masked ...
 
@@ -63,24 +59,17 @@ for name in name_list:
 
     # create line
     line = pyosp.read_shape(line_path)
-    #mountain_shp = gpd.read_file(shp_path)
-    #mountain_range = mountain_shp.loc[mountain_shp.Name==name]
 
     # swath dimensions
     d = 2.0 # length of swath
     w = 0.5 # width
     distances = np.arange(0, line.length, w)[:-1]
-    # or alternatively without NumPy:
-    # points_count = int(line.length // d) + 1
-    # distances = (distance_delta * i for i in range(points_count))
     points = [line.interpolate(distance) for distance in distances] + [line.boundary[1]]
-    #mp = shapely.ops.unary_union(points)  # or new_line = LineString(points)
-    from shapely.geometry import MultiPoint
     mp = MultiPoint(list(points))
 
     ### PLOT 1 ###
-    # plot the swath profile lines
-    fig = plt.figure(figsize=(2, 2), constrained_layout=True)
+    # plot the swaths on top of the DEM
+    fig = plt.figure(figsize=(4, 4), constrained_layout=True)
     axes = plt.axes()
 
     sp0 = dem.plot.imshow(ax=axes, cmap='gray')
@@ -92,7 +81,6 @@ for name in name_list:
     axes.set_xlabel('Lon [deg]')
     axes.set_ylabel('Lat [deg]')
     sp0.colorbar.set_label('DEM [m]')
-    # sp0.set_clim([0, np.round(np.array(orig_dem.dat).max(), 100)])
     sp0.set_clim([0, 3000])  # 100*round(np.max(dem.values/100))
 
     x, y = line.xy
@@ -155,17 +143,16 @@ for name in name_list:
 
         dist, dem_swath, pr_swath, pet_swath, t_swath = \
             get_swath_data(orig_dem, orig_pr, orig_pet, orig_t, line_shape)
-        # account for offset and scale
-        pr_swath = pr_swath * 0.1 #
-        pet_swath = pet_swath * 0.1 # also convert to mm/y
-        t_swath = t_swath * 0.1 - 273.15 #
+        # account for offset and scale (only for CHELSA)
+        pr_swath = pr_swath * 0.1
+        pet_swath = pet_swath * 0.01 * 12
+        t_swath = t_swath * 0.1 - 273.15
 
         # plot elevation profile
-        # todo: use binning
         if p in swath_ind:
 
             ### PLOT 2 ###
-            # create plot for elevation profiles
+            # aridity elevation profiles
             fig2 = plt.figure(figsize=(2, 2), constrained_layout=True)
             axes2 = plt.axes()
 
@@ -175,19 +162,8 @@ for name in name_list:
             axes3 = plt.axes()
 
             # aridity
-            """
-            aridity = pet_swath/pr_swath
-            axes2.plot(aridity.mean(axis=1), dem_swath.mean(axis=1),
-                       color=nextcolor)
-            axes2.fill_betweenx(dem_swath.mean(axis=1), aridity.mean(axis=1) - aridity.std(axis=1),
-                             aridity.mean(axis=1) + aridity.std(axis=1),
-                             facecolor=nextcolor, alpha=0.25)
-            """
-
             aridity = (pet_swath/pr_swath).flatten()
             n_bins = 10
-            #bin_edges = stats.mstats.mquantiles(dem_swath.flatten(), np.linspace(0, 1, n_bins+1))
-            #bin_medians = stats.mstats.mquantiles(dem_swath.flatten(), np.linspace(0.05,0.95,n_bins))
             bin_edges = np.linspace(np.min(dem_swath.flatten()), np.max(dem_swath.flatten()), n_bins+1)
             bin_medians = (bin_edges[1:]+bin_edges[:-1])/2 # actually means...
             mean_stat = stats.binned_statistic(dem_swath.flatten(), aridity, statistic=lambda y: np.nanmean(y), bins=bin_edges)
@@ -203,9 +179,6 @@ for name in name_list:
             axes2.fill_betweenx(bin_medians, mean_stat.statistic - std_stat.statistic,
                              mean_stat.statistic + std_stat.statistic, facecolor='tab:green', alpha=0.25) #nextcolor
 
-            #axes2.plot(mean_stat_PET.statistic/mean_stat_P.statistic, bin_medians, color=nextcolor)
-            #axes2.fill_betweenx(bin_medians, mean_stat_PET.statistic/mean_stat_P.statistic - std_stat_PET.statistic/std_stat_P.statistic,
-            #                 mean_stat_PET.statistic/mean_stat_P.statistic + std_stat_PET.statistic/std_stat_P.statistic, facecolor=nextcolor, alpha=0.25)
 
             axes3.plot(mean_stat_PET.statistic, bin_medians, color='tab:orange')
             axes3.fill_betweenx(bin_medians, mean_stat_PET.statistic - std_stat_PET.statistic,
@@ -218,7 +191,6 @@ for name in name_list:
             axes2.set_xlabel('PET/P [-]')
             axes2.set_ylabel('Elevation [km]')
             axes2.set_xlim([0.1, 10])
-            #axes2.set_xlim([0, 2])
             axes2.set_xscale('log')
             axes2.set_xticks(ticks=[0.2, 0.5, 1, 2, 5], labels=["0.2", "0.5", "1", "2", "5"])
             axes2.set_ylim([0, 6000])
@@ -228,7 +200,6 @@ for name in name_list:
 
             axes3.set_xlabel('Flux [mm/y]')
             axes3.set_ylabel('Elevation [km]')
-            #axes3.set_xlim([0, np.ceil(np.max(mean_stat_P.statistic[~np.isnan(mean_stat_P.statistic)])/1000)*1000])
             axes3.set_xlim(forcinglim)
             axes3.set_ylim([0, 6000])
             # plt.show()

@@ -15,7 +15,7 @@ import rasterio as rio
 # This script ...
 
 # prepare data
-data_path = "./data/"
+data_path = "../data/"
 slope_path = "D:/Data/DEMs/Geomorpho90m/" + "dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
 twi_path = "D:/Data/DEMs/Geomorpho90m/" + "dtm_cti_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
 elevation_path = "D:/Data/DEMs/MERIT_250m/" + "dtm_elevation_merit.dem_m_250m_s0..0cm_2017_v1.0.tif"
