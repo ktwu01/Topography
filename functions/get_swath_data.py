@@ -8,6 +8,7 @@ def get_swath_data(orig_dem, orig_pr, orig_pet, orig_t, line_shape):
         dist = orig_dem.distance[0:-1]
     dem_swath[dem_swath == -32768.] = np.nan  # Note: works only because this is returned as nodata value (WorldClim DEM)
     dem_swath[dem_swath == 32767.] = np.nan  # Note: works only because this is returned as nodata value (HydroSHEDS DEM)
+    dem_swath[dem_swath == -9999.] = np.nan  # Note: works only because this is returned as nodata value (MERIT 250m DEM)
     isnan = np.isnan(dem_swath).any(axis=1)
     dem_swath = dem_swath[~isnan]
     # ma.masked_invalid(dem_swath)
@@ -19,9 +20,10 @@ def get_swath_data(orig_dem, orig_pr, orig_pet, orig_t, line_shape):
     pet_swath = orig_pet.dat
     pet_swath = [d for (d, remove) in zip(pet_swath, isnan) if not remove]
     pet_swath = np.array(pet_swath)
-    pet_swath[pet_swath == 65535.] = np.nan  # Note: works only because this is returned as nodata value (CHELSA PET)
-    isnan2 = np.isnan(pet_swath).any(axis=1)
-    pet_swath = pet_swath[~isnan2]
+    #pet_swath[pet_swath == 65535.] = np.nan  # Note: works only because this is returned as nodata value (CHELSA PET)
+    #pet_swath[pet_swath == -32768.] = np.nan  # Note: works only because this is returned as nodata value (WorldClim PET)
+    #isnan2 = np.isnan(pet_swath).any(axis=1)
+    #pet_swath = pet_swath[~isnan2]
     # pet_swath[pet_swath==-999] = np.nan
     # pet_swath = pet_swath * 1000  # transform to Pa
     # ma.masked_invalid(pet_swath)

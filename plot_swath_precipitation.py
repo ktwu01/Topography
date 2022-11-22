@@ -22,7 +22,6 @@ shp_path = data_path + "GMBA mountain inventory V1.2(entire world)/GMBA Mountain
 #pr_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
 #pet_path = data_path + "WorldClim/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
 #t_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
-#dem_path = data_path + "DEMs/hyd_glo_dem_30s/hyd_glo_dem_30s.tif"
 dem_path = data_path + "DEMs/MERIT_250m/Elevation_MERIT_30s.tif"
 pr_path = data_path + "CHELSA/CHELSA_bio12_1981-2010_V.2.1.tif"
 pet_path = data_path + "CHELSA/CHELSA_pet_penman_mean_1981-2010_V.2.1.tif"
@@ -56,8 +55,8 @@ for name in name_list:
 
     # generate swath objects
     w = 2 # 2 degrees + 2*cs
-    ls = w/100
-    cs = w/10
+    ls = w/250
+    cs = w/100
     orig_dem = pyosp.Orig_curv(baseline, dem_path, width=w, line_stepsize=ls, cross_stepsize=cs)
     orig_pr = pyosp.Orig_curv(baseline, pr_path, width=w, line_stepsize=ls, cross_stepsize=cs)
     orig_pet = pyosp.Orig_curv(baseline, pet_path, width=w, line_stepsize=ls, cross_stepsize=cs)
@@ -139,6 +138,7 @@ for name in name_list:
     axa.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
     axb.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
     #axc.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
+    #ax.set_xlabel('Lon [deg]')
 
     ax.spines.right.set_visible(False)
     ax.spines.left.set_visible(False)

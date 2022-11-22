@@ -100,9 +100,9 @@ def get_swath_geometries(region_name):
         #xy_box = [36.0, 39.0, -1.0, 1.0]
     elif region_name == 'Cascade Range':
         #xy_line = [-124.5, -120.5, 45.0, 45.001] # Cascades
-        xy_line = [-125.0, -120.0, 45.0, 45.001] # Cascades
+        xy_line = [-124.0, -119.0, 45.0, 45.001] # Cascades
         #xy_box = [-125.5, -119.5, 44.0, 46.0]
-        xy_box = [-125.0, -120.0, 44.0, 46.0]
+        xy_box = [-124.0, -119.0, 44.0, 46.0]
     elif region_name == 'Northern Alps':
         xy_line = [11.0, 11.001, 47.7, 46.7] # Northern Alps
         xy_box = [10.0, 12.0, 46.0, 48.0]
@@ -130,6 +130,9 @@ def get_swath_geometries(region_name):
     elif region_name == 'France':
         xy_line = [-1.0, 2.0, 45.0, 45.001] # France
         xy_box = [-2.0, 3.0, 44.0, 46.0]
+    elif region_name == 'Ethiopian Highlands':
+        xy_line = [36.0, 41.0, 7.0, 7.001] # Ethiopian Highlands
+        xy_box = [36.0, 41.0, 6.0, 8.0]
     elif region_name == 'xxx':
         xy_line = [0.0, 0.0, 0.0, 0.0] # xxx
         xy_box = [0.0, 0.0, 0.0, 0.0]

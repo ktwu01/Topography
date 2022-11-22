@@ -19,15 +19,14 @@ data_path = r"C:/Users/Sebastian/Documents/Data/"
 data_path = r"D:/Data/"
 results_path = "results/"
 
-#dem_path = data_path + "WorldClim/wc2.1_30s_elev/wc2.1_30s_elev.tif"
-#pr_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
-#pet_path = data_path + "WorldClim/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
-#t_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
-#dem_path = data_path + "DEMs/hyd_glo_dem_30s/hyd_glo_dem_30s.tif"
-dem_path = data_path + "DEMs/MERIT_250m/Elevation_MERIT_30s.tif"
-pr_path = data_path + "CHELSA/CHELSA_bio12_1981-2010_V.2.1.tif"
-pet_path = data_path + "CHELSA/CHELSA_pet_penman_mean_1981-2010_V.2.1.tif"
-t_path = data_path + "CHELSA/CHELSA_bio1_1981-2010_V.2.1.tif"
+dem_path = data_path + "WorldClim/wc2.1_30s_elev/wc2.1_30s_elev.tif"
+pr_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_12.tif"
+pet_path = data_path + "WorldClim/7504448/global-et0_annual.tif/et0_yr/et0_yr.tif"
+t_path = data_path + "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_1.tif"
+#dem_path = data_path + "DEMs/MERIT_250m/Elevation_MERIT_30s.tif"
+#pr_path = data_path + "CHELSA/CHELSA_bio12_1981-2010_V.2.1.tif"
+#pet_path = data_path + "CHELSA/CHELSA_pet_penman_mean_1981-2010_V.2.1.tif"
+#t_path = data_path + "CHELSA/CHELSA_bio1_1981-2010_V.2.1.tif"
 
 # create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
 #name_list = ["Cordillera Central Ecuador", "Himalaya", "Sierra Madre del Sur", "Ethiopian Highlands",
@@ -136,7 +135,7 @@ for name in name_list:
 
         if p in swath_ind:
             nextcolor = next(color)
-            axes.plot(px, py, c='tab:green') #nextcolor
+            axes.plot(px, py, c='tab:orange') #nextcolor
         else:
             pass
             #axes.plot(px, py, c='silver')
@@ -144,9 +143,9 @@ for name in name_list:
         dist, dem_swath, pr_swath, pet_swath, t_swath = \
             get_swath_data(orig_dem, orig_pr, orig_pet, orig_t, line_shape)
         # account for offset and scale (only for CHELSA)
-        pr_swath = pr_swath * 0.1
-        pet_swath = pet_swath * 0.01 * 12
-        t_swath = t_swath * 0.1 - 273.15
+        #pr_swath = pr_swath * 0.1
+        #pet_swath = pet_swath * 0.01 * 12
+        #t_swath = t_swath * 0.1 - 273.15
 
         # plot elevation profile
         if p in swath_ind:
