@@ -129,6 +129,8 @@ for name in name_list:
     ax.set_xlabel('Longitude [deg]')
     ax.set_ylabel('[mm] / [m]')
 
+    # TODO: plot aridity to check if PET and P are correct
+
     #plt.show()
     plt.savefig(results_path + name + "/precipitation_uncertainty/transect_" + name + ".png", dpi=600, bbox_inches='tight')
     plt.close()
