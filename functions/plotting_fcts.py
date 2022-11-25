@@ -52,7 +52,7 @@ def plot_bins_group(x, y, color="tab:blue", group_type="aridity_class", group="e
     df = kwargs.get('data')
 
     # get correlations
-    df = df.dropna()
+    #df = df.dropna()
     df_group = df.loc[df[group_type]==group]
 
     # calculate binned statistics

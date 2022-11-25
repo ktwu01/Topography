@@ -105,13 +105,19 @@ print("mean below  ", str(thresh), ": ", str((df_tmp["pr_CHELSA"] * df_tmp["area
 
 print("WorldClim")
 print((df["pr_WorldClim"]*df["area"]).sum()/df["area"].sum())
-for i in [1, 2, 3, 4]:
+
+# merge mountains, hills, and plateaus
+df.loc[df["Landform"]==1, "Landform"] = 5
+df.loc[df["Landform"]==2, "Landform"] = 5
+df.loc[df["Landform"]==3, "Landform"] = 5
+
+for i in [4, 5]:
     df_tmp = df.loc[df["Landform"]==i]
     print((df_tmp["pr_WorldClim"]*df_tmp["area"]).sum()/df_tmp["area"].sum())
 
 print("CHELSA")
 print((df["pr_CHELSA"]*df["area"]).sum()/df["area"].sum())
-for i in [1, 2, 3, 4]:
+for i in [4, 5]:
     df_tmp = df.loc[df["Landform"]==i]
     print((df_tmp["pr_CHELSA"]*df_tmp["area"]).sum()/df_tmp["area"].sum())
 
