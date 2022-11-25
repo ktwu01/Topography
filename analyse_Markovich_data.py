@@ -215,6 +215,8 @@ r_sp1, _ = stats.spearmanr(df["Recharge"], df["Aridity"], nan_policy='omit')
 print(str(np.round(r_sp1,2)))
 r_sp1, _ = stats.spearmanr(df["Recharge"], df["Permeability"], nan_policy='omit')
 print(str(np.round(r_sp1,2)))
+r_sp1, _ = stats.spearmanr(df["Recharge"], df["WTR"], nan_policy='omit')
+print(str(np.round(r_sp1,2)))
 r_sp1, _ = stats.spearmanr(df["Elevation"], df["Permeability"], nan_policy='omit')
 print(str(np.round(r_sp1,2)))
 

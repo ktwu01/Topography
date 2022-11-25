@@ -12,7 +12,7 @@ import xarray as xr
 from datetime import datetime as dt
 import rioxarray as rxr
 
-data_path = data_path = "/home/hydrosys/data/resampling/" #r"D:/Data/" #
+data_path = "/home/hydrosys/data/resampling/" #r"D:/Data/" #
 
 var_list = ["Landform", "pr_WorldClim", "pr_CHELSA"]
 path_list = [data_path + "WorldLandform_30sec.tif",
@@ -31,13 +31,17 @@ for var, path in zip(var_list, path_list):
 
 df.rename(columns={'x': 'lon', 'y': 'lat'}, inplace=True)
 
-df.loc[df["Landform"]==255, "Landform"] = np.nan
 df.loc[df["pr_WorldClim"] < 0, "pr_WorldClim"] = np.nan
 df.loc[df["pr_CHELSA"] > 50000, "pr_CHELSA"] = np.nan
+df["pr_CHELSA"] = df["pr_CHELSA"] * 0.1
+#df.loc[df["DEM"] < 0, "DEM"] = np.nan
+#df["DEM"] = np.tan(np.deg2rad(df["DEM"] * 0.01))
+df.loc[df["Landform"] < 1, "Landform"] = np.nan
+df.loc[df["Landform"] > 4, "Landform"] = np.nan
 
-df['pr_CHELSA'] = df['pr_CHELSA'] * 0.1
+df = df.dropna().reset_index()
 
-df = df.dropna()
+# NOTE: important to remove Antarctica etc., e.g. by using one layer (slope) without Antarctica
 
 df_new = []
 # loop over lat,lon
@@ -47,22 +51,30 @@ for x, y in zip(df["lon"], df["lat"]):
     # 5 arcminutes of latitude is 1/12 of that, so 9.297km
     # 5 arcminutes of longitude is similar, but multiplied by cos(latitude) if latitude is in radians, or cos(latitude/360 * 2 * 3.14159) if in degrees
     # we have half a degree here
-    y_len = 111.567/(2*60)
+    y_len = 111.567/60/2 #/12 #
     x_len = y_len * np.cos(y/360 * 2 * np.pi)
     df_new.append([x_len, y_len])
 df_new = pd.DataFrame(df_new)
 df_new["area"] = df_new[0]*df_new[1]
 df["area"] = df_new["area"]
 
+print("Total land area: ", str(df["area"].sum()))
+
 print("WorldClim")
 print((df["pr_WorldClim"]*df["area"]).sum()/df["area"].sum())
-for i in [1, 2, 3, 4]:
+
+# merge mountains, hills, and plateaus
+df.loc[df["Landform"]==1, "Landform"] = 5
+df.loc[df["Landform"]==2, "Landform"] = 5
+df.loc[df["Landform"]==3, "Landform"] = 5
+
+for i in [4, 5]:
     df_tmp = df.loc[df["Landform"]==i]
     print((df_tmp["pr_WorldClim"]*df_tmp["area"]).sum()/df_tmp["area"].sum())
 
 print("CHELSA")
 print((df["pr_CHELSA"]*df["area"]).sum()/df["area"].sum())
-for i in [1, 2, 3, 4]:
+for i in [4, 5]:
     df_tmp = df.loc[df["Landform"]==i]
     print((df_tmp["pr_CHELSA"]*df_tmp["area"]).sum()/df_tmp["area"].sum())
 
