@@ -207,6 +207,27 @@ plt.scatter((df[x_name]), df[u_name], c=df[z_name], s=df[y_name]*5, lw = 0)
 plt.savefig(results_path + x_name + '_' + y_name + "_color.png", dpi=600, bbox_inches='tight')
 plt.close()
 
+
+x_name = "Permeability"
+y_name = "Recharge"
+z_name = "Elevation"
+u_name = "Slope"
+x_unit = " [-]"
+y_unit = " [%]"
+#df["hue"] = np.round(df[z_name],2) # to have fewer unique values
+#df["size"] = np.round(df[y_name],0) # to have fewer unique values
+sns.set(rc={'figure.figsize': (4, 4)})
+sns.set_style("ticks")
+g = sns.FacetGrid(df, col="dummy", col_wrap=4)
+#g.map_dataframe(sns.scatterplot, x_name, u_name)
+plt.scatter((df[x_name]), df[y_name], c=df[z_name], lw = 0)
+#g.set(xlim=[0.001, 1], ylim=[-1700, -1000])
+#g.set(xlabel = x_name + x_unit, ylabel = y_name + y_unit)
+#g.set_titles(col_template='{col_name}')
+#g.set(xscale='log', yscale='linear')
+plt.savefig(results_path + x_name + '_' + y_name + '_' + z_name + "_color.png", dpi=600, bbox_inches='tight')
+plt.close()
+
 r_sp1, _ = stats.spearmanr(df["Recharge"], df["Elevation"], nan_policy='omit')
 print(str(np.round(r_sp1,2)))
 r_sp1, _ = stats.spearmanr(df["Recharge"], df["Slope"], nan_policy='omit')

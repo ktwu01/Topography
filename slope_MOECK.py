@@ -15,7 +15,7 @@ import rasterio as rio
 # This script ...
 
 # prepare data
-data_path = "../data/"
+data_path = "data/"
 slope_path = "D:/Data/DEMs/Geomorpho90m/" + "dtm_slope_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
 twi_path = "D:/Data/DEMs/Geomorpho90m/" + "dtm_cti_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
 twi_path = "D:/Data/DEMs/Geomorpho90m/" + "dtm_cti_merit.dem_m_250m_s0..0cm_2018_v1.0.tif"
@@ -75,12 +75,70 @@ df['Precipitation'] = df['Precipitation'] * 0.1
 df['Potential Evapotranspiration'] = [x for x in pet.sample(coord_list)]
 df['Potential Evapotranspiration'] = np.concatenate(df['Potential Evapotranspiration'].to_numpy())
 df.loc[df["Potential Evapotranspiration"] > 50000, "Potential Evapotranspiration"] = np.nan
-df['Potential Evapotranspiration'] = df['Potential Evapotranspiration'] * 0.1
+df['Potential Evapotranspiration'] = df['Potential Evapotranspiration'] * 0.01 * 12
 
 df["Recharge Ratio"] = df["Recharge"]/df["Precipitation"]
 df["Aridity"] = df["Potential Evapotranspiration"]/df["Precipitation"]
 
 df["dummy"] = ""
+
+#
+x_name = "Aridity"
+y_name = "Slope"
+x_unit = " [-]"
+y_unit = " [m]"
+#df["aridity_class"] = "energy-limited"
+#df.loc[df["Aridity"] > 1, "aridity_class"] = "water-limited"
+sns.set(rc={'figure.figsize': (4, 4)})
+sns.set_style("ticks")
+g = sns.FacetGrid(df, col="dummy", col_wrap=4)
+#g.map_dataframe(plotting_fcts.plot_coloured_scatter_random, x_name, y_name,
+#                domains="aridity_class", alpha=0.1, s=10)
+g.map_dataframe(plt.scatter, x_name, y_name,  alpha=1, s=10, lw=0, color='lightgrey')
+g.set(xlim=[0.2, 20], ylim=[1, 10000])
+#g.map(plotting_fcts.plot_origin_line, var, wtd)
+#g.map(sns.rugplot, var, wtd, lw=1, alpha=.002, color="lightgrey")
+#g.map_dataframe(plotting_fcts.plot_means_group, x_name, y_name, color="tab:orange", group_type="aridity_class", group="water-limited")
+#g.map_dataframe(plotting_fcts.plot_means_group, x_name, y_name, color="tab:blue", group_type="aridity_class", group="energy-limited")
+#g.map_dataframe(plotting_fcts.plot_bins_group, x_name, y_name, color="tab:blue", group_type="aridity_class", group="energy-limited")
+#g.map_dataframe(plotting_fcts.plot_bins_group, x_name, y_name, color="tab:orange", group_type="aridity_class", group="water-limited")
+g.map_dataframe(plotting_fcts.plot_bins_group, x_name, y_name, color="tab:red", group_type="dummy", group="")
+g.add_legend(loc=(.2, .75), handletextpad=0.0)
+# results_df = plotting_fcts.binned_stats_table(df, x_name, y_name, sources)
+g.set(xlabel = x_name + x_unit, ylabel = y_name + y_unit)
+g.set_titles(col_template='{col_name}')
+g.set(xscale='log', yscale='log')
+plt.savefig(results_path + x_name + '_' + y_name + "_aridity.png", dpi=600, bbox_inches='tight')
+plt.close()
+
+#
+x_name = "Aridity"
+y_name = "Slope"
+x_unit = " [-]"
+y_unit = " [m]"
+#df["aridity_class"] = "energy-limited"
+#df.loc[df["Aridity"] > 1, "aridity_class"] = "water-limited"
+sns.set(rc={'figure.figsize': (4, 4)})
+sns.set_style("ticks")
+g = sns.FacetGrid(df, col="dummy", col_wrap=4)
+#g.map_dataframe(plotting_fcts.plot_coloured_scatter_random, x_name, y_name,
+#                domains="aridity_class", alpha=0.1, s=10)
+g.map_dataframe(plt.scatter, x_name, y_name,  alpha=1, s=10, lw=0, color='lightgrey')
+g.set(xlim=[0.2, 20], ylim=[0.0001, 1])
+#g.map(plotting_fcts.plot_origin_line, var, wtd)
+#g.map(sns.rugplot, var, wtd, lw=1, alpha=.002, color="lightgrey")
+#g.map_dataframe(plotting_fcts.plot_means_group, x_name, y_name, color="tab:orange", group_type="aridity_class", group="water-limited")
+#g.map_dataframe(plotting_fcts.plot_means_group, x_name, y_name, color="tab:blue", group_type="aridity_class", group="energy-limited")
+#g.map_dataframe(plotting_fcts.plot_bins_group, x_name, y_name, color="tab:blue", group_type="aridity_class", group="energy-limited")
+#g.map_dataframe(plotting_fcts.plot_bins_group, x_name, y_name, color="tab:orange", group_type="aridity_class", group="water-limited")
+g.map_dataframe(plotting_fcts.plot_bins_group, x_name, y_name, color="tab:red", group_type="dummy", group="")
+g.add_legend(loc=(.2, .75), handletextpad=0.0)
+# results_df = plotting_fcts.binned_stats_table(df, x_name, y_name, sources)
+g.set(xlabel = x_name + x_unit, ylabel = y_name + y_unit)
+g.set_titles(col_template='{col_name}')
+g.set(xscale='log', yscale='log')
+plt.savefig(results_path + x_name + '_' + y_name + "_aridity.png", dpi=600, bbox_inches='tight')
+plt.close()
 
 #
 x_name = "Elevation"
