@@ -11,6 +11,7 @@ from functions.get_swath_data import get_swath_data
 from functions.get_geometries import get_swath_indices_new
 from scipy import stats
 from shapely.geometry import MultiPoint
+from sklearn.linear_model import LinearRegression
 
 # Creates plots of elevation vs. the climatic water balance for several swaths in different mountain regions.
 
@@ -188,7 +189,7 @@ for name in name_list:
 
             axes2.plot(np.ones_like(np.linspace(0,bin_edges[-1],10)), np.linspace(0,bin_edges[-1],10), '--', c='gray', linewidth=0.5)
             axes2.set_xlabel('PET/P [-]')
-            axes2.set_ylabel('Elevation [km]')
+            axes2.set_ylabel('Elevation [m]')
             axes2.set_xlim([0.1, 10])
             axes2.set_xscale('log')
             axes2.set_xticks(ticks=[0.2, 0.5, 1, 2, 5], labels=["0.2", "0.5", "1", "2", "5"])
@@ -198,12 +199,21 @@ for name in name_list:
             plt.close(fig2)
 
             axes3.set_xlabel('Flux [mm/y]')
-            axes3.set_ylabel('Elevation [km]')
+            axes3.set_ylabel('Elevation [m]')
             axes3.set_xlim(forcinglim)
             axes3.set_ylim([0, 6000])
             # plt.show()
+            axes3.grid(linewidth=0.5,color="lightgrey")
             fig3.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_elevation_profiles_PET_P_" + name + "_" + str(p) + ".png", dpi=600, bbox_inches='tight')
             plt.close(fig3)
+
+            # print gradients
+            print(" ")
+            reg = LinearRegression().fit(bin_medians.reshape(-1, 1),mean_stat_PET.statistic.reshape(-1, 1))
+            print("PET lapse rate "+str(reg.coef_))
+            reg = LinearRegression().fit(bin_medians.reshape(-1, 1),mean_stat_P.statistic.reshape(-1, 1))
+            print("P lapse rate " + str(reg.coef_))
+            print(" ")
 
     # plt.show()
     fig.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_" + name + ".png", dpi=600, bbox_inches='tight')

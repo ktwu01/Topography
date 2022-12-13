@@ -25,6 +25,7 @@ slope_path = data_path + "resampling/" + "Slope_MERIT_5min.tif"
 elevation_path = data_path + "resampling/" + "Elevation_MERIT_5min.tif"
 permeability_path = data_path + "resampling/" + "Permeability_Huscroft_2018_5min.tif"
 wtr_path = data_path + "resampling/" + "WTR_Cuthbert_2019_5min.tif"
+landform_path = data_path + "resampling/" + "WorldLandform_5min.tif"
 
 pr = rio.open(pr_path, masked=True)
 pet = rio.open(pet_path, masked=True)
@@ -32,6 +33,7 @@ slope = rio.open(slope_path, masked=True)
 elevation = rio.open(elevation_path, masked=True)
 permeability = rio.open(permeability_path, masked=True)
 wtr = rio.open(wtr_path, masked=True)
+landform = rio.open(landform_path, masked=True)
 
 # check if folder exists
 results_path = "./results/markovich/"
@@ -71,7 +73,41 @@ df['WTR'] = [x for x in wtr.sample(coord_list)]
 df['WTR'] = np.concatenate(df['WTR'].to_numpy())
 #df.loc[df["Permeability"] < -1000, "Permeability"] = np.nan
 
+df['landform'] = [x for x in landform.sample(coord_list)]
+df['landform'] = np.concatenate(df['landform'].to_numpy())
+df.loc[df["landform"] < 1, "landform"] = np.nan
+df.loc[df["landform"] > 4, "landform"] = np.nan
+
 df["Aridity"] = df["Potential Evapotranspiration"]/df["Precipitation"]
+
+df.loc[df["landform"]==1, "landform"] = 5 # mountains
+df.loc[df["landform"]==2, "landform"] = 5 # hills
+df.loc[df["landform"]==3, "landform"] = 5 # plateaus
+df.loc[df["landform"]==4, "landform"] = 6 # plains
+
+# count above 1000m (or mountains and hills) and humid
+threshold = 0.08
+df_tmp = df["Slope"]
+print("Distribution topography")
+print("Arid and fraction below " + str(threshold) + ": " + str(
+    round(len(df_tmp[np.logical_and(df_tmp <= threshold,df["Aridity"]>1)]) / len(df_tmp), 2)))
+print("Humid and fraction below " + str(threshold) + ": " + str(
+    round(len(df_tmp[np.logical_and(df_tmp <= threshold, df["Aridity"]<1)]) / len(df_tmp), 2)))
+print("Arid and fraction above " + str(threshold) + ": " + str(
+    round(len(df_tmp[np.logical_and(df_tmp > threshold, df["Aridity"]>1)]) / len(df_tmp), 2)))
+print("Humid and fraction above " + str(threshold) + ": " + str(
+    round(len(df_tmp[np.logical_and(df_tmp > threshold,df["Aridity"]<1)]) / len(df_tmp), 2)))
+
+df_tmp = df["landform"]
+print("Distribution landforms")
+print("Humid and plains " + ": " + str(
+    round(len(df_tmp[np.logical_and(df["landform"]==6, df["Aridity"]<1)]) / len(df_tmp), 2)))
+print("Arid and plains " + ": " + str(
+    round(len(df_tmp[np.logical_and(df["landform"]==6, df["Aridity"]>1)]) / len(df_tmp), 2)))
+print("Humid and mountains " + ": " + str(
+    round(len(df_tmp[np.logical_and(df["landform"]==5, df["Aridity"]<1)]) / len(df_tmp), 2)))
+print("Arid and mountains " + ": " + str(
+    round(len(df_tmp[np.logical_and(df["landform"]==5, df["Aridity"]>1)]) / len(df_tmp), 2)))
 
 df["dummy"] = ""
 

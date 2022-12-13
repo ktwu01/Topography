@@ -14,7 +14,7 @@ from pingouin import partial_corr
 # This script ...
 
 # prepare data
-data_path = "D:/Data/Caravan/complete_table.csv" #"data/CAMELS_table.csv"
+data_path = "data/complete_table.csv" #"D:/Data/Caravan/complete_table.csv" #
 #data_path = "data/attributes/camels/attributes_hydroatlas_camels.csv"
 #data_path = "data/attributes/hysets/attributes_hydroatlas_hysets.csv"
 

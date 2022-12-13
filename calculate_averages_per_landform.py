@@ -64,17 +64,18 @@ print("WorldClim")
 print((df["pr_WorldClim"]*df["area"]).sum()/df["area"].sum())
 
 # merge mountains, hills, and plateaus
-df.loc[df["Landform"]==1, "Landform"] = 5
-df.loc[df["Landform"]==2, "Landform"] = 5
-df.loc[df["Landform"]==3, "Landform"] = 5
+df.loc[df["landform"]==1, "landform"] = 5 # mountains
+df.loc[df["landform"]==2, "landform"] = 5 # hills
+df.loc[df["landform"]==3, "landform"] = 5 # plateaus
+df.loc[df["landform"]==4, "landform"] = 6 # plains
 
-for i in [4, 5]:
+for i in [5, 6]:
     df_tmp = df.loc[df["Landform"]==i]
     print((df_tmp["pr_WorldClim"]*df_tmp["area"]).sum()/df_tmp["area"].sum())
 
 print("CHELSA")
 print((df["pr_CHELSA"]*df["area"]).sum()/df["area"].sum())
-for i in [4, 5]:
+for i in [5, 6]:
     df_tmp = df.loc[df["Landform"]==i]
     print((df_tmp["pr_CHELSA"]*df_tmp["area"]).sum()/df_tmp["area"].sum())
 
