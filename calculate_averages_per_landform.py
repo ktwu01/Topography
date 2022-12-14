@@ -14,7 +14,7 @@ import rioxarray as rxr
 
 data_path = "/home/hydrosys/data/resampling/" #r"D:/Data/" #
 
-var_list = ["Landform", "pr_WorldClim", "pr_CHELSA"]
+var_list = ["landform", "pr_WorldClim", "pr_CHELSA"]
 path_list = [data_path + "WorldLandform_30sec.tif",
              data_path + "P_WorldClim_30sec.tif",
              data_path + "P_CHELSA_30sec.tif"]
