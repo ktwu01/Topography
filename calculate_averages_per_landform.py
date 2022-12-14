@@ -36,8 +36,8 @@ df.loc[df["pr_CHELSA"] > 50000, "pr_CHELSA"] = np.nan
 df["pr_CHELSA"] = df["pr_CHELSA"] * 0.1
 #df.loc[df["DEM"] < 0, "DEM"] = np.nan
 #df["DEM"] = np.tan(np.deg2rad(df["DEM"] * 0.01))
-df.loc[df["Landform"] < 1, "Landform"] = np.nan
-df.loc[df["Landform"] > 4, "Landform"] = np.nan
+df.loc[df["landform"] < 1, "landform"] = np.nan
+df.loc[df["landform"] > 4, "landform"] = np.nan
 
 df = df.dropna().reset_index()
 
@@ -70,12 +70,12 @@ df.loc[df["landform"]==3, "landform"] = 5 # plateaus
 df.loc[df["landform"]==4, "landform"] = 6 # plains
 
 for i in [5, 6]:
-    df_tmp = df.loc[df["Landform"]==i]
+    df_tmp = df.loc[df["landform"]==i]
     print((df_tmp["pr_WorldClim"]*df_tmp["area"]).sum()/df_tmp["area"].sum())
 
 print("CHELSA")
 print((df["pr_CHELSA"]*df["area"]).sum()/df["area"].sum())
 for i in [5, 6]:
-    df_tmp = df.loc[df["Landform"]==i]
+    df_tmp = df.loc[df["landform"]==i]
     print((df_tmp["pr_CHELSA"]*df_tmp["area"]).sum()/df_tmp["area"].sum())
 
