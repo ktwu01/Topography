@@ -70,11 +70,6 @@ df = pd.read_csv(data_path + 'global_data.csv')
 
 df["dummy"] = ""
 
-# categories
-df.loc[df["landform"]==1, "landform"] = 5 # mountains
-df.loc[df["landform"]==2, "landform"] = 5 # hills
-df.loc[df["landform"]==3, "landform"] = 5 # plateaus
-df.loc[df["landform"]==4, "landform"] = 6 # plains
 
 # TODO: Account for grid cell size
 df_new = []
@@ -93,6 +88,46 @@ df_new["area"] = df_new[0]*df_new[1]
 df["area"] = df_new["area"]
 
 print("Total land area: ", str(df["area"].sum()))
+
+# count total area occupied by certain landforms
+print("Distribution landforms")
+print("Plains " + ": " + str(
+    round(df.loc[df["landform"]==4, "area"].sum() / df["area"].sum(), 2)))
+print("Tablelands " + ": " + str(
+    round(df.loc[df["landform"]==3, "area"].sum() / df["area"].sum(), 2)))
+print("Hills " + ": " + str(
+    round(df.loc[df["landform"]==2, "area"].sum() / df["area"].sum(), 2)))
+print("Mountains " + ": " + str(
+    round(df.loc[df["landform"]==1, "area"].sum() / df["area"].sum(), 2)))
+
+# average slope per landform
+print("Distribution landforms")
+print("Plains " + ": " + str(
+    round(df.loc[df["landform"]==4, "slope_30s"].mean(),3)))
+print("Tablelands " + ": " + str(
+    round(df.loc[df["landform"]==3, "slope_30s"].mean(),3)))
+print("Hills " + ": " + str(
+    round(df.loc[df["landform"]==2, "slope_30s"].mean(),3)))
+print("Mountains " + ": " + str(
+    round(df.loc[df["landform"]==1, "slope_30s"].mean(),3)))
+print("Mountains " + ": " + str(
+    round(df.loc[np.logical_or(df["landform"]==1, df["landform"]==2, df["landform"]==3), "slope_30s"].mean(),3)))
+
+df.loc[df["landform"]==1, "slope_30s"].hist(alpha=0.25, bins=np.linspace(0,0.1,21))
+df.loc[df["landform"]==2, "slope_30s"].hist(alpha=0.25, bins=np.linspace(0,0.1,21))
+df.loc[df["landform"]==3, "slope_30s"].hist(alpha=0.25, bins=np.linspace(0,0.1,21))
+df.loc[df["landform"]==4, "slope_30s"].hist(alpha=0.25, bins=np.linspace(0,0.1,21))
+#df.loc[np.logical_or(df["landform"]==1, df["landform"]==2, df["landform"]==3), "slope_30s"].hist(alpha=0.25, bins=np.linspace(0,0.1,21))
+plt.savefig(results_path + "landform_slope_histogram.png", dpi=600, bbox_inches='tight')
+plt.close()
+
+# todo: plot pdfs or cdfs
+
+# categories
+df.loc[df["landform"]==1, "landform"] = 5 # mountains
+df.loc[df["landform"]==2, "landform"] = 5 # hills
+df.loc[df["landform"]==3, "landform"] = 5 # plateaus
+df.loc[df["landform"]==4, "landform"] = 6 # plains
 
 # count above 1000m (or mountains and hills) and humid
 threshold = 0.08
