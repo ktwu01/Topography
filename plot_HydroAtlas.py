@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from shapely.geometry import mapping
 import rioxarray as rxr
-import pyosp
 import fiona
 import geopandas as gpd
 from scipy import stats
@@ -15,9 +14,10 @@ from functions.create_shapefiles import create_polygon_shp
 from functions.get_swath_data import get_swath_data
 
 # specify paths
-data_path = r"D:/Data/"
+data_path = "/home/hydrosys/data/" #r"D:/Data/"
 results_path = "results/"
-shp_path = data_path + r"/HydroATLAS/BasinATLAS_Data_v10_shp/BasinATLAS_v10_shp/BasinATLAS_v10_lev09.shp"
+shp_path = data_path + "HydroATLAS/BasinATLAS_Data_v10_shp/BasinATLAS_v10_shp/BasinATLAS_v10_lev12.shp"
+shp_path = data_path + "HydroATLAS/RiverATLAS_Data_v10_shp/RiverATLAS_v10_shp/RiverATLAS_v10_as.shp"
 
 # check if folder exists
 results_path = "results/HydroAtlas/"
@@ -33,9 +33,10 @@ print("loading complete")
 
 
 # area vs slope
-n = 10
-var2 = "UP_AREA"
-var = "sgr_dk_sav"#"slp_dg_sav"
+n = 20
+var2 = "UPLAND_SKM"#"UP_AREA"
+df["test"] = df["sgr_dk_rav"]+np.random.rand(df["sgr_dk_rav"].size)*1e-9
+var = "test"#"sgr_dk_sav"#"slp_dg_sav"
 bin_edges = stats.mstats.mquantiles(df[var], np.linspace(0, 1, n+1))
 
 #mean_stat = stats.binned_statistic(df[var], df[var2], statistic=lambda y: np.nanmean(y), bins=bin_edges)
@@ -48,14 +49,14 @@ asymmetric_error = [median_stat.statistic - p_lower_stat.statistic,
 
 bin_medians = stats.mstats.mquantiles(df[var], np.linspace(0.05, 0.95, n))
 
-f, ax = plt.subplots(figsize=(4, 4))
+f, ax = plt.subplots(figsize=(4, 3))
 ax.scatter(df[var], df[var2], c='grey', s=1, alpha=0.01)#, norm=matplotlib.colors.LogNorm())
 ax.errorbar(bin_medians, median_stat.statistic, xerr=None, yerr=asymmetric_error, capsize=2,
             fmt='o', ms=4, elinewidth=1, c='black', ecolor='black', mec='black', mfc='tab:red', alpha=0.9, label="")
 ax.set_xlabel(var)
 ax.set_ylabel(var2)
-#ax.set_xlim([0, 2000])
-ax.set_ylim([10e1, 10e4])
+ax.set_xlim([1e-2, 1e4])
+ax.set_ylim([1e0, 1e5])
 ax.set(xscale='log', yscale='log')
 plt.savefig(results_path + var + "_" + var2 + ".png", dpi=600, bbox_inches='tight')
 plt.close()

@@ -34,12 +34,8 @@ name_list = ["P_CHELSA",
              "WorldLandform"]
 
 # if only a single file should be resampled
-path_list = ["Landforms/WorldLandform.tif",
-             "CHELSA/CHELSA_bio12_1981-2010_V.2.1.tif",
-             "WorldClim/wc2.1_30s_bio/wc2.1_30s_bio_12.tif"]
-name_list = ["WorldLandform",
-             "P_CHELSA",
-             "P_WorldClim"]
+path_list = ["Global_Soil_Regolith_Sediment_1304/data/land_cover_mask.tif"]
+name_list = ["Pelletier"]
 
 for path, name in zip(path_list, name_list):
     print(name)
