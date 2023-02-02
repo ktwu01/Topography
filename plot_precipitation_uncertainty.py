@@ -40,7 +40,7 @@ for name in name_list:
     if not os.path.isdir(path):
         os.makedirs(path)
 
-    path = results_path + name + "/precipitation_uncertainty/"
+    path = results_path + name + "/uncertainty/"
     if not os.path.isdir(path):
         os.makedirs(path)
 
@@ -98,7 +98,7 @@ for name in name_list:
     sp0.set_clim([0, 3000])
 
     #plt.show()
-    plt.savefig(results_path + name + "/precipitation_uncertainty/swath_" + name + ".png", dpi=600, bbox_inches='tight')
+    plt.savefig(results_path + name + "/uncertainty/swath_" + name + ".png", dpi=600, bbox_inches='tight')
     plt.close()
 
     # plot swath profile
@@ -129,8 +129,29 @@ for name in name_list:
     ax.set_xlabel('Longitude [deg]')
     ax.set_ylabel('[mm] / [m]')
 
-    # TODO: plot aridity to check if PET and P are correct
+    #plt.show()
+    plt.savefig(results_path + name + "/uncertainty/transect_p_" + name + ".png", dpi=600, bbox_inches='tight')
+    plt.close()
+
+    ### PLOT 3 ###
+    # plot swath transect
+    fig = plt.figure(figsize=(4, 2), constrained_layout=True)
+    ax = plt.axes()
+
+    ax.fill_between(dist, np.zeros(len(dist)), dem_swath.mean(axis=1),
+                       facecolor='tab:gray', alpha=0.5, label='Elevation')
+    ax.plot(dist, pet_swath.mean(axis=1), c='tab:orange', label='CHELSA')
+    ax.plot(dist, pet2_swath.mean(axis=1), c='tab:red', label='WorldClim')
+
+    lines, labels = ax.get_legend_handles_labels()
+    lim = 2500
+    ax.set_ylim(0,lim)
+    ax.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
+    ax.set_xlabel('Longitude [deg]')
+    ax.set_ylabel('[mm] / [m]')
 
     #plt.show()
-    plt.savefig(results_path + name + "/precipitation_uncertainty/transect_" + name + ".png", dpi=600, bbox_inches='tight')
+    plt.savefig(results_path + name + "/uncertainty/transect_pet_" + name + ".png", dpi=600, bbox_inches='tight')
     plt.close()
+
+    # TODO: plot aridity to check if PET and P are correct
