@@ -92,6 +92,26 @@ df["dummy"] = ""
 #df = df.dropna()
 
 
+df_tmp = df["landform"]
+print("Distribution landforms")
+print("Humid and plains " + ": " + str(
+    round(len(df_tmp[np.logical_and(df["landform"]==4, df["aridity_30s"]<1)]) / len(df_tmp), 2)))
+print("Arid and plains " + ": " + str(
+    round(len(df_tmp[np.logical_and(df["landform"]==4, df["aridity_30s"]>1)]) / len(df_tmp), 2)))
+print("Humid and plateaus " + ": " + str(
+    round(len(df_tmp[np.logical_and(df["landform"]==3, df["aridity_30s"]<1)]) / len(df_tmp), 2)))
+print("Arid and plateaus " + ": " + str(
+    round(len(df_tmp[np.logical_and(df["landform"]==3, df["aridity_30s"]>1)]) / len(df_tmp), 2)))
+print("Humid and hills " + ": " + str(
+    round(len(df_tmp[np.logical_and(df["landform"]==2, df["aridity_30s"]<1)]) / len(df_tmp), 2)))
+print("Arid and hills " + ": " + str(
+    round(len(df_tmp[np.logical_and(df["landform"]==2, df["aridity_30s"]>1)]) / len(df_tmp), 2)))
+print("Humid and mountains " + ": " + str(
+    round(len(df_tmp[np.logical_and(df["landform"]==1, df["aridity_30s"]<1)]) / len(df_tmp), 2)))
+print("Arid and mountains " + ": " + str(
+    round(len(df_tmp[np.logical_and(df["landform"]==1, df["aridity_30s"]>1)]) / len(df_tmp), 2)))
+
+
 x_name = "aridity_30s"
 y_name = "elevation_30s"
 x_unit = " [-]"
