@@ -208,12 +208,15 @@ for name in name_list:
             plt.close(fig3)
 
             # print gradients
-            print(" ")
-            reg = LinearRegression().fit(bin_medians.reshape(-1, 1),mean_stat_PET.statistic.reshape(-1, 1))
-            print("PET lapse rate "+str(reg.coef_))
-            reg = LinearRegression().fit(bin_medians.reshape(-1, 1),mean_stat_P.statistic.reshape(-1, 1))
-            print("P lapse rate " + str(reg.coef_))
-            print(" ")
+            try:
+                print(" ")
+                reg = LinearRegression().fit(bin_medians.reshape(-1, 1),mean_stat_PET.statistic.reshape(-1, 1))
+                print("PET lapse rate "+str(reg.coef_))
+                reg = LinearRegression().fit(bin_medians.reshape(-1, 1),mean_stat_P.statistic.reshape(-1, 1))
+                print("P lapse rate " + str(reg.coef_))
+                print(" ")
+            except:
+                print("Gradients couldn't be calculated.")
 
     # plt.show()
     fig.savefig(results_path + name + "/swaths_elevation_profiles/" + "swaths_" + name + ".png", dpi=600, bbox_inches='tight')
