@@ -40,7 +40,7 @@ bar4 = plt.bar(ind + width * 3, 100*df["Fan et al. (2013)"], width, color='tab:b
 #plt.xlabel("Landform")
 plt.ylabel('Percentage %')
 plt.xticks(ind + width*1.5, list(df["Landform"]))
-plt.legend((bar1, bar2, bar3, bar4), ('Global', 'Kratzert', 'Moeck', 'Fan'))
+plt.legend((bar1, bar2, bar3, bar4), ('Global', 'Streamflow (Kratzert et al., 2023)', 'Groundwater recharge (Moeck et al., 2020)', 'Water table depth (Fan et al., 2013)'))
 plt.savefig(results_path + "data_bias"  + ".png", dpi=600, bbox_inches='tight')
 plt.close()
 
@@ -86,6 +86,7 @@ plt.close()
 
 
 x = ["Global", "Kratzert", "Moeck", "Fan"]
+#x = ['Global', 'Streamflow (Kratzert et al., 2023)', 'Groundwater recharge (Moeck et al., 2020)', 'Water table depth (Fan et al., 2013)']
 y0 = 100*df.loc[0].values[1:]
 y1 = 100*df.loc[1].values[1:]
 y2 = 100*df.loc[2].values[1:]+1 # to compensate for rounding error todo: recalculate more precisely

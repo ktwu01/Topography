@@ -88,7 +88,7 @@ df.loc[df["landform"]==4, "landform"] = 6 # plains
 x_name = "aridity_30s"
 y_name = "slope_30s"
 x_unit = " [-]"
-y_unit = " [m]"
+y_unit = " [-]"
 sns.set(rc={'figure.figsize': (4, 4)})
 sns.set_style("ticks")
 g = sns.FacetGrid(df, col="dummy", hue="landform", col_wrap=4)
@@ -99,6 +99,24 @@ g.set_titles(col_template='{col_name}')
 g.set(xscale='log', yscale='log')
 #plt.legend(loc='upper right')
 plt.savefig(results_path + x_name + '_' + y_name + "_distribution.png", dpi=600, bbox_inches='tight')
+plt.close()
+
+# slope and wtd
+x_name = "slope_30s"
+y_name = "wtd"
+x_unit = " [-]"
+y_unit = " [m]"
+sns.set(rc={'figure.figsize': (4, 4)})
+sns.set_style("ticks")
+g = sns.FacetGrid(df, col="dummy", col_wrap=4)
+g.map_dataframe(plt.scatter, x_name, y_name, color="silver", marker='o', lw=0, alpha=0.01, s=1, label=None)
+g.set(xlim=[0.0001, 1], ylim=[0.1, 100])
+g.map_dataframe(plotting_fcts.plot_bins_group, x_name, y_name, color="tab:blue", group_type="dummy", group="")
+#g.add_legend(loc=(.2, .75), handletextpad=0.0)
+g.set(xlabel = "Slope [-]", ylabel = "Water Table Depth [m]")
+g.set_titles(col_template='{col_name}')
+g.set(xscale='log', yscale='log')
+plt.savefig(results_path + x_name + '_' + y_name + ".png", dpi=600, bbox_inches='tight')
 plt.close()
 
 # count above 1000m (or mountains and hills) and humid

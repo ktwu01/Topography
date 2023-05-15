@@ -65,19 +65,17 @@ df.loc[100/df["ari_ix_sav"] > 1, "aridity_class"] = "water-limited"
 # slope
 x_name = "slope"
 y_name = "BFI"
-x_unit = " [deg]"
-y_unit = " [-]"
 sns.set(rc={'figure.figsize': (4, 4)})
 sns.set_style("ticks")
 g = sns.FacetGrid(df, col="dummy", col_wrap=4)
-g.map_dataframe(plt.scatter, x_name, y_name, color="silver", marker='o', lw=0, alpha=1, s=5, label=None)
+g.map_dataframe(plt.scatter, x_name, y_name, color="silver", marker='o', lw=0, alpha=0.5, s=5, label=None)
 g.set(xlim=[0.1, 100], ylim=[0, 1])
 #g.map_dataframe(plotting_fcts.plot_bins_group, x_name, y_name, color="tab:blue", group_type="aridity_class", group="energy-limited")
 #g.map_dataframe(plotting_fcts.plot_bins_group, x_name, y_name, color="tab:orange", group_type="aridity_class", group="water-limited")
-g.map_dataframe(plotting_fcts.plot_bins_group, x_name, y_name, color="tab:red", group_type="dummy", group="")
-g.add_legend(loc=(.2, .75), handletextpad=0.0)
+g.map_dataframe(plotting_fcts.plot_bins_group, x_name, y_name, color="tab:blue", group_type="dummy", group="")
+#g.add_legend(loc=(.2, .75), handletextpad=0.0)
 # results_df = plotting_fcts.binned_stats_table(df, x_name, y_name, sources)
-g.set(xlabel = x_name + x_unit, ylabel = y_name + y_unit)
+g.set(xlabel = "Slope [-]" , ylabel = "Baseflow Index [-]")
 g.set_titles(col_template='{col_name}')
 g.set(xscale='log', yscale='linear')
 plt.savefig(results_path + x_name + '_' + y_name + "_aridity.png", dpi=600, bbox_inches='tight')
