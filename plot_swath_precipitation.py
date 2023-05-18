@@ -27,7 +27,7 @@ pr_path = data_path + "CHELSA/CHELSA_bio12_1981-2010_V.2.1.tif"
 pet_path = data_path + "CHELSA/CHELSA_pet_penman_mean_1981-2010_V.2.1.tif"
 t_path = data_path + "CHELSA/CHELSA_bio1_1981-2010_V.2.1.tif"
 
-name_list = ["Cordillera Central Ecuador", "Southern Andes"]
+name_list = ["Southern Andes"]
 
 # load dem shapefile
 dem = rxr.open_rasterio(dem_path, masked=True).squeeze() #todo: remove masked ...
@@ -54,7 +54,7 @@ for name in name_list:
     lx, ly = line_shape.xy
 
     # generate swath objects
-    w = 2 # 2 degrees + 2*cs
+    w = 1.6 # 2 degrees + 2*cs
     ls = w/250
     cs = w/100
     orig_dem = pyosp.Orig_curv(baseline, dem_path, width=w, line_stepsize=ls, cross_stepsize=cs)
@@ -149,7 +149,7 @@ for name in name_list:
     ax.set_yticklabels([])
     ax.set_yticks([])
 
-    axa.spines['right'].set_position(('outward', 10))
+    axa.spines['right'].set_position(('outward', 50))
     axa.spines.left.set_visible(False)
     axa.spines.top.set_visible(False)
     #axa.spines.bottom.set_visible(False)
@@ -158,13 +158,14 @@ for name in name_list:
     #axa.tick_params(axis='y', colors='tab:gray')
     #axa.spines['right'].set_color('tab:gray')
 
-    axb.spines['right'].set_position(('outward', 50))
-    axb.yaxis.label.set_color('tab:blue')
-    axb.tick_params(axis='y', colors='tab:blue')
-    axb.spines['right'].set_color('tab:blue')
+    axb.spines['right'].set_position(('outward', 10))
+    axb.yaxis.label.set_color('black') #tab:blue
+    axb.tick_params(axis='y', colors='black') #tab:blue
+    axb.spines['right'].set_color('black') #tab:blue
     axb.spines.left.set_visible(False)
     axb.spines.top.set_visible(False)
     axb.spines.bottom.set_visible(False)
+    plt.yticks(fontsize=12)
 
     #axc.spines['right'].set_position(('outward', 90))
     #axc.yaxis.label.set_color('tab:orange')

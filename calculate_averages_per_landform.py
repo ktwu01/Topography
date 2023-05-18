@@ -41,6 +41,8 @@ df.loc[df["landform"] > 4, "landform"] = np.nan
 
 df = df.dropna().reset_index()
 
+print("Finished loading data.")
+
 # NOTE: important to remove Antarctica etc., e.g. by using one layer (slope) without Antarctica
 
 df_new = []
@@ -69,6 +71,7 @@ df.loc[df["landform"]==2, "landform"] = 5 # hills
 df.loc[df["landform"]==3, "landform"] = 5 # plateaus
 df.loc[df["landform"]==4, "landform"] = 6 # plains
 
+# P
 for i in [5, 6]:
     df_tmp = df.loc[df["landform"]==i]
     print((df_tmp["pr_WorldClim"]*df_tmp["area"]).sum()/df_tmp["area"].sum())
@@ -79,3 +82,15 @@ for i in [5, 6]:
     df_tmp = df.loc[df["landform"]==i]
     print((df_tmp["pr_CHELSA"]*df_tmp["area"]).sum()/df_tmp["area"].sum())
 
+# PET
+print("WorldClim")
+print((df["pr_WorldClim"]*df["area"]).sum()/df["area"].sum())
+for i in [5, 6]:
+    df_tmp = df.loc[df["landform"]==i]
+    print((df_tmp["pet_WorldClim"]*df_tmp["area"]).sum()/df_tmp["area"].sum())
+
+print("CHELSA")
+print((df["pet_CHELSA"]*df["area"]).sum()/df["area"].sum())
+for i in [5, 6]:
+    df_tmp = df.loc[df["landform"]==i]
+    print((df_tmp["pr_CHELSA"]*df_tmp["area"]).sum()/df_tmp["area"].sum())

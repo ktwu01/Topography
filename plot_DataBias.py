@@ -85,7 +85,7 @@ plt.savefig(results_path + "data_bias_stacked"  + ".png", dpi=600, bbox_inches='
 plt.close()
 
 
-x = ["Global", "Kratzert", "Moeck", "Fan"]
+x = ["Kratzert", "Moeck", "Fan", "Global"]
 #x = ['Global', 'Streamflow (Kratzert et al., 2023)', 'Groundwater recharge (Moeck et al., 2020)', 'Water table depth (Fan et al., 2013)']
 y0 = 100*df.loc[0].values[1:]
 y1 = 100*df.loc[1].values[1:]

@@ -121,8 +121,10 @@ def get_swath_geometries(region_name):
         xy_line = [-74.5, -69.5, -40.5, -40.5001] # Ecuador Andes
         xy_box = [-74.5, -69.5, -41.5, -39.5]
     elif region_name == 'Southern Andes':
-        xy_line = [-74.0, -69.0, -38.5, -38.5001] # Ecuador Andes
-        xy_box = [-74.0, -69.0, -39.5, -37.5]
+        #xy_line = [-74.0, -69.0, -38.5, -38.5001] # Ecuador Andes
+        xy_line = [-74.0, -69.0, -39.0, -39.0001] # Ecuador Andes
+        #xy_box = [-74.0, -69.0, -39.5, -37.5]
+        xy_box = [-74.0, -69.0, -40.0, -38.0]
     elif region_name == 'Himalaya':
         #xy_line = [85.0, 87.0, 26.0, 29.0] # Himalaya
         xy_line = [86.6, 86.8, 27.3, 28.1]
