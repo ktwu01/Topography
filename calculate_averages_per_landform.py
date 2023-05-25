@@ -14,10 +14,12 @@ import rioxarray as rxr
 
 data_path = "/home/hydrosys/data/resampling/" #r"D:/Data/" #
 
-var_list = ["landform", "pr_WorldClim", "pr_CHELSA"]
+var_list = ["landform", "pr_WorldClim", "pr_CHELSA", "pet_WorldClim", "pet_CHELSA"]
 path_list = [data_path + "WorldLandform_30sec.tif",
              data_path + "P_WorldClim_30sec.tif",
-             data_path + "P_CHELSA_30sec.tif"]
+             data_path + "P_CHELSA_30sec.tif",
+             data_path + "PET_WorldClim_30s.tif",
+             data_path + "PET_CHELSA_30s.tif"]
 
 df = pd.DataFrame(columns=["y", "x"])
 for var, path in zip(var_list, path_list):
@@ -34,6 +36,9 @@ df.rename(columns={'x': 'lon', 'y': 'lat'}, inplace=True)
 df.loc[df["pr_WorldClim"] < 0, "pr_WorldClim"] = np.nan
 df.loc[df["pr_CHELSA"] > 50000, "pr_CHELSA"] = np.nan
 df["pr_CHELSA"] = df["pr_CHELSA"] * 0.1
+df.loc[df["pet_WorldClim"] < 0, "pet_WorldClim"] = np.nan
+df.loc[df["pet_CHELSA"] > 50000, "pet_CHELSA"] = np.nan
+df["pet_CHELSA"] = df["pet_CHELSA"] * 0.01 * 12
 #df.loc[df["DEM"] < 0, "DEM"] = np.nan
 #df["DEM"] = np.tan(np.deg2rad(df["DEM"] * 0.01))
 df.loc[df["landform"] < 1, "landform"] = np.nan
@@ -84,7 +89,7 @@ for i in [5, 6]:
 
 # PET
 print("WorldClim")
-print((df["pr_WorldClim"]*df["area"]).sum()/df["area"].sum())
+print((df["pet_WorldClim"]*df["area"]).sum()/df["area"].sum())
 for i in [5, 6]:
     df_tmp = df.loc[df["landform"]==i]
     print((df_tmp["pet_WorldClim"]*df_tmp["area"]).sum()/df_tmp["area"].sum())
@@ -93,4 +98,4 @@ print("CHELSA")
 print((df["pet_CHELSA"]*df["area"]).sum()/df["area"].sum())
 for i in [5, 6]:
     df_tmp = df.loc[df["landform"]==i]
-    print((df_tmp["pr_CHELSA"]*df_tmp["area"]).sum()/df_tmp["area"].sum())
+    print((df_tmp["pet_CHELSA"]*df_tmp["area"]).sum()/df_tmp["area"].sum())
