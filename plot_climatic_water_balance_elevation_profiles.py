@@ -8,7 +8,7 @@ from functions.get_geometries import get_strike_geometries
 from functions.get_perp_pts import perp_pts
 from functions.create_shapefiles import create_line_shp
 from functions.get_swath_data import get_swath_data
-from functions.get_geometries import get_swath_indices_new
+from functions.get_geometries import get_swath_indices
 from scipy import stats
 from shapely.geometry import MultiPoint
 from sklearn.linear_model import LinearRegression
@@ -29,13 +29,11 @@ pr_path = data_path + "CHELSA/CHELSA_bio12_1981-2010_V.2.1.tif"
 pet_path = data_path + "CHELSA/CHELSA_pet_penman_mean_1981-2010_V.2.1.tif"
 t_path = data_path + "CHELSA/CHELSA_bio1_1981-2010_V.2.1.tif"
 
-# create smooth lines in QGIS, if possible based on objective criteria (watershed boundaries etc.)
-#name_list = ["Cordillera Central Ecuador", "Himalaya", "Sierra Madre del Sur", "Ethiopian Highlands",
-#             "Southern Andes", "Sierra Nevada", "European Alps", "Pyrenees"]#
+# smooth lines along main arcs were created manually in QGIS, based on objective criteria (watershed boundaries etc.)
 name_list = ["Cordillera Central Ecuador", "Himalaya", "Sierra Nevada", "European Alps"]
 
 # load dem shapefile
-dem = rxr.open_rasterio(dem_path, masked=True).squeeze() #todo: remove masked ...
+dem = rxr.open_rasterio(dem_path, masked=True).squeeze()
 
 for name in name_list:
 
@@ -55,7 +53,7 @@ for name in name_list:
         os.remove(os.path.join(path, f))
 
     line_path, xlim, ylim = get_strike_geometries(name)
-    swath_ind, forcinglim = get_swath_indices_new(name)
+    swath_ind, forcinglim = get_swath_indices(name)
 
     # create line
     line = pyosp.read_shape(line_path)
@@ -80,11 +78,10 @@ for name in name_list:
     axes.set_ylim(ylim)
     axes.set_xlabel('Lon [deg]')
     axes.set_ylabel('Lat [deg]')
-    sp0.colorbar.set_label('DEM [m]')
-    sp0.set_clim([0, 3000])  # 100*round(np.max(dem.values/100))
+    sp0.colorbar.set_label('Elevation [m]')
+    sp0.set_clim([0, 3000])
 
     x, y = line.xy
-    #axes.plot(x, y, color='silver')
 
     color = iter(cm.plasma(np.linspace(0, 1, len(swath_ind)*2)))
 
@@ -104,11 +101,8 @@ for name in name_list:
 
         # create line (typically goes from north to south - curved lines can make this a bit tricky...)
         baseline = results_path + name + '/shapefiles/line_tmp.shp'
-        #create_line_shp([x2, x1, y2, y1], baseline)
         if name in ["Cordillera Central Ecuador", "Sierra Nevada", "Himalaya"]:
             create_line_shp([x1, xx[p], y1, yy[p]], baseline)
-        #elif name in ["Himalaya"]:
-        #    create_line_shp([x2, x1, y2, y1], baseline)
         else:
             create_line_shp([x2, xx[p], y2, yy[p]], baseline)
 
@@ -124,9 +118,6 @@ for name in name_list:
         orig_t = pyosp.Orig_curv(baseline, t_path, width=w, line_stepsize=line_stepsize, cross_stepsize=cross_stepsize)
 
         swath_polylines = orig_dem.out_polylines()
-        #for line in swath_polylines:
-        #    x, y = line.xy
-        #    axes0.plot(x, y, color='C2')
 
         x, y = line.xy
         axes.plot(x, y, color='tab:red')
@@ -135,11 +126,10 @@ for name in name_list:
         px, py = swath_polygon.exterior.xy
 
         if p in swath_ind:
-            nextcolor = next(color)
-            axes.plot(px, py, c='tab:orange') #nextcolor
+            #nextcolor = next(color)
+            axes.plot(px, py, c='tab:orange')
         else:
             pass
-            #axes.plot(px, py, c='silver')
 
         dist, dem_swath, pr_swath, pet_swath, t_swath = \
             get_swath_data(orig_dem, orig_pr, orig_pet, orig_t, line_shape)

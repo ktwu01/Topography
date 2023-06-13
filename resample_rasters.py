@@ -1,7 +1,7 @@
 from osgeo import gdal
 import os
 
-# this script resamples and aligns different rasters
+# This script resamples and aligns different rasters.
 
 data_path = "/home/hydrosys/data/" #data_path = r"D:/Data/"
 results_path = "/home/hydrosys/data/resampling/"

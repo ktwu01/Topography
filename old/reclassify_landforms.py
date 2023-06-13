@@ -1,19 +1,11 @@
-import os
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-from shapely.geometry import mapping
 import rioxarray as rxr
-import xarray as xr
-from scipy import stats
-import rasterio
-import dask.array as da
 import time
 
 # specify paths
 data_path = r"/home/hydrosys/data/" # r"D:/Data/" #r"C:/Users/Sebastian/Documents/Data/"#
-results_path = "results/" #r"C:/Users/gnann/Documents/PYTHON/Topography/results/"
+results_path = "../results/"  #r"C:/Users/gnann/Documents/PYTHON/Topography/results/"
 
 #dem_path = data_path + "wc2.1_30s_elev/wc2.1_30s_elev.tif"
 landform_path = data_path + "Landforms/WorldSubLandform.tif"

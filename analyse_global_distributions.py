@@ -1,12 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import rasterio as rio
-from functions import plotting_fcts
-from rasterio.crs import CRS
 import rioxarray as rxr
-import os
 import seaborn as sns
+
+# Calculates global distribution and average slopes of landforms based on Karagulle et al. (2017) and Pelletier et al. (2016).
 
 # specify paths
 data_path = "./data/"
@@ -131,7 +129,7 @@ ax.set_xscale('log')
 plt.savefig(results_path + "landform_slope_histogram.png", dpi=600, bbox_inches='tight')
 plt.close()
 
-# todo: upland/lowland
+# upland/lowland
 
 print("Distribution Pelletier")
 print("Uplands " + ": " + str(
@@ -142,6 +140,8 @@ print("Water " + ": " + str(
     round(df.loc[df["pelletier"]==3, "area"].sum() / df["area"].sum(), 2)))
 print("Ice " + ": " + str(
     round(df.loc[df["pelletier"]==4, "area"].sum() / df["area"].sum(), 2)))
+
+"""
 
 # categories
 df.loc[df["landform"]==1, "landform"] = 5 # mountains
@@ -198,19 +198,4 @@ print("Humid and mountains " + ": " + str(
 print("Arid and mountains " + ": " + str(
     round(df.loc[np.logical_and(df["landform"]==5, df["aridity_30s"]>1), "area"].sum() / df["area"].sum(), 2)))
 
-
-x_name = "aridity"
-y_name = "slope"
-x_unit = " [-]"
-y_unit = " [m]"
-sns.set(rc={'figure.figsize': (4, 4)})
-sns.set_style("ticks")
-g = sns.FacetGrid(df, col="dummy", hue="landform", col_wrap=4)
-g.map_dataframe(plt.scatter, x_name, y_name,  alpha=0.2, s=5, lw=0)
-g.set(xlim=[0.2, 20], ylim=[0.001, 1])
-g.set(xlabel = x_name + x_unit, ylabel = y_name + y_unit)
-g.set_titles(col_template='{col_name}')
-g.set(xscale='log', yscale='log')
-#plt.legend(loc='upper right')
-plt.savefig(results_path + x_name + '_' + y_name + "_distribution.png", dpi=600, bbox_inches='tight')
-plt.close()
+"""

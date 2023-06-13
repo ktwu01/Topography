@@ -3,14 +3,14 @@ import numpy as np
 import pandas as pd
 import rasterio as rio
 from functions import plotting_fcts
-from rasterio.crs import CRS
-import rioxarray as rxr
 import os
 import seaborn as sns
 
 # specify paths
 data_path = "./data/"
 results_path = "./results/Fan/"
+
+# Plots Fan et al. (2013) water table depth against topographic slope and calculates the fraction of observations in each landform.
 
 if not os.path.isdir(results_path):
     os.makedirs(results_path)
@@ -80,32 +80,15 @@ df = pd.read_csv(data_path + 'wtd_data.csv')
 df = df.dropna()
 df["dummy"] = ""
 
+# reclassify landforms
 df.loc[df["landform"]==1, "landform"] = 5 # mountains
 df.loc[df["landform"]==2, "landform"] = 5 # hills
 df.loc[df["landform"]==3, "landform"] = 5 # plateaus
 df.loc[df["landform"]==4, "landform"] = 6 # plains
 
-x_name = "aridity_30s"
-y_name = "slope_30s"
-x_unit = " [-]"
-y_unit = " [-]"
-sns.set(rc={'figure.figsize': (4, 4)})
-sns.set_style("ticks")
-g = sns.FacetGrid(df, col="dummy", hue="landform", col_wrap=4)
-g.map_dataframe(plt.scatter, x_name, y_name,  alpha=0.01, s=1, lw=0)
-g.set(xlim=[0.2, 20], ylim=[0.001, 1])
-g.set(xlabel = x_name + x_unit, ylabel = y_name + y_unit)
-g.set_titles(col_template='{col_name}')
-g.set(xscale='log', yscale='log')
-#plt.legend(loc='upper right')
-plt.savefig(results_path + x_name + '_' + y_name + "_distribution.png", dpi=600, bbox_inches='tight')
-plt.close()
-
 # slope and wtd
 x_name = "slope_30s"
 y_name = "wtd"
-x_unit = " [-]"
-y_unit = " [m]"
 sns.set(rc={'figure.figsize': (4, 4)})
 sns.set_style("ticks")
 g = sns.FacetGrid(df, col="dummy", col_wrap=4)
@@ -119,19 +102,7 @@ g.set(xscale='log', yscale='log')
 plt.savefig(results_path + x_name + '_' + y_name + ".png", dpi=600, bbox_inches='tight')
 plt.close()
 
-# count above 1000m (or mountains and hills) and humid
-threshold = 0.08
-df_tmp = df["slope_30s"]
-print("Distribution topography")
-print("Arid and fraction below " + str(threshold) + ": " + str(
-    round(len(df_tmp[np.logical_and(df_tmp <= threshold,df["aridity_30s"]>1)]) / len(df_tmp), 2)))
-print("Humid and fraction below " + str(threshold) + ": " + str(
-    round(len(df_tmp[np.logical_and(df_tmp <= threshold, df["aridity_30s"]<1)]) / len(df_tmp), 2)))
-print("Arid and fraction above " + str(threshold) + ": " + str(
-    round(len(df_tmp[np.logical_and(df_tmp > threshold, df["aridity_30s"]>1)]) / len(df_tmp), 2)))
-print("Humid and fraction above " + str(threshold) + ": " + str(
-    round(len(df_tmp[np.logical_and(df_tmp > threshold,df["aridity_30s"]<1)]) / len(df_tmp), 2)))
-
+# landform distribution
 df_tmp = df["landform"]
 print("Distribution landforms")
 print("Humid and plains " + ": " + str(

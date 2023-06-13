@@ -1,16 +1,8 @@
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import os
-from scipy import stats
-import seaborn as sns
-#from functions import plotting_fcts
-#from functions import get_nearest_neighbour
-import geopandas as gpd
-from shapely.geometry import Point
-import xarray as xr
-from datetime import datetime as dt
 import rioxarray as rxr
+
+# Calculates average values of different variables (e.g. P, PET) per landform.
 
 data_path = "/home/hydrosys/data/resampling/" #r"D:/Data/" #
 

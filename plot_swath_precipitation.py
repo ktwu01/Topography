@@ -8,9 +8,7 @@ from functions.create_shapefiles import create_polygon_shp
 import os
 from functions.get_swath_data import get_swath_data
 
-#todo: clean up a bit...
-
-# Creates plots of elevation vs. different variables (incl. T) for a swaths in a mountain regions.
+# Plots a transect of precipitation (or other variables) along swaths in different mountain regions.
 
 # specify paths
 #data_path = r"C:/Users/Sebastian/Documents/Data/"
@@ -68,10 +66,6 @@ for name in name_list:
 
     # plot swath lines and polygons
     swath_polylines = orig_dem.out_polylines()
-    #for line in swath_polylines:
-    #    x, y = line.xy
-    #    ax.plot(x, y, color='tab:red')
-
     swath_polygon = orig_dem.out_polygon()
     px, py = swath_polygon.exterior.xy
     ax.plot(px, py, c='tab:orange')
@@ -79,19 +73,14 @@ for name in name_list:
     # save polygon as shapefile
     create_polygon_shp(swath_polygon, results_path + name + '/shapefiles/polygon.shp')
 
-    #ax.plot(lx, ly, color='tab:green', label="Baseline")
-    #ax.set_title("Swath profile lines")
-    #ax.legend()
-
     sp0 = dem.plot.imshow(ax=ax, cmap='gray')
-    ax.set(title=None) #"DEM [m]"
-    #ax.set_axis_off()
+    ax.set(title=None)
     ax.axis('equal')
     ax.set_xlim([xy_box[0], xy_box[1]])
     ax.set_ylim([xy_box[2], xy_box[3]])
     ax.set_xlabel('Lon [deg]')
     ax.set_ylabel('Lat [deg]')
-    sp0.colorbar.set_label('DEM [m]')
+    sp0.colorbar.set_label('Elevation [m]')
     sp0.set_clim([0, 3000])
 
     #plt.show()
@@ -122,22 +111,12 @@ for name in name_list:
     axb.fill_between(dist, pr_swath.mean(axis=1)-pr_swath.std(axis=1), pr_swath.mean(axis=1)+pr_swath.std(axis=1),
                         facecolor='tab:blue', alpha=0.25)
 
-    #axc = ax.twinx()
-    #axc.plot(dist, pet_swath.mean(axis=1),
-    #            c='tab:orange', label='Potential evapotranspiration')  # np.array(orig_dem.dat)[:,i]
-    #axc.fill_between(dist, pet_swath.mean(axis=1) - pet_swath.std(axis=1),
-    #                    pet_swath.mean(axis=1) + pet_swath.std(axis=1),
-    #                    facecolor='tab:orange', alpha=0.25)
-
-
     lines, labels = ax.get_legend_handles_labels()
     lim = 6000
     axa.set_ylim(0,lim)
     axb.set_ylim(0,lim)
-    #axc.set_ylim(0,lim)
     axa.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
     axb.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
-    #axc.set_xlim([line_shape.xy[0][0], line_shape.xy[0][1]]) # works only for east-west swaths
     #ax.set_xlabel('Lon [deg]')
 
     ax.spines.right.set_visible(False)
@@ -152,47 +131,16 @@ for name in name_list:
     axa.spines['right'].set_position(('outward', 50))
     axa.spines.left.set_visible(False)
     axa.spines.top.set_visible(False)
-    #axa.spines.bottom.set_visible(False)
     axa.spines['bottom'].set_position(('outward', 10))
-    #axa.yaxis.label.set_color('tab:gray')
-    #axa.tick_params(axis='y', colors='tab:gray')
-    #axa.spines['right'].set_color('tab:gray')
 
     axb.spines['right'].set_position(('outward', 10))
-    axb.yaxis.label.set_color('black') #tab:blue
-    axb.tick_params(axis='y', colors='black') #tab:blue
-    axb.spines['right'].set_color('black') #tab:blue
+    axb.yaxis.label.set_color('black')
+    axb.tick_params(axis='y', colors='black')
+    axb.spines['right'].set_color('black')
     axb.spines.left.set_visible(False)
     axb.spines.top.set_visible(False)
     axb.spines.bottom.set_visible(False)
     plt.yticks(fontsize=12)
-
-    #axc.spines['right'].set_position(('outward', 90))
-    #axc.yaxis.label.set_color('tab:orange')
-    #axc.tick_params(axis='y', colors='tab:orange')
-    #axc.spines['right'].set_color('tab:orange')
-    #axc.spines.left.set_visible(False)
-    #axc.spines.top.set_visible(False)
-    #axc.spines.bottom.set_visible(False)
-
-    """
-    # move left and bottom spines outward by 10 points
-    ax.spines.left.set_position(('outward', 10))
-    ax.spines.bottom.set_position(('outward', 10))
-    axb.spines.right.set_position(('outward', 10))
-    axb.spines.bottom.set_position(('outward', 10))
-    # hide the right and top spines
-    ax.spines.right.set_visible(False)
-    ax.spines.top.set_visible(False)
-    ax.spines.bottom.set_visible(False)
-    ax.set_xticklabels([])
-    ax.set_xticks([])
-    axb.spines.left.set_visible(False)
-    axb.spines.top.set_visible(False)
-    axb.spines.bottom.set_visible(False)
-    axb.set_xticklabels([])
-    axb.set_xticks([])
-    """
 
     #plt.show()
     plt.savefig(results_path + name + "/swaths_precipitation/transect_" + name + ".png", dpi=600, bbox_inches='tight')

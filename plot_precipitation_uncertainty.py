@@ -8,9 +8,7 @@ from functions.create_shapefiles import create_polygon_shp
 import os
 from functions.get_swath_data import get_swath_data
 
-#todo: clean up a bit...
-
-# Creates plots of elevation vs. different variables (incl. T) for a swaths in a mountain regions.
+# Plots transects using different forcing products (e.g. P, PET) along swaths in different mountain regions.
 
 # specify paths
 #data_path = r"C:/Users/Sebastian/Documents/Data/"
@@ -82,10 +80,6 @@ for name in name_list:
     # save polygon as shapefile
     create_polygon_shp(swath_polygon, results_path + name + '/shapefiles/polygon.shp')
 
-    #ax.plot(lx, ly, color='tab:green', label="Baseline")
-    #ax.set_title("Swath profile lines")
-    #ax.legend()
-
     sp0 = dem.plot.imshow(ax=ax, cmap='gray')
     ax.set(title=None) #"DEM [m]"
     #ax.set_axis_off()
@@ -94,7 +88,7 @@ for name in name_list:
     ax.set_ylim([xy_box[2], xy_box[3]])
     ax.set_xlabel('Lon [deg]')
     ax.set_ylabel('Lat [deg]')
-    sp0.colorbar.set_label('DEM [m]')
+    sp0.colorbar.set_label('Elevation [m]')
     sp0.set_clim([0, 3000])
 
     #plt.show()
@@ -154,4 +148,3 @@ for name in name_list:
     plt.savefig(results_path + name + "/uncertainty/transect_pet_" + name + ".png", dpi=600, bbox_inches='tight')
     plt.close()
 
-    # TODO: plot aridity to check if PET and P are correct
