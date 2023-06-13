@@ -1,6 +1,6 @@
 /__pycache__/*
 /functions/__pycache__/*
-#old/*
+old/*
 *.bak
 .idea/*
 results/*
