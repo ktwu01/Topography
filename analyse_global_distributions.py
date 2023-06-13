@@ -107,7 +107,7 @@ print("Uplands " + ": " + str(
     round(df.loc[np.logical_or(df["landform"]==1, df["landform"]==2, df["landform"]==3), "area"].sum() / df["area"].sum(), 2)))
 
 # average slope per landform
-print("Distribution landforms")
+print("Average slope")
 print("Plains " + ": " + str(
     round(df.loc[df["landform"]==4, "slope_30s"].mean(),3)))
 print("Tablelands " + ": " + str(
