@@ -8,3 +8,7 @@ data/attributes/*
 data/greenland.csv
 data/old/*
 data/complete_table.csv
+data/WTD_Fan_2013.csv
+data/global_groundwater_recharge_moeck-et-al.csv
+data/wtd_data.csv
+data/wtd_observations_df.csv
