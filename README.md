@@ -2,7 +2,10 @@
 
 *Note: the paper has not been reviewed yet.*
 
-This repository contains code used to make most of the plots shown in the review paper. Some plots were made using QGIS or taken from existing papers.
+This repository contains code used to make most of the plots shown in the review paper. 
+Some plots were made using QGIS or taken from existing papers. 
+Links to the data sources can be found in the paper. 
+
 
 - plot_climatic_water_balance_elevation_profiles: plots P and PET against elevation for different rectangular swaths in different mountain ranges (Figure 2a)
 
@@ -31,5 +34,3 @@ This repository contains code used to make most of the plots shown in the review
 - QGIS: contains some infos on QGIS processing (QGIS files are stored locally)
 
 - old: contains old scripts (not used for paper)
-
-Links to the data sources can be found in the paper. 
