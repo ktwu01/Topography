@@ -31,6 +31,8 @@ Links to the data sources can be found in the paper.
 
 - data: contains data derived or used for some of the analyses
 
+- results: contains the resulting figures
+
 - QGIS: contains some infos on QGIS processing (QGIS files are stored locally)
 
 - old: contains old scripts (not used for paper)
