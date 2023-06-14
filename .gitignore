@@ -3,7 +3,6 @@
 old/*
 *.bak
 .idea/*
-results/*
 data/attributes/*
 data/greenland.csv
 data/old/*
