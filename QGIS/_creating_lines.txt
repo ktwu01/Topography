@@ -1,0 +1,3 @@
+new layer - line file
+move along ridgeline of a mountain range (using GMBA and HydroBasins)
+smooth 10 times 

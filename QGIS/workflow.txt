@@ -1,0 +1,14 @@
+Workflow to extract landform classes using QGIS
+
+Open DBF file with excel and save a copy
+Then manually edit the file to get relevant columns, e.g. Value and World_Lan1, and add = between them
+1 = 4
+2 = 4
+...
+
+Save this as a txt file, edit the text tile and replace the tabs with spaces
+
+Then this can be used with r.reclass() in QGIS to reclassify the raster
+
+
+
