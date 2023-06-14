@@ -1,8 +1,8 @@
 # The influence of topography on the global terrestrial water cycle
 
-*Note: the paper has not yet been reviewed.*
+*Note: the paper has not been reviewed yet.*
 
-- Repository for review paper that contains the code used to make most of the plots. Other plots were made using QGIS or re-used from existing papers.
+This repository contains code used to make most of the plots shown in the review paper. Some plots were made using QGIS or taken from existing papers.
 
 - plot_climatic_water_balance_elevation_profiles: plots P and PET against elevation for different rectangular swaths in different mountain ranges (Figure 2a)
 
@@ -23,3 +23,13 @@
 - analyse_global_distributions: calculates global distributions of landforms and their slopes.
 
 - resample_rasters: resamples and aligns different rasters
+
+- functions: contains different helper functions for plotting and processing data
+
+- data: contains data derived or used for some of the analyses
+
+- QGIS: contains some infos on QGIS processing (QGIS files are stored locally)
+
+- old: contains old scripts (not used for paper)
+
+Links to the data sources can be found in the paper. 
