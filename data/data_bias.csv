@@ -1,5 +1,5 @@
-﻿Landform;Global distribution;Kratzert et al. (2023);Moeck et al. (2020);Fan et al. (2013)
-Humid plains;0.11;0.09;0.03;0.23
-Arid plains;0.32;0.20;0.63;0.36
-Humid uplands;0.24;0.37;0.03;0.19
-Arid uplands;0.33;0.34;0.30;0.21
+Landform	Kratzert et al. (2023)	Moeck et al. (2020)	Fan et al. (2013)	Global distribution
+Plains	0.29	0.66	0.59	0.43
+Tablelands	0.01	0.03	0.05	0.06
+Hills	0.28	0.2	0.26	0.2
+Mountains	0.42	0.1	0.09	0.31

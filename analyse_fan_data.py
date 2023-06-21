@@ -80,6 +80,17 @@ df = pd.read_csv(data_path + 'wtd_data.csv')
 df = df.dropna()
 df["dummy"] = ""
 
+# landform distribution
+print("Distribution landforms")
+print("Plains " + ": " + str(
+    round(len(df[df["landform"]==4]) / len(df), 2)))
+print("Tablelands " + ": " + str(
+    round(len(df[df["landform"]==3]) / len(df), 2)))
+print("Hills " + ": " + str(
+    round(len(df[df["landform"]==2]) / len(df), 2)))
+print("Mountains " + ": " + str(
+    round(len(df[df["landform"]==1]) / len(df), 2)))
+
 # reclassify landforms
 df.loc[df["landform"]==1, "landform"] = 5 # mountains
 df.loc[df["landform"]==2, "landform"] = 5 # hills

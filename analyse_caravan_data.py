@@ -76,6 +76,28 @@ print("Mountains " + ": " + str(round(df.loc[df["landform"]==1, "BFI"].mean(), 2
 #print("Uplands " + ": " + str(round(df.loc[np.logical_or(df["landform"]==1, df["landform"]==2, df["landform"]==3), "BFI"].mean(), 2)))
 print("Uplands " + ": " + str(round(df.loc[df["landform"]<4, "BFI"].mean(), 2)))
 
+# landform distribution
+print("Distribution landforms")
+print("Plains " + ": " + str(
+    round(len(df[df["landform"]==4]) / len(df), 2)))
+print("Tablelands " + ": " + str(
+    round(len(df[df["landform"]==3]) / len(df), 2)))
+print("Hills " + ": " + str(
+    round(len(df[df["landform"]==2]) / len(df), 2)))
+print("Mountains " + ": " + str(
+    round(len(df[df["landform"]==1]) / len(df), 2)))
+
+# stream order distribution
+print("Distribution landforms")
+print("Plains " + ": " + str(
+    round(len(df[df["landform"]==4]) / len(df), 2)))
+print("Tablelands " + ": " + str(
+    round(len(df[df["landform"]==3]) / len(df), 2)))
+print("Hills " + ": " + str(
+    round(len(df[df["landform"]==2]) / len(df), 2)))
+print("Mountains " + ": " + str(
+    round(len(df[df["landform"]==1]) / len(df), 2)))
+
 # reclassify landforms
 df.loc[df["landform"]==1, "landform"] = 5 # mountains
 df.loc[df["landform"]==2, "landform"] = 5 # hills
@@ -173,3 +195,4 @@ print("Humid and mountains " + ": " + str(
     round(len(df_tmp[np.logical_and(df["landform"]==5, df["aridity_30s"]<1)]) / len(df_tmp), 2)))
 print("Arid and mountains " + ": " + str(
     round(len(df_tmp[np.logical_and(df["landform"]==5, df["aridity_30s"]>1)]) / len(df_tmp), 2)))
+
