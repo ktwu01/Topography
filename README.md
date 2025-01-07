@@ -1,6 +1,6 @@
 # The influence of topography on the global terrestrial water cycle
 
-*Note: the paper has not been reviewed yet.*
+Gnann, S., Baldwin, J. W., Cuthbert, M. O., Gleeson, T., Schwanghart, W., & Wagener, T. (2025). The influence of topography on the global terrestrial water cycle. Reviews of Geophysics, 63, e2023RG000810. https://doi.org/10.1029/2023RG000810 
 
 ## Introduction
 
